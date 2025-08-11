@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi Raspberry Pi: 22 Topik Lengkap</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 40px;
+        }
+        .accordion-button {
+            font-weight: bold;
+            background-color: #e9ecef;
+        }
+        .accordion-body {
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-top: none;
+            padding: 20px;
+        }
+        .section-title {
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+        .demo-note {
+            font-style: italic;
+            color: #6c757d;
+        }
+        .closing {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #d4edda;
+            border-radius: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Materi Raspberry Pi: 22 Topik untuk Satu Semester</h1>
+        
+        <div class="accordion" id="accordionMateri">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading1">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                        1. Pengenalan Raspberry Pi
+                    </button>
+                </h2>
+                <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-bs-parent="#accordionMateri">
+                    <div class="accordion-body">
+                        <h5 class="section-title">Narasi Script:</h5>
+                        <p>"Ringkasan: Materi pengenalan ini penting sebagai fondasi, di mana kita mengenal Raspberry Pi sebagai single-board computer (SBC) yang murah dan powerful, dibuat oleh Raspberry Pi Foundation di Inggris. Komponen utamanya termasuk prosesor ARM, RAM hingga 8GB, port USB, HDMI, GPIO pins, dan slot microSD. Berguna untuk proyek IoT, robotik, server rumahan, atau bahkan media center karena konsumsi daya rendah (sekitar 5-7W) dan harga terjangkau di bawah Rp1 juta. Ini juga mendukung berbagai OS seperti Raspberry Pi OS berbasis Linux, Ubuntu, atau Windows IoT.</p>
+                        <p>Cara: Mulai dengan unboxing Raspberry Pi model 4 atau 5 – pastikan ada heatsink jika overclock. Download Raspberry Pi OS dari situs resmi raspberrypi.com/downloads, gunakan tool Raspberry Pi Imager untuk flash ke microSD card minimal 16GB Class 10. Colok power supply 5V 3A resmi (jangan pakai charger HP biasa biar stabil), hubungkan HDMI ke monitor/TV, dan keyboard-mouse USB. Boot pertama kali akan setup wizard sederhana.</p>
+                        <p>Hasil: Raspberry Pi booting ke desktop Raspberry Pi OS dalam waktu kurang dari 1 menit, tampilan mirip Ubuntu dengan menu start, file explorer, dan browser Chromium siap browsing. Kalian bisa coba buka terminal dan ketik 'uname -a' untuk konfirmasi versi kernel Linux."</p>
+                        <p class="demo-note">(Demo: Tampilkan proses unboxing zoom-in, flashing SD card di PC, booting sequence, dan eksplorasi desktop dengan mouse cursor bergerak. Tampilkan spec hardware via command 'vcgencmd get_config int'.)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading2">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                        2. Dasar Linux di Raspi (Cara Menggunakan Terminal/CLI seperti ls, cd, mkdir, nano, sudo, dll)
+                    </button>
+                </h2>
+                <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#accordionMateri">
+                    <div class="accordion-body">
+                        <h5 class="section-title">Narasi Script:</h5>
+                        <p>"Ringkasan: Linux adalah OS utama Raspberry Pi, dan dasar CLI (Command Line Interface) ini krusial karena lebih efisien untuk scripting dan troubleshooting daripada GUI. Perintah seperti ls (list files), cd (change directory), mkdir (make directory), nano (text editor sederhana), dan sudo (superuser do) membantu navigasi filesystem, edit file, dan jalankan command dengan hak akses tinggi. Ini berguna untuk automation, seperti cron jobs, dan memahami konsep Unix philosophy 'do one thing well'.</p>
+                        <p>Cara: Buka terminal dari ikon di taskbar atau Ctrl+Alt+T. Coba navigasi ke home directory (~), buat folder baru, edit file teks. Gunakan man [perintah] untuk baca manual jika bingung.</p>
+                        <p>Hasil: Terminal menampilkan daftar file/folder dengan warna berbeda (biru untuk directory), atau file teks baru yang dibuat muncul di file manager GUI, membuktikan CLI dan GUI terintegrasi."</p>
+                        <p class="demo-note">(Demo: Screen terminal dengan output perintah dasar seperti 'ls -la' showing hidden files, tanpa ketik detail code. Zoom-in pada output untuk jelaskan arti kolom seperti permissions dan size.)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading3">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                        3. Manajemen File dan Folder, Perbedaan Root vs User Biasa
+                    </button>
+                </h2>
+                <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#accordionMateri">
+                    <div class="accordion-body">
+                        <h5 class="section-title">Narasi Script:</h5>
+                        <p>"Ringkasan: Manajemen file/folder melatih organisasi data, sementara perbedaan root (superuser) vs user biasa penting untuk keamanan – root punya akses penuh ke sistem (/etc, /bin), user biasa terbatas ke home directory untuk hindari kerusakan accidental. Ini dasar konsep permission di Linux (read/write/execute) yang dicek via ls -l. Berguna untuk multi-user setup atau server.</p>
+                        <p>Cara: Gunakan file manager (pcmanfm) untuk drag-drop copy/move file, atau terminal dengan cp/mv/rm. Untuk root, gunakan sudo sebelum command sensitif.</p>
+                        <p>Hasil: File berhasil dipindah ke folder baru tanpa error, tapi kalau coba edit file sistem sebagai user biasa, muncul 'permission denied'; switch ke root via sudo su, lalu berhasil – tapi ingat, gunakan root hati-hati!"</p>
+                        <p class="demo-note">(Demo: Before-after file structure di explorer, tampilkan error message untuk user biasa dan sukses untuk root. Gunakan split-screen untuk bandingkan.)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading4">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                        4. Setting WiFi, Hostname, IP Static
+                    </button>
+                </h2>
+                <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#accordionMateri">
+                    <div class="accordion-body">
+                        <h5 class="section-title">Narasi Script:</h5>
+                        <p>"Ringkasan: Konfigurasi jaringan ini esensial untuk koneksi stabil, hostname untuk identifikasi mudah di network (misal myraspi.local), dan IP static agar alamat tak berubah saat restart – berguna untuk server atau akses remote tanpa DHCP issues. Ini juga perkenalan dengan networking basics seperti DHCP vs static.</p>
+                        <p>Cara: Dari taskbar, klik ikon WiFi untuk scan dan connect ke SSID, masukkan password. Ubah hostname via menu Preferences > Raspberry Pi Configuration. Untuk IP static, edit /etc/dhcpcd.conf via nano (pakai sudo). Restart network setelahnya.</p>
+                        <p>Hasil: Raspberry Pi terkoneksi WiFi dengan signal strength bagus (cek via iwconfig), hostname baru terdeteksi di router admin page, dan IP tetap sama (misal 192.168.1.100) meski reboot – tes dengan ping dari laptop."</p>
+                        <p class="demo-note">(Demo: Ping sukses dari laptop command prompt, tampilkan IP via 'ifconfig' atau 'ip addr', dan router page screenshot.)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading5">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                        5. SSH, Cara Menggunakan RealVNC/VNC Server (Akses Jarak Jauh dari Laptop)
+                    </button>
+                </h2>
+                <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5" data-bs-parent="#accordionMateri">
+                    <div class="accordion-body">
+                        <h5 class="section-title">Narasi Script:</h5>
+                        <p>"Ringkasan: SSH (Secure Shell) untuk akses terminal remote aman via enkripsi, VNC (Virtual Network Computing) untuk full desktop remote – berguna saat Raspberry Pi headless (tanpa monitor), seperti di robot atau sensor remote. Ini hemat ruang dan energi.</p>
+                        <p>Cara: Enable SSH dan VNC via sudo raspi-config > Interfacing Options. Download RealVNC Viewer gratis dari realvnc.com di laptop/PC (support Windows/Mac/Linux). Connect via IP Raspberry Pi dan password default 'raspberry' (ubah segera!).</p>
+                        <p>Hasil: Dari laptop, SSH buka terminal Raspberry Pi (gunakan PuTTY di Windows), atau VNC tampilkan full desktop Raspberry Pi – coba kontrol mouse dan ketik command dari jauh, latency rendah di LAN."</p>
+                        <p class="demo-note">(Demo: Split-screen laptop dan Raspberry Pi, kontrol real-time seperti buka file dari VNC.)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading6">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
+                        6. Mencoba SCP Metode Transfer File ke/dari Raspberry Pi
+                    </button>
+                </h2>
+                <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="heading6" data-bs-parent="#accordionMateri">
+                    <div class="accordion-body">
+                        <h5 class="section-title">Narasi Script:</h5>
+                        <p>"Ringkasan: SCP (Secure Copy) adalah extension dari SSH untuk transfer file aman, lebih cepat dan aman daripada USB atau email – ideal untuk upload script atau download log dari remote. Ini gunakan protokol SFTP underneath.</p>
+                        <p>Cara: Dari terminal laptop (gunakan Git Bash di Windows), ketik scp file.txt pi@ip_raspi:/home/pi/. Untuk download sebaliknya. Pastikan SSH enabled.</p>
+                        <p>Hasil: File dari laptop muncul di folder Raspberry Pi dalam detik, ukuran dan timestamp sama – tes buka file di Raspberry Pi untuk verifikasi isi."</p>
+                        <p class="demo-note">(Demo: Before-after file di kedua device via ls, transfer progress bar jika visible.)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading7">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
+                        7. Pengenalan Python 3, Menjalankan Skrip Python, Tipe Data, Variabel, Kondisi, Perulangan
+                    </button>
+                </h2>
+                <div id="collapse7" class="accordion-collapse collapse" aria-labelledby="heading7" data-bs-parent="#accordionMateri">
+                    <div class="accordion-body">
+                        <h5 class="section-title">Narasi Script:</h5>
+                        <p>"Ringkasan: Python 3 adalah bahasa scripting utama di Raspberry Pi karena mudah dibaca, library豊富 seperti RPi.GPIO, dan cocok untuk beginner sampai AI. Kita bahas variabel (int, str, list), kondisi (if-else), perulangan (for/while) – berguna untuk automation sensor nanti.</p>
+                        <p>Cara: Buka Thonny IDE bawaan dari menu Programming, buat file .py baru, save dan run. Install Python jika perlu via apt (tapi biasanya sudah ada).</p>
+                        <p>Hasil: Skrip berjalan di Thonny console, misal variabel nama='Helmy' di-print, loop for cetak angka 1-10, atau if kondisi cek bilangan genap/ganjil dengan output benar."</p>
+                        <p class="demo-note">(Demo: Output skrip di console Thonny, tanpa tampil code full – zoom pada hasil print statements.)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading8">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="false" aria-controls="collapse8">
+                        8. Mengenal GPIO, Input/Output Digital
+                    </button>
+                </h2>
+                <div id="collapse8" class="accordion-collapse collapse" aria-labelledby="heading8" data-bs-parent="#accordionMateri">
+                    <div class="accordion-body">
+                        <h5 class="section-title">Narasi Script:</h5>
+                        <p>"Ringkasan: GPIO (General Purpose Input/Output) adalah 40 pin di Raspberry Pi untuk interfacing hardware – input baca sinyal (button), output kirim (LED). Ini dasar embedded system, paham pull-up/down resistor untuk stabilitas.</p>
+                        <p>Cara: Hubungkan LED ke pin GPIO 17 (output) dengan resistor 330 ohm ke ground – wiring: anode LED ke GPIO, katode ke resistor lalu GND. Jalankan skrip Python dengan library gpiozero atau RPi.GPIO.</p>
+                        <p>Hasil: LED nyala-mati bergantian setiap detik, simulasi blink seperti heartbeat – tambah button input untuk toggle LED saat ditekan."</p>
+                        <p class="demo-note">(Demo: Wiring diagram animasi, LED blinking real-time dengan close-up camera.)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading9">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9" aria-expanded="false" aria-controls="collapse9">
+                        9. Mencoba Rangkaian dengan Sensor Sederhana seperti Ultrasonik dan LM35
+                    </button>
+                </h2>
+                <div id="collapse9" class="accordion-collapse collapse" aria-labelledby="heading9" data-bs-parent="#accordionMateri">
+                    <div class="accordion-body">
+                        <h5 class="section-title">Narasi Script:</h5>
+                        <p>"Ringkasan: Sensor ini perkenalan interfacing real-world: HC-SR04 ultrasonik ukur jarak via echo sound (0-400cm), LM35 sensor suhu analog ( -55°C to 150°C). Berguna untuk robot avoidance atau monitoring lingkungan.</p>
+                        <p>Cara: Wiring ultrasonik: VCC ke 5V, GND ke GND, Trigger ke GPIO 23, Echo ke GPIO 24 (pakai resistor divider jika perlu). LM35: Vout ke ADC seperti MCP3008 channel 0, karena Raspberry Pi no built-in analog. Download library gpiozero atau adafruit-circuitpython dari PyPI via pip. Beli sensor di Tokopedia/Shopee.</p>
+                        <p>Hasil: Ultrasonik deteksi jarak objek (misal tangan) dan print 'Jarak: 15cm', LM35 tampilkan suhu ruangan '25.5°C' – demo dengan gerak objek mendekat."</p>
+                        <p class="demo-note">(Demo: Sensor beraksi dengan nilai berubah di terminal, grafik sederhana jika pakai matplotlib tapi tanpa code.)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading10">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10" aria-expanded="false" aria-controls="collapse10">
+                        10. Menampilkan Data Sensor ke Terminal
+                    </button>
+                </h2>
+                <div id="collapse10" class="accordion-collapse collapse" aria-labelledby="heading10" data-bs-parent="#accordionMateri">
+                    <div class="accordion-body">
+                        <h5 class="section-title">Narasi Script:</h5>
+                        <p>"Ringkasan: Visualisasi data real-time di terminal untuk debugging cepat, bisa tambah timestamp atau format JSON – berguna sebelum kirim ke cloud.</p>
+                        <p>Cara: Hubungkan sensor seperti materi 9, jalankan skrip loop untuk baca dan print data setiap 1 detik.</p>
+                        <p>Hasil: Stream nilai sensor muncul terus-menerus di terminal, misal 'Waktu: 10:00 - Suhu: 26°C - Jarak: 20cm', update live saat kondisi berubah."</p>
+                        <p class="demo-note">(Demo: Scrolling console dengan data update, highlight baris baru.)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading11">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11" aria-expanded="false" aria-controls="collapse11">
+                        11. Dasar Komunikasi UART dan I2C
+                    </button>
+                </h2>
+                <div id="collapse11" class="accordion-collapse collapse" aria-labelledby="heading11" data-bs-parent="#accordionMateri">
+                    <div class="accordion-body">
+                        <h5 class="section-title">Narasi Script:</h5>
+                        <p>"Ringkasan: UART (Universal Asynchronous Receiver-Transmitter) untuk serial comm sederhana (TX/RX), I2C (Inter-Integrated Circuit) untuk multi-device bus (SDA/SCL) – berguna hubungkan modul seperti GPS atau display OLED tanpa banyak pin.</p>
+                        <p>Cara: Enable UART/I2C via sudo raspi-config > Interfacing Options > Serial/I2C. Wiring: UART TX ke RX device, I2C SDA ke SDA. Tes dengan modul sederhana seperti Arduino sebagai slave.</p>
+                        <p>Hasil: Data dari device eksternal diterima Raspberry Pi, misal string 'Hello' via UART muncul di minicom terminal, atau I2C scan deteksi address device tanpa error."</p>
+                        <p class="demo-note">(Demo: Komunikasi sukses dengan lampu indikator nyala, output di serial monitor.)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading12">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12" aria-expanded="false" aria-controls="collapse12">
+                        12. Membaca Sensor I2C (BH1750)
+                    </button>
+                </h2>
+                <div id="collapse12" class="accordion-collapse collapse" aria-labelledby="heading12" data-bs-parent="#accordionMateri">
+                    <div class="accordion-body">
+                        <h5 class="section-title">Narasi Script:</h5>
+                        <p>"Ringkasan: BH1750 adalah sensor cahaya digital via I2C (0-65535 lux), akurat untuk auto-brightness atau plant monitoring – hemat pin karena bus sharing.</p>
+                        <p>Cara: Wiring: VCC 3.3V, GND, SDA GPIO2, SCL GPIO3. Install library smbus atau adafruit-bh1750 via pip.</p>
+                        <p>Hasil: Nilai intensitas cahaya ditampilkan, misal 'Lux: 100' di ruang gelap, naik ke 'Lux: 5000' saat flashlight menyinari – demo variasi cahaya."</p>
+                        <p class="demo-note">(Demo: Sensor respon real-time dengan nilai berubah, chart sederhana.)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading13">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13" aria-expanded="false" aria-controls="collapse13">
+                        13. Menghubungkan Rangkaian IoT ke Platform IoT seperti Blink, Thingspeak, dll.
+                    </button>
+                </h2>
+                <div id="collapse13" class="accordion-collapse collapse" aria-labelledby="heading13" data-bs-parent="#accordionMateri">
+                    <div class="accordion-body">
+                        <h5 class="section-title">Narasi Script:</h5>
+                        <p>"Ringkasan: Integrasi ke cloud seperti Thingspeak (MathWorks) atau Blynk untuk store dan visualize data sensor remotely – berguna untuk monitoring global via app/web.</p>
+                        <p>Cara: Daftar akun gratis di thingspeak.com, buat channel baru, dapatkan API key. Hubungkan via HTTP POST di skrip Python dengan requests library (pip install requests).</p>
+                        <p>Hasil: Data sensor seperti suhu muncul di dashboard Thingspeak sebagai grafik line chart, update setiap 15 detik – akses dari HP browser."</p>
+                        <p class="demo-note">(Demo: Web dashboard refresh dengan data baru, zoom pada chart.)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading14">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14" aria-expanded="false" aria-controls="collapse14">
+                        14. Mengenal MQTT, Cara Kerja Publisher-Subscriber
+                    </button>
+                </h2>
+                <div id="collapse14" class="accordion-collapse collapse" aria-labelledby="heading14" data-bs-parent="#accordionMateri">
+                    <div class="accordion-body">
+                        <h5 class="section-title">Narasi Script:</h5>
+                        <p>"Ringkasan: MQTT (Message Queuing Telemetry Transport) adalah protokol lightweight untuk IoT, model pub-sub: publisher kirim data ke topic di broker, subscriber listen – efisien untuk low-bandwidth, seperti sensor battery-powered.</p>
+                        <p>Cara: Gambar diagram pub-sub dengan tools seperti draw.io: client1 pub ke 'sensor/suhu', client2 sub dan terima.</p>
+                        <p>Hasil: Pesan dari publisher (misal 'Suhu: 25') diterima subscriber secara real-time, demo dengan dua terminal simulasi."</p>
+                        <p class="demo-note">(Demo: Animasi pesan terkirim via arrows, console output sync.)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading15">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15" aria-expanded="false" aria-controls="collapse15">
+                        15. Instalasi Mosquitto Broker di Raspberry Pi
+                    </button>
+                </h2>
+                <div id="collapse15" class="accordion-collapse collapse" aria-labelledby="heading15" data-bs-parent="#accordionMateri">
+                    <div class="accordion-body">
+                        <h5 class="section-title">Narasi Script:</h5>
+                        <p>"Ringkasan: Mosquitto adalah MQTT broker open-source, setup di Raspberry Pi jadi server lokal untuk jaringan IoT private – hindari latency cloud.</p>
+                        <p>Cara: Install via sudo apt install mosquitto mosquitto-clients, start service dengan systemctl. Konfig di /etc/mosquitto.conf jika perlu port custom.</p>
+                        <p>Hasil: Broker berjalan (cek sudo systemctl status mosquitto), client test pub-sub lokal sukses tanpa error, pesan terkirim antar terminal."</p>
+                        <p class="demo-note">(Demo: Status active di terminal, test command mosquitto_pub dan _sub.)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading16">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16" aria-expanded="false" aria-controls="collapse16">
+                        16. Mempublish dan Subscribe Data MQTT dengan Python
+                    </button>
+                </h2>
+                <div id="collapse16" class="accordion-collapse collapse" aria-labelledby="heading16" data-bs-parent="#accordionMateri">
+                    <div class="accordion-body">
+                        <h5 class="section-title">Narasi Script:</h5>
+                        <p>"Ringkasan: Integrasi Python ke MQTT untuk automation data sensor – library paho-mqtt handle connect, pub, sub callback.</p>
+                        <p>Cara: Install paho-mqtt via pip. Jalankan skrip pub data dummy, skrip lain sub.</p>
+                        <p>Hasil: Data sensor dipublish ke topic, subscriber tampilkan pesan masuk di console, misal 'Received: 25°C' – demo loop continuous."</p>
+                        <p class="demo-note">(Demo: Dua window Python console sync data.)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading17">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17" aria-expanded="false" aria-controls="collapse17">
+                        17. Instalasi MariaDB/MySQL di Raspi
+                    </button>
+                </h2>
+                <div id="collapse17" class="accordion-collapse collapse" aria-labelledby="heading17" data-bs-parent="#accordionMateri">
+                    <div class="accordion-body">
+                        <h5 class="section-title">Narasi Script:</h5>
+                        <p>"Ringkasan: MariaDB (fork MySQL) untuk database relational lokal, simpan data sensor dengan query SQL – berguna untuk logging historis dan analisis.</p>
+                        <p>Cara: Install via sudo apt install mariadb-server, setup secure installation dengan mysql_secure_installation, buat user baru.</p>
+                        <p>Hasil: Database siap, tes create table dan insert row sukses via mysql command line – tampilkan tabel kosong."</p>
+                        <p class="demo-note">(Demo: Query output di mysql shell.)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading18">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18" aria-expanded="false" aria-controls="collapse18">
+                        18. Menghubungkan Python ke MySQL dengan MySQLConnector untuk Menyimpan Data Sensor
+                    </button>
+                </h2>
+                <div id="collapse18" class="accordion-collapse collapse" aria-labelledby="heading18" data-bs-parent="#accordionMateri">
+                    <div class="accordion-body">
+                        <h5 class="section-title">Narasi Script:</h5>
+                        <p>"Ringkasan: Koneksi Python ke DB untuk persist data, gunakan mysql-connector-python – hindari data hilang saat power off.</p>
+                        <p>Cara: Install mysql-connector-python via pip, konek dengan host 'localhost', user, password.</p>
+                        <p>Hasil: Data sensor seperti 'Suhu: 25°C' masuk ke tabel DB, cek via SELECT query menampilkan rows baru."</p>
+                        <p class="demo-note">(Demo: DB viewer seperti phpMyAdmin jika diinstall, baris data bertambah.)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading19">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19" aria-expanded="false" aria-controls="collapse19">
+                        19. Penerapan Topologi (Mesh, Star, Bus) Misal 2 Raspi sebagai Gateway, 6 Raspi sebagai Node
+                    </button>
+                </h2>
+                <div id="collapse19" class="accordion-collapse collapse" aria-labelledby="heading19" data-bs-parent="#accordionMateri">
+                    <div class="accordion-body">
+                        <h5 class="section-title">Narasi Script:</h5>
+                        <p>"Ringkasan: Topologi jaringan IoT seperti star (central gateway), mesh (peer-to-peer), bus (linear) untuk skalabilitas – contoh: 2 Raspberry Pi gateway handle 6 node sensor. Berguna untuk coverage luas seperti smart farm.</p>
+                        <p>Cara: Hubungkan via WiFi ad-hoc atau Ethernet switch. Konfig IP range, gunakan MQTT untuk komunikasi antar node.</p>
+                        <p>Hasil: Node kirim data ke gateway, tes ping dan MQTT pub-sub sukses antar device – diagram visual dengan nodes lighted up."</p>
+                        <p class="demo-note">(Demo: Network diagram animasi, console log komunikasi.)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading20">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20" aria-expanded="false" aria-controls="collapse20">
+                        20. Penerapan Dasar Keamanan di IoT (Seperti Autentikasi, Enkripsi, Ubah Default Password, Firewall, Disable SSH Root Login, MQTT + TLS/SSL (MQTTS))
+                    </button>
+                </h2>
+                <div id="collapse20" class="accordion-collapse collapse" aria-labelledby="heading20" data-bs-parent="#accordionMateri">
+                    <div class="accordion-body">
+                        <h5 class="section-title">Narasi Script:</h5>
+                        <p>"Ringkasan: Keamanan dasar cegah hack seperti Mirai botnet: ubah password default, enable firewall, disable root SSH, gunakan TLS untuk MQTT enkripsi – penting untuk device exposed ke internet.</p>
+                        <p>Cara: Ubah password via passwd, install ufw firewall (sudo apt install ufw), edit sshd_config untuk disable root. Untuk MQTTS, generate cert dengan openssl.</p>
+                        <p>Hasil: Tes SSH login root gagal, firewall block port tak diizinkan, MQTT koneksi aman dengan padlock icon di client – demo serangan simulasi ditolak."</p>
+                        <p class="demo-note">(Demo: Error messages untuk akses unauthorized, secure connection log.)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading21">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21" aria-expanded="false" aria-controls="collapse21">
+                        21. Integrasi MQTT dengan Framework Flask dari Python
+                    </button>
+                </h2>
+                <div id="collapse21" class="accordion-collapse collapse" aria-labelledby="heading21" data-bs-parent="#accordionMateri">
+                    <div class="accordion-body">
+                        <h5 class="section-title">Narasi Script:</h5>
+                        <p>"Ringkasan: Flask adalah web framework Python ringan, integrasi dengan MQTT untuk buat API atau dashboard dynamic – berguna tampilkan data IoT di web.</p>
+                        <p>Cara: Install Flask dan paho-mqtt via pip, buat app.py dengan route subscribe MQTT.</p>
+                        <p>Hasil: Web lokal di IP:5000 tampilkan data MQTT real-time, misal update suhu otomatis tanpa refresh."</p>
+                        <p class="demo-note">(Demo: Browser buka halaman, data update via WebSocket simulasi.)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading22">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22" aria-expanded="false" aria-controls="collapse22">
+                        22. Membuat Website Skala Lokal dari Integrasi MQTT, Flask Menggunakan Alamat IP
+                    </button>
+                </h2>
+                <div id="collapse22" class="accordion-collapse collapse" aria-labelledby="heading22" data-bs-parent="#accordionMateri">
+                    <div class="accordion-body">
+                        <h5 class="section-title">Narasi Script:</h5>
+                        <p>"Ringkasan: Deploy web app lokal untuk akses dari LAN, gabungkan MQTT data ke HTML template Flask – seperti mini dashboard tanpa cloud.</p>
+                        <p>Cara: Jalankan Flask app dengan host='0.0.0.0', akses via http://ip_raspi:5000 di browser device lain. Tambah CSS sederhana untuk UI bagus.</p>
+                        <p>Hasil: Website muncul dengan elemen seperti gauge suhu dari MQTT, refresh otomatis setiap 5 detik – demo akses dari laptop dan HP di jaringan sama."</p>
+                        <p class="demo-note">(Demo: Multi-device access, halaman web dengan grafik interaktif.)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="closing">
+            <h3>Penutup Video Keseluruhan (Closing Script):</h3>
+            <p>"Wah, selesai sudah pembahasan detail 22 materi Raspberry Pi untuk satu semester ini. Semoga membantu kalian dalam praktikum atau proyek akhir. Ingat, kunci sukses adalah praktek dan cari sendiri detailnya – gunakan docs.raspberrypi.org atau forum Reddit r/raspberry_pi. Kalau ada pertanyaan atau request materi tambahan, komentar di bawah ya! Terima kasih banyak, sampai jumpa di video selanjutnya. Stay curious and keep building!"</p>
+            <p class="demo-note">(Catatan produksi: Tambah end-screen dengan link resources, call-to-action subscribe, dan credit music/sources.)</p>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
