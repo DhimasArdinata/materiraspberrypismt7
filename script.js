@@ -4,15 +4,13 @@
  * =============================================================================
  * Deskripsi:
  * Script ini mengelola semua fungsionalitas untuk halaman panduan modul.
- * Ditulis menggunakan pendekatan Object-Oriented Programming (OOP) dengan sebuah
- * class bernama `ModuleGuide` untuk menjaga kode tetap terorganisir dan modular.
  *
- * Patch Terintegrasi v3.0 (Definitif):
- * - Mencegah "lompatan" atau auto-scroll saat membuka/menutup accordion.
- * - Logika ini secara cerdas menonaktifkan transisi CSS sementara,
- *   memaksa layout berubah secara instan untuk perhitungan yang akurat,
- *   melakukan kompensasi scroll, lalu mengaktifkan kembali transisi.
- *   Ini adalah solusi paling robust untuk masalah sinkronisasi JS/CSS.
+ * Patch v4.0 (Pendekatan Alami & Sederhana):
+ * - Menghapus semua logika anti-lompatan yang rumit dan membiarkan browser
+ *   menangani penyesuaian scroll secara otomatis (memerlukan perbaikan di CSS).
+ * - Mengimplementasikan animasi accordion berbasis `scrollHeight` untuk transisi
+ *   yang lebih mulus dan efisien, bukan lagi menggunakan `max-height` tetap.
+ *   Ini memberikan pengalaman pengguna yang jauh lebih alami dan lancar.
  * =============================================================================
  */
 
@@ -68,54 +66,33 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /**
-     * Mengelola logika buka/tutup accordion TANPA menyebabkan lompatan scroll.
+     * Mengelola logika buka/tutup accordion dengan animasi yang mulus
+     * dan mengandalkan browser untuk mencegah lompatan.
      * @param {HTMLElement} card - Elemen kartu modul yang diklik.
      */
     toggleAccordion(card) {
+      const moduleBody = card.querySelector(".module-body");
       const isActive = card.classList.contains("active");
 
-      // Langkah 1: Ukur posisi elemen yang diklik SEBELUM ada perubahan apapun.
-      const topBefore = card.getBoundingClientRect().top;
-
-      // Langkah 2: Nonaktifkan 'scroll-behavior: smooth' untuk penyesuaian instan.
-      const prevBehavior = document.documentElement.style.scrollBehavior;
-      document.documentElement.style.scrollBehavior = "auto";
-
-      // Langkah 3: Nonaktifkan sementara transisi CSS pada SEMUA kartu.
-      // Ini adalah langkah kunci agar perubahan layout terjadi seketika.
-      this.moduleCards.forEach((c) => {
-        c.querySelector(".module-body").style.transition = "none";
+      // Tutup semua kartu lain terlebih dahulu
+      this.moduleCards.forEach((otherCard) => {
+        if (otherCard !== card && otherCard.classList.contains("active")) {
+          otherCard.classList.remove("active");
+          otherCard.querySelector(".module-body").style.maxHeight = null;
+        }
       });
 
-      // Langkah 4: Terapkan perubahan layout (tutup yang lain, buka/tutup yang ini).
-      if (!isActive) {
-        this.moduleCards.forEach((otherCard) => {
-          if (otherCard !== card) {
-            otherCard.classList.remove("active");
-          }
-        });
+      // Buka atau tutup kartu yang diklik
+      if (isActive) {
+        // Tutup kartu ini
+        moduleBody.style.maxHeight = null;
+        card.classList.remove("active");
+      } else {
+        // Buka kartu ini
+        // scrollHeight memberikan tinggi asli dari konten yang tersembunyi
+        moduleBody.style.maxHeight = moduleBody.scrollHeight + "px";
+        card.classList.add("active");
       }
-      card.classList.toggle("active");
-
-      // Langkah 5: Ukur posisi elemen SETELAH layout berubah secara instan.
-      const topAfter = card.getBoundingClientRect().top;
-
-      // Langkah 6: Hitung pergeseran visual dan kompensasi dengan scroll.
-      const visualShift = topAfter - topBefore;
-      window.scrollBy(0, visualShift);
-
-      // Langkah 7: Kembalikan transisi CSS.
-      // Menggunakan requestAnimationFrame memastikan ini terjadi setelah
-      // browser selesai dengan penyesuaian scroll.
-      requestAnimationFrame(() => {
-        this.moduleCards.forEach((c) => {
-          // Menghapus style inline akan mengembalikan properti ke nilai di stylesheet.
-          c.querySelector(".module-body").style.transition = "";
-        });
-      });
-
-      // Langkah 8: Kembalikan 'scroll-behavior'.
-      document.documentElement.style.scrollBehavior = prevBehavior;
     }
 
     toggleCompletion(e, card) {
