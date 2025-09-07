@@ -7,10 +7,12 @@
  * Ditulis menggunakan pendekatan Object-Oriented Programming (OOP) dengan sebuah
  * class bernama `ModuleGuide` untuk menjaga kode tetap terorganisir dan modular.
  *
- * Patch Terintegrasi:
+ * Patch Terintegrasi v2.0:
  * - Mencegah "lompatan" atau auto-scroll saat membuka/menutup accordion.
- * - Logika ini bekerja dengan menyimpan posisi scroll pengguna, memodifikasi
- *   layout, lalu secara instan mengembalikan pengguna ke posisi semula.
+ * - Logika baru ini bekerja dengan mengukur posisi elemen yang diklik
+ *   sebelum dan sesudah layout berubah, lalu mengkompensasi pergeseran
+ *   visual tersebut dengan scroll. Ini jauh lebih akurat daripada menyimpan
+ *   posisi scroll absolut, terutama saat elemen di atas viewport berubah ukuran.
  * =============================================================================
  */
 
@@ -70,11 +72,11 @@ document.addEventListener("DOMContentLoaded", () => {
      * @param {HTMLElement} card - Elemen kartu modul yang diklik.
      */
     toggleAccordion(card) {
-      // Langkah 1: Simpan posisi scroll saat ini.
-      const prevScroll = window.scrollY || window.pageYOffset;
+      // Langkah 1: Ukur posisi card relatif terhadap viewport SEBELUM layout berubah.
+      const topBefore = card.getBoundingClientRect().top;
 
-      // Langkah 2: Nonaktifkan sementara 'scroll-behavior: smooth' agar
-      // pengembalian posisi scroll terjadi instan, bukan animasi.
+      // Nonaktifkan sementara 'scroll-behavior: smooth' agar kompensasi scroll
+      // terjadi instan, bukan animasi.
       const prevBehavior = document.documentElement.style.scrollBehavior;
       document.documentElement.style.scrollBehavior = "auto";
 
@@ -82,23 +84,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Tutup semua modul lain jika modul yang diklik akan dibuka.
       if (!isActive) {
-        this.moduleCards.forEach((otherCard) =>
-          otherCard.classList.remove("active")
-        );
+        this.moduleCards.forEach((otherCard) => {
+          if (otherCard !== card) { // Hanya tutup kartu lain
+            otherCard.classList.remove("active");
+          }
+        });
       }
 
-      // Langkah 3: Lakukan perubahan layout (buka/tutup modul).
+      // Langkah 2: Lakukan perubahan layout (buka/tutup modul).
       card.classList.toggle("active");
 
-      // Langkah 4: Kembalikan posisi scroll.
-      // Gunakan setTimeout(..., 0) untuk memastikan browser sudah selesai
-      // menghitung ulang layout sebelum kita mengembalikan posisi scroll.
-      setTimeout(() => {
-        window.scrollTo(0, prevScroll);
-        // Langkah 5: Kembalikan pengaturan scroll-behavior seperti semula.
-        document.documentElement.style.scrollBehavior = prevBehavior;
-      }, 0);
+      // Langkah 3: Ukur posisi BARU card relatif terhadap viewport.
+      // Browser akan secara otomatis melakukan reflow/re-layout di sini.
+      const topAfter = card.getBoundingClientRect().top;
+
+      // Langkah 4: Hitung pergeseran visual card di layar.
+      // Jika card bergeser ke atas (karena modul di atasnya terlipat),
+      // nilainya akan negatif. Jika bergeser ke bawah, positif.
+      const visualShift = topAfter - topBefore;
+
+      // Langkah 5: Kompensasi pergeseran tersebut dengan melakukan scroll.
+      // window.scrollBy() akan scroll relatif dari posisi saat ini.
+      // Ini secara efektif "menetralkan" pergeseran visual tadi.
+      window.scrollBy(0, visualShift);
+
+      // Langkah 6: Kembalikan pengaturan scroll-behavior seperti semula.
+      document.documentElement.style.scrollBehavior = prevBehavior;
     }
+
 
     toggleCompletion(e, card) {
       e.stopPropagation();
