@@ -5,7 +5,8 @@
  * Deskripsi:
  * Script ini mengelola semua fungsionalitas untuk halaman panduan modul.
  *
- * Patch v5.0 (Solusi Final & User-Friendly):
+ * Patch v5.1 (Solusi Final & User-Friendly dengan Perbaikan Bug):
+ * - Memperbaiki bug 'ReferenceError' yang menghentikan script.
  * - Saat sebuah modul BARU dibuka, halaman akan secara otomatis dan mulus
  *   menggulir (scroll) ke bagian atas modul tersebut.
  * - Ini secara langsung mengatasi masalah "user harus scroll ke atas" dan
@@ -56,7 +57,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const progressPercentage =
         (this.completedModules.size / this.totalModules) * 100;
       this.progressBar.style.width = `${progressPercentage}%`;
-      this.progressBar.textContent = `${Math.round(percentage)}% Selesai`;
+      // --- PERBAIKAN DI SINI ---
+      this.progressBar.textContent = `${Math.round(
+        progressPercentage // Variabel yang benar adalah 'progressPercentage'
+      )}% Selesai`;
+      // -------------------------
       this.closingStatement.classList.toggle(
         "visible",
         this.completedModules.size === this.totalModules
