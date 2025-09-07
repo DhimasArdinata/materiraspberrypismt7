@@ -802,48 +802,63 @@
                 adalah seperti memasang bola lampu ke salah satu sakelar
                 tersebut.
               </p>
-              <h5>
-                <i class="fa-solid fa-list-check"></i>LANGKAH-LANGKAH UNTUK
-                DIIKUTI
-              </h5>
+
+              <h5><i class="fa-solid fa-plug"></i>PRAKTIK: RANGKAIAN FISIK</h5>
+              <p>
+                <strong>PROSEDUR KESELAMATAN:</strong> Selalu matikan dan cabut
+                kabel daya Raspberry Pi sebelum menyambungkan atau melepaskan
+                komponen.
+              </p>
               <ol>
                 <li>
-                  <span class="step-title"
-                    >PROSEDUR KESELAMATAN: Matikan Aliran Listrik</span
-                  >
+                  <span class="step-title">Hubungkan Pin GPIO ke Resistor</span>
                   <span class="step-description"
-                    >Fungsi: Selalu matikan dan cabut kabel daya Raspberry Pi
-                    sebelum menyambungkan atau melepaskan komponen apa pun dari
-                    pin GPIO untuk mencegah kerusakan akibat arus pendek.</span
+                    >Sambungkan salah satu ujung kabel dari
+                    <strong>Pin GPIO 17</strong> ke breadboard. Di baris yang
+                    sama, pasang satu kaki
+                    <strong>Resistor 330 Ohm</strong>.</span
                   >
                 </li>
                 <li>
-                  <span class="step-title">Rangkai Sirkuit LED</span>
+                  <span class="step-title">Hubungkan Resistor ke LED</span>
                   <span class="step-description"
-                    >Fungsi: Hubungkan pin GPIO ke resistor (untuk membatasi
-                    arus listrik agar LED tidak terbakar), lalu ke kaki panjang
-                    LED. Hubungkan kaki pendek LED ke pin Ground (GND) untuk
-                    melengkapi sirkuit.</span
+                    >Sambungkan kaki Resistor yang lain ke baris berbeda. Di
+                    baris baru tersebut, pasang
+                    <strong>kaki panjang (anoda)</strong> dari lampu LED.</span
                   >
                 </li>
+                <li>
+                  <span class="step-title">Hubungkan LED ke Ground</span>
+                  <span class="step-description"
+                    >Sambungkan <strong>kaki pendek (katoda)</strong> dari lampu
+                    LED ke kabel yang terhubung ke salah satu
+                    <strong>Pin Ground (GND)</strong> di Raspberry Pi. Sirkuit
+                    kini lengkap.</span
+                  >
+                </li>
+              </ol>
+
+              <h5>
+                <i class="fa-solid fa-list-check"></i>LANGKAH-LANGKAH KODE
+              </h5>
+              <ol>
                 <li>
                   <span class="step-title"
                     >Gunakan Kumpulan Kode Bantu <code>gpiozero</code></span
                   >
                   <span class="step-description"
-                    >Fungsi: Kumpulan kode bernama
-                    <code>gpiozero</code> menyediakan cara yang lebih mudah
-                    untuk berinteraksi dengan pin GPIO. Ini menyederhanakan
-                    detail teknis yang rumit menjadi perintah yang mudah
-                    dipahami (misal, <code>led.on()</code>).</span
+                    >Kumpulan kode bernama <code>gpiozero</code> sudah terpasang
+                    di Raspberry Pi OS. Kode ini menyediakan cara yang lebih
+                    mudah untuk berinteraksi dengan pin GPIO, menyederhanakan
+                    detail teknis menjadi perintah yang mudah dipahami (misal,
+                    <code>led.on()</code>).</span
                   >
                 </li>
                 <li>
                   <span class="step-title">Buat Perulangan Berkedip</span>
                   <span class="step-description"
-                    >Fungsi: Buat perulangan tak terbatas (<code
-                      >while True</code
-                    >) yang secara berurutan menyalakan LED, memberi jeda
+                    >Buat perulangan tak terbatas (<code>while True</code>) yang
+                    secara berurutan menyalakan LED, memberi jeda
                     (<code>sleep</code>), mematikan LED, dan memberi jeda lagi.
                     Ini menciptakan efek berkedip yang terus-menerus.</span
                   >
@@ -884,7 +899,7 @@
                 <i class="fa-solid fa-ruler-combined"></i>
               </div>
               <div class="module-title">
-                Membaca Data Sensor Analog (ADS1115)
+                Membaca Data dari Berbagai Jenis Sensor
               </div>
             </div>
             <div class="module-meta">
@@ -898,40 +913,69 @@
             <div class="module-body-content">
               <h5><i class="fa-solid fa-bullseye"></i>TUJUAN MODUL</h5>
               <p>
-                Membaca data dari sensor yang menghasilkan sinyal analog (nilai
-                yang bisa berubah-ubah, bukan sekadar on/off) menggunakan
-                komponen tambahan ADC ADS1115.
+                Membaca data dari dunia nyata menggunakan dua jenis sensor umum:
+                sensor digital (yang memberikan data langsung) dan sensor analog
+                (yang memerlukan komponen penerjemah).
               </p>
               <h5><i class="fa-solid fa-lightbulb"></i>ANALOGI SISTEM</h5>
               <p>
-                Sensor analog berbicara dalam 'bahasa' yang berbeda dari
-                Raspberry Pi. Pi hanya mengerti sinyal digital (on/off).
-                Komponen ADC (Analog-to-Digital Converter) seperti ADS1115
-                berfungsi sebagai 'penerjemah' yang mengubah sinyal analog dari
-                sensor menjadi sinyal digital yang dimengerti oleh Pi.
+                Sensor adalah 'indra' bagi Raspberry Pi. Sensor digital seperti
+                termometer digital yang langsung menampilkan angka. Sensor
+                analog seperti termometer raksa yang menunjukkan level, di mana
+                diperlukan 'penerjemah' (ADC) untuk mengubah level tersebut
+                menjadi angka yang dimengerti Pi.
               </p>
+
               <h5>
-                <i class="fa-solid fa-list-check"></i>LANGKAH-LANGKAH UNTUK
-                DIIKUTI
+                <i class="fa-solid fa-plug"></i>PRAKTIK 1: SENSOR DIGITAL (JARAK
+                HC-SR04)
               </h5>
               <ol>
                 <li>
-                  <span class="step-title">Hubungkan Komponen ADS1115</span>
+                  <span class="step-title">Rangkaian Fisik HC-SR04</span>
                   <span class="step-description"
-                    >Fungsi: Matikan Pi. Hubungkan pin VCC dan GND pada ADS1115
-                    ke pin 3.3V dan GND pada Pi. Hubungkan pin SCL dan SDA pada
-                    ADS1115 ke pin SCL dan SDA yang sesuai pada Pi. Terakhir,
-                    hubungkan output dari sensor analog ke salah satu input ADC
-                    (misal, A0).</span
+                    >Matikan Pi. Hubungkan pin sensor sebagai berikut: Pin
+                    <strong>VCC</strong> ke Pin <strong>5V</strong> di Pi. Pin
+                    <strong>GND</strong> ke Pin <strong>GND</strong> di Pi. Pin
+                    <strong>Trig</strong> ke <strong>GPIO 23</strong>. Pin
+                    <strong>Echo</strong> ke <strong>GPIO 24</strong>.</span
+                  >
+                </li>
+                <li>
+                  <span class="step-title">Penulisan Kode</span>
+                  <span class="step-description"
+                    >Gunakan kode bantu <code>gpiozero</code> yang sudah ada.
+                    Buat sebuah penampung data untuk sensor jarak yang terhubung
+                    ke pin Trig=23 dan Echo=24. Di dalam perulangan, cetak nilai
+                    <code>jarak.distance</code>.</span
+                  >
+                </li>
+              </ol>
+
+              <h5>
+                <i class="fa-solid fa-plug"></i>PRAKTIK 2: SENSOR ANALOG (SUHU
+                LM35 + ADC ADS1115)
+              </h5>
+              <ol>
+                <li>
+                  <span class="step-title">Rangkaian Fisik ADS1115 & LM35</span>
+                  <span class="step-description"
+                    >Matikan Pi. Hubungkan ADS1115: <strong>VCC</strong> ke
+                    <strong>3.3V</strong>, <strong>GND</strong> ke
+                    <strong>GND</strong>, <strong>SCL</strong> ke
+                    <strong>SCL (GPIO3)</strong>, <strong>SDA</strong> ke
+                    <strong>SDA (GPIO2)</strong>. Kemudian hubungkan sensor
+                    LM35: pin kiri ke <strong>3.3V</strong>, pin kanan ke
+                    <strong>GND</strong>, dan pin tengah ke input
+                    <strong>A0</strong> di ADS1115.</span
                   >
                 </li>
                 <li>
                   <span class="step-title">Aktifkan Jalur Komunikasi I2C</span>
                   <span class="step-description"
-                    >Fungsi: Jalankan <code>sudo raspi-config</code> dan
-                    aktifkan 'I2C Interface'. ADS1115 berkomunikasi menggunakan
-                    metode I2C, jadi jalur ini harus dibuka terlebih
-                    dahulu.</span
+                    >Jalankan <code>sudo raspi-config</code> dan aktifkan 'I2C
+                    Interface' di menu "Interface Options". Ini adalah jalur
+                    yang digunakan ADS1115 untuk berbicara dengan Pi.</span
                   >
                 </li>
                 <li>
@@ -939,22 +983,19 @@
                     >Pasang Kumpulan Kode Bantu untuk ADS1115</span
                   >
                   <span class="step-description"
-                    >Fungsi: Jalankan perintah
+                    >Jalankan perintah
                     <code>pip install adafruit-circuitpython-ads1x15</code> di
-                    Terminal. Ini akan memasang kode yang sangat memudahkan
-                    pembacaan data dari ADS1115 tanpa perlu mengetahui detail
-                    teknis yang rumit.</span
+                    Terminal. Ini akan memasang kode yang memudahkan pembacaan
+                    data dari ADS1115.</span
                   >
                 </li>
                 <li>
                   <span class="step-title">Tulis Kode untuk Membaca Nilai</span>
                   <span class="step-description"
-                    >Fungsi: Di dalam kode Python, impor kode bantu yang baru
-                    dipasang. Buat koneksi ke ADC melalui jalur I2C, lalu baca
-                    nilai voltase dari input yang terhubung dengan sensor. Nilai
-                    voltase ini kemudian dapat diubah menjadi data yang lebih
-                    bermakna (seperti suhu atau kelembaban) sesuai manual
-                    sensor.</span
+                    >Dalam kode Python, impor kode bantu yang baru dipasang.
+                    Baca nilai voltase dari input A0. Nilai voltase ini kemudian
+                    diubah menjadi suhu Celsius (biasanya dengan rumus: Suhu =
+                    Voltase * 100).</span
                   >
                 </li>
               </ol>
@@ -963,13 +1004,23 @@
                 SUKSES
               </h5>
               <p>
-                Kode berhasil menampilkan nilai voltase dari sensor. Nilai ini
-                berubah secara logis ketika kondisi fisik di sekitar sensor
-                diubah (misalnya, sensor cahaya ditutup dengan tangan).
+                Kode berhasil menampilkan nilai jarak dalam sentimeter dari
+                HC-SR04 dan suhu dalam derajat Celsius dari LM35. Nilai-nilai
+                ini berubah secara logis ketika kondisi fisik di sekitar sensor
+                diubah.
               </p>
               <h5><i class="fa-solid fa-book"></i>SUMBER ACUAN</h5>
               <div class="ref-links">
                 <ul>
+                  <li>
+                    <a
+                      href="https://gpiozero.readthedocs.io/en/stable/api_input.html#distancesensor-hc-sr04"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      ><i class="fa-solid fa-book-open"></i> Panduan HC-SR04
+                      dengan GPIO Zero</a
+                    >
+                  </li>
                   <li>
                     <a
                       href="https://learn.adafruit.com/adafruit-4-channel-adc-breakouts/python-circuitpython"
@@ -1097,7 +1148,7 @@
                 Memahami dan mengaktifkan aturan komunikasi perangkat keras
                 (disebut protokol) I2C dan UART. Ini adalah "bahasa" yang
                 digunakan Raspberry Pi untuk berbicara dengan modul-modul
-                canggih dan mikrokontroler lain.
+                canggih dan perangkat lain.
               </p>
               <h5><i class="fa-solid fa-lightbulb"></i>ANALOGI SISTEM</h5>
               <p>
@@ -1107,8 +1158,7 @@
                 bukan hanya sinyal on/off.
               </p>
               <h5>
-                <i class="fa-solid fa-list-check"></i>LANGKAH-LANGKAH UNTUK
-                DIIKUTI
+                <i class="fa-solid fa-list-check"></i>LANGKAH-LANGKAH PENGATURAN
               </h5>
               <ol>
                 <li>
@@ -1116,17 +1166,16 @@
                     >Jalankan <code>raspi-config</code></span
                   >
                   <span class="step-description"
-                    >Fungsi: Gunakan <code>sudo raspi-config</code> untuk
-                    mengakses panel kontrol sistem.</span
+                    >Gunakan <code>sudo raspi-config</code> untuk mengakses
+                    panel kontrol sistem.</span
                   >
                 </li>
                 <li>
                   <span class="step-title">Aktifkan Jalur Komunikasi I2C</span>
                   <span class="step-description"
-                    >Fungsi: Aktifkan I2C di "Interface Options". I2C adalah
-                    jalur komunikasi dua kabel yang memungkinkan banyak
-                    perangkat terhubung bersamaan, masing-masing dengan alamat
-                    unik.</span
+                    >Aktifkan I2C di "Interface Options". I2C adalah jalur
+                    komunikasi dua kabel yang memungkinkan banyak perangkat
+                    terhubung bersamaan, masing-masing dengan alamat unik.</span
                   >
                 </li>
                 <li>
@@ -1134,21 +1183,41 @@
                     >Aktifkan Jalur Komunikasi Serial (UART)</span
                   >
                   <span class="step-description"
-                    >Fungsi: Aktifkan "Serial Port" dan nonaktifkan "login
-                    shell" di atasnya. UART adalah metode komunikasi
-                    titik-ke-titik, ideal untuk koneksi dengan perangkat seperti
-                    modul GPS atau Arduino.</span
+                    >Aktifkan "Serial Port" dan nonaktifkan "login shell" di
+                    atasnya. UART adalah metode komunikasi titik-ke-titik, ideal
+                    untuk koneksi dengan perangkat seperti modul GPS atau untuk
+                    komunikasi langsung antar dua Raspberry Pi.</span
+                  >
+                </li>
+              </ol>
+
+              <h5>
+                <i class="fa-solid fa-plug"></i>PRAKTIK: KONEKSI DASAR UNTUK
+                VERIFIKASI
+              </h5>
+              <ol>
+                <li>
+                  <span class="step-title">Verifikasi I2C</span>
+                  <span class="step-description"
+                    >Pasang <code>i2c-tools</code> (<code
+                      >sudo apt install i2c-tools</code
+                    >). Hubungkan sebuah perangkat I2C (misal: ADS1115 dari
+                    modul 9) dan jalankan <code>i2cdetect -y 1</code>. Kehadiran
+                    alamat perangkat di tabel output memastikan I2C aktif.</span
                   >
                 </li>
                 <li>
                   <span class="step-title"
-                    >Pasang Alat Bantu dan Lakukan Pemeriksaan</span
+                    >Koneksi Fisik UART (Antar 2 Raspberry Pi)</span
                   >
                   <span class="step-description"
-                    >Fungsi: Pasang <code>i2c-tools</code>. Hubungkan perangkat
-                    I2C dan jalankan <code>i2cdetect -y 1</code>. Perintah ini
-                    akan memindai jalur I2C dan melaporkan alamat perangkat yang
-                    terdeteksi, memastikan aktivasi berhasil.</span
+                    >Matikan kedua Pi. Hubungkan pin sebagai berikut:
+                    <strong>Pin TXD (GPIO 14)</strong> di Pi 1 ke
+                    <strong>Pin RXD (GPIO 15)</strong> di Pi 2. Hubungkan
+                    <strong>Pin RXD (GPIO 15)</strong> di Pi 1 ke
+                    <strong>Pin TXD (GPIO 14)</strong> di Pi 2. Terakhir,
+                    hubungkan <strong>Pin GND</strong> di Pi 1 ke
+                    <strong>Pin GND</strong> di Pi 2 (ini sangat penting).</span
                   >
                 </li>
               </ol>
@@ -1157,10 +1226,10 @@
                 SUKSES
               </h5>
               <p>
-                Perintah <code>i2cdetect</code> berhasil menampilkan sebuah
-                tabel dan menunjukkan alamat dari perangkat I2C yang terhubung.
-                Ini memastikan bahwa jalur I2C aktif dan perangkat terhubung
-                dengan benar.
+                Perintah <code>i2cdetect</code> berhasil menampilkan alamat
+                perangkat I2C. Data yang dikirim dari satu Pi melalui UART dapat
+                diterima oleh Pi kedua (memerlukan kode Python terpisah untuk
+                mengirim dan menerima).
               </p>
             </div>
           </div>
@@ -1171,7 +1240,9 @@
             <div class="module-info">
               <div class="module-number">12</div>
               <div class="module-icon"><i class="fa-solid fa-sun"></i></div>
-              <div class="module-title">Menerapkan Sensor I2C</div>
+              <div class="module-title">
+                Menerapkan Sensor I2C (Cahaya BH1750)
+              </div>
             </div>
             <div class="module-meta">
               <div class="tag tag-lanjutan">Lanjutan</div>
@@ -1185,19 +1256,23 @@
               <h5>
                 <i class="fa-solid fa-satellite-dish"></i>PRASYARAT SISTEM
               </h5>
-              <p>Modul 11 (Komunikasi Perangkat Keras) harus diselesaikan.</p>
+              <p>
+                Modul 11 (Komunikasi Perangkat Keras) harus diselesaikan dan I2C
+                sudah aktif.
+              </p>
               <h5><i class="fa-solid fa-bullseye"></i>TUJUAN MODUL</h5>
               <p>
                 Membaca data secara spesifik dari sensor yang menggunakan aturan
-                komunikasi I2C. Metode ini hemat pin karena hanya memerlukan dua
-                pin GPIO (SDA dan SCL).
+                komunikasi I2C (contoh: sensor cahaya <strong>BH1750</strong>).
+                Metode ini hemat pin karena hanya memerlukan dua pin GPIO (SDA
+                dan SCL).
               </p>
               <h5><i class="fa-solid fa-lightbulb"></i>ANALOGI SISTEM</h5>
               <p>
                 I2C bekerja seperti sistem alamat di sebuah jalan. Raspberry Pi
-                adalah tukang pos (master), dan setiap sensor adalah rumah
-                dengan nomor unik (alamat). Pi dapat mengirim permintaan ke
-                alamat spesifik dan menerima data kembali darinya.
+                adalah tukang pos, dan setiap sensor adalah rumah dengan nomor
+                unik (alamat). Pi dapat mengirim permintaan ke alamat spesifik
+                (misal, sensor BH1750) dan menerima data kembali darinya.
               </p>
               <h5>
                 <i class="fa-solid fa-list-check"></i>LANGKAH-LANGKAH UNTUK
@@ -1205,39 +1280,41 @@
               </h5>
               <ol>
                 <li>
-                  <span class="step-title">Hubungkan Perangkat Keras</span>
+                  <span class="step-title">Rangkaian Fisik BH1750</span>
                   <span class="step-description"
-                    >Fungsi: Matikan Pi. Hubungkan pin SDA sensor ke GPIO2, SCL
-                    ke GPIO3, VCC ke 3.3V, dan GND ke Ground.</span
+                    >Matikan Pi. Hubungkan pin sensor sebagai berikut: Pin
+                    <strong>VCC</strong> ke <strong>3.3V</strong>, Pin
+                    <strong>GND</strong> ke <strong>GND</strong>, Pin
+                    <strong>SCL</strong> ke <strong>SCL (GPIO 3)</strong>, dan
+                    Pin <strong>SDA</strong> ke
+                    <strong>SDA (GPIO 2)</strong>.</span
                   >
                 </li>
                 <li>
                   <span class="step-title">Periksa Koneksi</span>
                   <span class="step-description"
-                    >Fungsi: Nyalakan Pi dan jalankan
-                    <code>i2cdetect -y 1</code>. Kehadiran alamat sensor di
+                    >Nyalakan Pi dan jalankan <code>i2cdetect -y 1</code>.
+                    Kehadiran alamat sensor (biasanya <code>0x23</code>) di
                     hasil perintah memastikan koneksi fisik yang benar.</span
                   >
                 </li>
                 <li>
                   <span class="step-title"
-                    >Pasang Kumpulan Kode Bantu Khusus Sensor</span
+                    >Pasang Kumpulan Kode Bantu BH1750</span
                   >
                   <span class="step-description"
-                    >Fungsi: Seringkali, produsen sensor menyediakan kumpulan
-                    kode bantu. Kode ini menerjemahkan perintah Python yang
-                    mudah menjadi komunikasi I2C tingkat rendah yang
-                    rumit.</span
+                    >Jalankan perintah <code>pip install bh1750</code>. Ini
+                    memasang kode bantu yang menyederhanakan proses pembacaan
+                    data dari sensor.</span
                   >
                 </li>
                 <li>
                   <span class="step-title">Baca Data dalam Kode</span>
                   <span class="step-description"
-                    >Fungsi: Impor kumpulan kode bantu dan aktifkan sensor di
-                    dalam kode. Panggil perintah dari sana untuk membaca data,
-                    misalnya <code>sensor.temperature</code>. Kumpulan kode
-                    bantu menangani semua detail protokol di belakang
-                    layar.</span
+                    >Impor kode bantu dan buat koneksi ke sensor melalui jalur
+                    I2C. Di dalam perulangan, gunakan perintah seperti
+                    <code>sensor.read_light()</code> untuk mendapatkan nilai
+                    intensitas cahaya dalam satuan Lux.</span
                   >
                 </li>
               </ol>
@@ -1246,10 +1323,24 @@
                 SUKSES
               </h5>
               <p>
-                Kode berhasil menampilkan nilai sensor yang akurat (misalnya,
-                suhu, kelembaban) dan nilai tersebut berubah secara responsif
-                terhadap perubahan kondisi lingkungan.
+                Kode berhasil menampilkan nilai intensitas cahaya dalam Lux dan
+                nilai tersebut berubah secara responsif terhadap perubahan
+                kondisi lingkungan (misal, saat senter diarahkan ke sensor).
               </p>
+              <h5><i class="fa-solid fa-book"></i>SUMBER ACUAN</h5>
+              <div class="ref-links">
+                <ul>
+                  <li>
+                    <a
+                      href="https://pypi.org/project/bh1750/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      ><i class="fa-solid fa-book-open"></i> Acuan Kode untuk
+                      Sensor BH1750</a
+                    >
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
