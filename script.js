@@ -5,12 +5,12 @@
  * Deskripsi:
  * Script ini mengelola semua fungsionalitas untuk halaman panduan modul.
  *
- * Patch v4.0 (Pendekatan Alami & Sederhana):
- * - Menghapus semua logika anti-lompatan yang rumit dan membiarkan browser
- *   menangani penyesuaian scroll secara otomatis (memerlukan perbaikan di CSS).
- * - Mengimplementasikan animasi accordion berbasis `scrollHeight` untuk transisi
- *   yang lebih mulus dan efisien, bukan lagi menggunakan `max-height` tetap.
- *   Ini memberikan pengalaman pengguna yang jauh lebih alami dan lancar.
+ * Patch v5.0 (Solusi Final & User-Friendly):
+ * - Saat sebuah modul BARU dibuka, halaman akan secara otomatis dan mulus
+ *   menggulir (scroll) ke bagian atas modul tersebut.
+ * - Ini secara langsung mengatasi masalah "user harus scroll ke atas" dan
+ *   menciptakan pengalaman pengguna yang intuitif dan standar.
+ * - Logika animasi tetap menggunakan `scrollHeight` untuk transisi yang akurat.
  * =============================================================================
  */
 
@@ -56,9 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const progressPercentage =
         (this.completedModules.size / this.totalModules) * 100;
       this.progressBar.style.width = `${progressPercentage}%`;
-      this.progressBar.textContent = `${Math.round(
-        progressPercentage
-      )}% Selesai`;
+      this.progressBar.textContent = `${Math.round(percentage)}% Selesai`;
       this.closingStatement.classList.toggle(
         "visible",
         this.completedModules.size === this.totalModules
@@ -66,8 +64,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /**
-     * Mengelola logika buka/tutup accordion dengan animasi yang mulus
-     * dan mengandalkan browser untuk mencegah lompatan.
+     * Mengelola logika buka/tutup accordion dan secara otomatis scroll
+     * ke modul yang baru dibuka.
      * @param {HTMLElement} card - Elemen kartu modul yang diklik.
      */
     toggleAccordion(card) {
@@ -84,14 +82,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Buka atau tutup kartu yang diklik
       if (isActive) {
-        // Tutup kartu ini
+        // Jika kartu sudah aktif, kita hanya menutupnya. Tidak perlu scroll.
         moduleBody.style.maxHeight = null;
         card.classList.remove("active");
       } else {
-        // Buka kartu ini
-        // scrollHeight memberikan tinggi asli dari konten yang tersembunyi
-        moduleBody.style.maxHeight = moduleBody.scrollHeight + "px";
+        // Jika kartu belum aktif, kita membukanya DAN melakukan scroll.
         card.classList.add("active");
+        moduleBody.style.maxHeight = moduleBody.scrollHeight + "px";
+
+        // Jeda singkat diperlukan agar browser sempat memulai animasi buka
+        // sebelum kita memerintahkan scroll. Ini membuat pengalaman lebih mulus.
+        setTimeout(() => {
+          card.scrollIntoView({
+            behavior: "smooth",
+            block: "start", // Opsi ini memastikan bagian atas card sejajar dengan atas layar
+          });
+        }, 200); // Jeda 200 milidetik sudah cukup.
       }
     }
 
