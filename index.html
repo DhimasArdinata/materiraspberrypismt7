@@ -131,7 +131,8 @@
             padding: 0 1.5rem;
         }
         .module-body-content { padding: 1.5rem; border-top: 1px solid var(--border-color); }
-        .module-card.active .module-body { max-height: 2000px; }
+        /* BUG FIX: Increased max-height to a very large value to prevent content clipping on mobile */
+        .module-card.active .module-body { max-height: 5000px; }
         .module-card.active .module-icon { transform: rotate(90deg); }
 
         .module-body h5 {
@@ -493,30 +494,31 @@
                     </div>
                 </div>
             </div>
-            <!-- Modul 13 -->
+            <!-- Modul 13 (REVISED FOR BLYNK) -->
             <div class="module-card" data-module-id="13">
                 <div class="module-header">
-                    <div class="module-number">13</div><div class="module-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div><div class="module-title">Integrasi Platform IoT</div><div class="tag tag-menengah">Menengah</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    <div class="module-number">13</div><div class="module-icon"><i class="fa-solid fa-mobile-screen-button"></i></div><div class="module-title">Integrasi Platform IoT (Blynk)</div><div class="tag tag-menengah">Menengah</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
                 </div>
                 <div class="module-body">
                     <div class="module-body-content">
                         <h5><i class="fa-solid fa-bullseye"></i>OBJEKTIF SISTEM</h5>
-                        <p>Mengirim data dari sensor yang terhubung ke Raspberry Pi ke sebuah dasbor online (platform IoT), sehingga data tersebut dapat dipantau dari perangkat apa pun, di mana pun, melalui internet.</p>
+                        <p>Mengirim data dari sensor yang terhubung ke Raspberry Pi ke sebuah dasbor interaktif di perangkat seluler menggunakan platform Blynk, sehingga data dapat dipantau secara real-time dari mana saja.</p>
                         <h5><i class="fa-solid fa-list-check"></i>PROTOKOL EKSEKUSI</h5>
                         <ol>
-                            <li>Buat akun gratis di platform IoT seperti <strong>Thingspeak</strong>.</li>
-                            <li>Buat "Channel" baru. Anggap Channel sebagai proyek Anda. Konfigurasikan "Field" untuk setiap jenis data (misal, Field 1 untuk Suhu, Field 2 untuk Kelembaban).</li>
-                            <li>Buka tab "API Keys" dan salin "Write API Key" Anda. Kunci ini adalah kata sandi unik yang memberi izin pada skrip Anda untuk mengirim data ke channel Anda. Jaga kerahasiaannya.</li>
-                            <li>Instal pustaka <code>requests</code> di Raspberry Pi (<code>pip install requests</code>). Pustaka ini sangat populer untuk membuat permintaan HTTP (berbicara dengan server web).</li>
-                            <li>Dalam skrip Python Anda, buat sebuah URL khusus yang berisi alamat API Thingspeak, API Key Anda, dan data sensor yang ingin dikirim.</li>
-                            <li>Gunakan pustaka <code>requests</code> untuk mengirim permintaan ke URL tersebut. Beri jeda minimal 15-20 detik antar pengiriman untuk mematuhi batas penggunaan paket gratis Thingspeak.</li>
+                            <li>Instal aplikasi <strong>Blynk IoT</strong> di perangkat seluler Anda (Android/iOS) dan buat akun.</li>
+                            <li>Di dalam aplikasi, buat "Template" baru, lalu buat "Device" dari template tersebut. Proses ini akan menghasilkan sebuah <strong>Auth Token</strong> yang unik. Token ini adalah kunci rahasia yang menghubungkan perangkat keras Anda dengan proyek di aplikasi.</li>
+                            <li>Di dalam template, konfigurasikan "Datastreams". Pilih "Virtual Pin" (misal, V1) sebagai kanal untuk data Anda (misal, suhu).</li>
+                            <li>Desain dasbor di aplikasi seluler dengan menambahkan "Widget" (seperti Gauge atau Labeled Value) dan hubungkan widget tersebut ke Virtual Pin (V1) yang telah Anda buat.</li>
+                            <li>Di Raspberry Pi, instal pustaka Python resmi untuk Blynk menggunakan <code>pip</code>.</li>
+                            <li>Dalam skrip Python, impor pustaka Blynk. Inisialisasi pustaka dengan Auth Token yang Anda dapatkan. Buat perulangan yang membaca data sensor dan gunakan fungsi <code>blynk.virtual_write(pin_virtual, nilai_sensor)</code> untuk mengirim data ke Virtual Pin yang sesuai.</li>
                         </ol>
                         <h5><i class="fa-solid fa-flag-checkered"></i>VERIFIKASI STATUS OPERASIONAL</h5>
-                        <p>Data sensor muncul sebagai grafik atau gauge di dasbor online Thingspeak Anda. Dasbor tersebut diperbarui secara berkala sesuai dengan data yang dikirim oleh Raspberry Pi.</p>
+                        <p>Widget (Gauge atau Labeled Value) di dasbor aplikasi Blynk pada perangkat seluler Anda menampilkan dan memperbarui nilai data sensor secara real-time sesuai dengan data yang dikirim oleh Raspberry Pi.</p>
                         <h5><i class="fa-solid fa-book"></i>ASET & REFERENSI</h5>
                         <div class="ref-links">
                             <ul>
-                                <li><a href="https://thingspeak.com/" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-chart-line"></i> Platform IoT Thingspeak</a></li>
+                                <li><a href="https://blynk.io/" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-cloud"></i> Website Resmi Blynk</a></li>
+                                <li><a href="https://docs.blynk.io/" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-book-open"></i> Dokumentasi Blynk</a></li>
                             </ul>
                         </div>
                     </div>
