@@ -104,8 +104,22 @@
             gap: 1rem;
             background-color: rgba(0,0,0,0.1);
             transition: background-color 0.3s ease;
+            justify-content: space-between;
         }
         .module-header:hover { background-color: rgba(187, 154, 247, 0.1); }
+        
+        .module-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            min-width: 0;
+        }
+        .module-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-shrink: 0;
+        }
 
         .module-number {
             font-family: 'Roboto Mono', monospace;
@@ -116,7 +130,7 @@
             text-align: right;
         }
         .module-icon { font-size: 1.6rem; color: var(--accent-color-2); width: 30px; text-align: center; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .module-title { flex-grow: 1; font-size: 1.15rem; font-weight: 600; color: var(--header-color); }
+        .module-title { font-size: 1.15rem; font-weight: 600; color: var(--header-color); }
         .tag { padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem; font-weight: bold; color: var(--bg-color); flex-shrink: 0; }
         .tag-dasar { background-color: var(--accent-color-green); }
         .tag-menengah { background-color: var(--accent-color-yellow); }
@@ -138,7 +152,7 @@
             padding: 0 1.5rem;
         }
         .module-body-content { padding: 2rem 1.5rem; border-top: 1px solid var(--border-color); }
-        .module-card.active .module-body { max-height: 5000px; /* Large value for dynamic content */ }
+        .module-card.active .module-body { max-height: 5000px; }
         .module-card.active .module-icon { transform: rotate(90deg); }
 
         .module-body h5 {
@@ -201,10 +215,23 @@
         .ref-links a:hover { color: var(--accent-color-1); text-decoration: underline; padding-left: 5px; }
 
         .closing-statement {
-            text-align: center; margin-top: 4rem; padding: 2.5rem;
-            background-color: var(--card-color); border: 1px solid var(--border-color);
+            text-align: center;
+            background-color: var(--card-color);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
             border-top: 5px solid var(--accent-color-green);
+            padding: 2.5rem;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            margin-top: 0;
+            transition: opacity 0.5s ease, max-height 0.5s ease, margin-top 0.5s ease, padding 0.5s ease;
+        }
+        .closing-statement.visible {
+            opacity: 1;
+            max-height: 500px;
+            margin-top: 4rem;
+            padding: 2.5rem;
         }
         .closing-statement h3 { color: var(--accent-color-green); margin-bottom: 1rem; font-size: 1.8rem; }
         .closing-statement p { border-left: none; padding-left: 0; }
@@ -254,7 +281,12 @@
             <!-- Modul 1 -->
             <div class="module-card" data-module-id="1">
                 <div class="module-header">
-                    <div class="module-number">01</div><div class="module-icon"><i class="fa-solid fa-power-off"></i></div><div class="module-title">Persiapan Awal Sistem</div><div class="tag tag-dasar">Dasar</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    <div class="module-info">
+                        <div class="module-number">01</div><div class="module-icon"><i class="fa-solid fa-power-off"></i></div><div class="module-title">Persiapan Awal Sistem</div>
+                    </div>
+                    <div class="module-meta">
+                        <div class="tag tag-dasar">Dasar</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    </div>
                 </div>
                 <div class="module-body">
                     <div class="module-body-content">
@@ -299,7 +331,12 @@
             <!-- Modul 2 -->
             <div class="module-card" data-module-id="2">
                 <div class="module-header">
-                    <div class="module-number">02</div><div class="module-icon"><i class="fa-solid fa-terminal"></i></div><div class="module-title">Dasar Interaksi Berbasis Teks</div><div class="tag tag-dasar">Dasar</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    <div class="module-info">
+                        <div class="module-number">02</div><div class="module-icon"><i class="fa-solid fa-terminal"></i></div><div class="module-title">Dasar Interaksi Berbasis Teks</div>
+                    </div>
+                    <div class="module-meta">
+                        <div class="tag tag-dasar">Dasar</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    </div>
                 </div>
                 <div class="module-body">
                     <div class="module-body-content">
@@ -341,8 +378,13 @@
             </div>
             <!-- Modul 3 -->
             <div class="module-card" data-module-id="3">
-                <div class="module-header">
-                    <div class="module-number">03</div><div class="module-icon"><i class="fa-solid fa-user-shield"></i></div><div class="module-title">Mengatur File & Izin Akses</div><div class="tag tag-dasar">Dasar</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                 <div class="module-header">
+                    <div class="module-info">
+                        <div class="module-number">03</div><div class="module-icon"><i class="fa-solid fa-user-shield"></i></div><div class="module-title">Mengatur File & Izin Akses</div>
+                    </div>
+                    <div class="module-meta">
+                        <div class="tag tag-dasar">Dasar</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    </div>
                 </div>
                 <div class="module-body">
                      <div class="module-body-content">
@@ -377,14 +419,19 @@
             <!-- Modul 4 -->
             <div class="module-card" data-module-id="4">
                 <div class="module-header">
-                    <div class="module-number">04</div><div class="module-icon"><i class="fa-solid fa-wifi"></i></div><div class="module-title">Pengaturan Jaringan Tetap</div><div class="tag tag-dasar">Dasar</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    <div class="module-info">
+                        <div class="module-number">04</div><div class="module-icon"><i class="fa-solid fa-wifi"></i></div><div class="module-title">Pengaturan Jaringan Tetap</div>
+                    </div>
+                    <div class="module-meta">
+                        <div class="tag tag-dasar">Dasar</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    </div>
                 </div>
                 <div class="module-body">
                      <div class="module-body-content">
                         <h5><i class="fa-solid fa-bullseye"></i>TUJUAN MODUL</h5>
-                        <p>Mengganti alamat IP dinamis (yang bisa berubah) dengan alamat IP statis (yang tetap). Ini sangat penting untuk perangkat yang perlu selalu ditemukan di alamat jaringan yang sama.</p>
+                        <p>Mengganti alamat IP yang bisa berubah dengan alamat IP yang tetap. Ini sangat penting untuk perangkat yang perlu selalu ditemukan di alamat jaringan yang sama.</p>
                         <h5><i class="fa-solid fa-lightbulb"></i>ANALOGI SISTEM</h5>
-                        <p>IP dinamis seperti menyewa PO Box yang nomornya berubah setiap hari. IP statis adalah seperti memiliki alamat rumah permanen. Untuk layanan yang perlu selalu ditemukan (seperti kamera keamanan), alamat permanen adalah sebuah keharusan.</p>
+                        <p>Alamat IP yang bisa berubah adalah seperti menyewa PO Box yang nomornya berubah setiap hari. Alamat IP yang tetap adalah seperti memiliki alamat rumah permanen. Untuk layanan yang perlu selalu ditemukan (seperti kamera keamanan), alamat permanen adalah sebuah keharusan.</p>
                         <h5><i class="fa-solid fa-list-check"></i>LANGKAH-LANGKAH UNTUK DIIKUTI</h5>
                         <ol>
                             <li>
@@ -412,7 +459,12 @@
             <!-- Modul 5 -->
             <div class="module-card" data-module-id="5">
                 <div class="module-header">
-                    <div class="module-number">05</div><div class="module-icon"><i class="fa-solid fa-display"></i></div><div class="module-title">Akses Jarak Jauh (SSH & VNC)</div><div class="tag tag-menengah">Menengah</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    <div class="module-info">
+                        <div class="module-number">05</div><div class="module-icon"><i class="fa-solid fa-display"></i></div><div class="module-title">Akses Jarak Jauh (SSH & VNC)</div>
+                    </div>
+                    <div class="module-meta">
+                        <div class="tag tag-menengah">Menengah</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    </div>
                 </div>
                 <div class="module-body">
                      <div class="module-body-content">
@@ -436,7 +488,7 @@
                             </li>
                             <li>
                                 <span class="step-title">Hubungkan dari Komputer Lain</span>
-                                <span class="step-description">Fungsi: Gunakan aplikasi klien SSH (seperti PuTTY di Windows) atau VNC Viewer (dari RealVNC) di komputer lain untuk terhubung ke alamat IP Raspberry Pi.</span>
+                                <span class="step-description">Fungsi: Gunakan aplikasi penghubung SSH (seperti PuTTY di Windows) atau VNC Viewer (dari RealVNC) di komputer lain untuk terhubung ke alamat IP Raspberry Pi.</span>
                             </li>
                         </ol>
                         <h5><i class="fa-solid fa-flag-checkered"></i>VERIFIKASI KRITERIA SUKSES</h5>
@@ -446,8 +498,13 @@
             </div>
             <!-- Modul 6 -->
             <div class="module-card" data-module-id="6">
-                <div class="module-header">
-                    <div class="module-number">06</div><div class="module-icon"><i class="fa-solid fa-file-export"></i></div><div class="module-title">Transfer File (WinSCP untuk Windows)</div><div class="tag tag-menengah">Menengah</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                 <div class="module-header">
+                    <div class="module-info">
+                        <div class="module-number">06</div><div class="module-icon"><i class="fa-solid fa-file-export"></i></div><div class="module-title">Transfer File (WinSCP untuk Windows)</div>
+                    </div>
+                    <div class="module-meta">
+                        <div class="tag tag-menengah">Menengah</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    </div>
                 </div>
                 <div class="module-body">
                      <div class="module-body-content">
@@ -461,7 +518,7 @@
                         <ol>
                             <li>
                                 <span class="step-title">Pasang Aplikasi WinSCP di Windows</span>
-                                <span class="step-description">Fungsi: Unduh dan pasang <code>WinSCP</code>. Aplikasi ini adalah klien bergambar untuk transfer file aman (SCP/SFTP) yang memanfaatkan koneksi SSH.</span>
+                                <span class="step-description">Fungsi: Unduh dan pasang <code>WinSCP</code>. Aplikasi ini adalah penghubung bergambar untuk transfer file aman (SCP/SFTP) yang memanfaatkan koneksi SSH.</span>
                             </li>
                              <li>
                                 <span class="step-title">Atur Sesi Koneksi Baru</span>
@@ -490,14 +547,19 @@
             <!-- Modul 7 -->
             <div class="module-card" data-module-id="7">
                 <div class="module-header">
-                    <div class="module-number">07</div><div class="module-icon"><i class="fa-brands fa-python"></i></div><div class="module-title">Dasar Penulisan Kode Python</div><div class="tag tag-dasar">Dasar</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    <div class="module-info">
+                        <div class="module-number">07</div><div class="module-icon"><i class="fa-brands fa-python"></i></div><div class="module-title">Dasar Penulisan Kode Python</div>
+                    </div>
+                    <div class="module-meta">
+                        <div class="tag tag-dasar">Dasar</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    </div>
                 </div>
                 <div class="module-body">
                     <div class="module-body-content">
                         <h5><i class="fa-solid fa-bullseye"></i>TUJUAN MODUL</h5>
                         <p>Menguasai aturan dasar penulisan kode menggunakan bahasa Python. Ini adalah bekal untuk memberi perintah, mengatur logika, dan berinteraksi dengan komponen elektronik.</p>
                          <h5><i class="fa-solid fa-lightbulb"></i>ANALOGI SISTEM</h5>
-                        <p>Belajar Python seperti belajar "tata bahasa" untuk berbicara dengan komputer. `Variabel` (wadah penyimpan data) adalah kata benda, fungsi adalah kata kerja, dan struktur `if/else` adalah cara membuat kalimat sebab-akibat.</p>
+                        <p>Belajar Python seperti belajar "tata bahasa" untuk berbicara dengan komputer. `Wadah data` (variabel) adalah kata benda, fungsi adalah kata kerja, dan struktur `if/else` adalah cara membuat kalimat sebab-akibat.</p>
                         <h5><i class="fa-solid fa-list-check"></i>LANGKAH-LANGKAH UNTUK DIIKUTI</h5>
                         <ol>
                             <li>
@@ -505,8 +567,8 @@
                                 <span class="step-description">Fungsi: Thonny adalah aplikasi bantu yang ramah pemula, menyediakan editor teks untuk menulis kode dan jendela untuk melihat hasilnya dalam satu tempat.</span>
                             </li>
                              <li>
-                                <span class="step-title">Buat Wadah Data (Variabel) dan Cetak Isinya</span>
-                                <span class="step-description">Fungsi: Buat sebuah <strong>variabel</strong> (sebuah wadah di dalam kode untuk menyimpan data seperti angka atau teks). Gunakan <code>print()</code> untuk menampilkan isi wadah tersebut. Ini adalah metode pemeriksaan paling dasar untuk melihat status kode.</span>
+                                <span class="step-title">Buat Wadah Data dan Cetak Isinya</span>
+                                <span class="step-description">Fungsi: Buat sebuah <strong>wadah data</strong> (dalam penulisan kode disebut <strong>variabel</strong>) untuk menyimpan informasi seperti angka atau <strong>rangkaian teks</strong> (dalam penulisan kode disebut <strong>string</strong>). Gunakan <code>print()</code> untuk menampilkan isi wadah tersebut.</span>
                             </li>
                              <li>
                                 <span class="step-title">Tulis Struktur Pengambilan Keputusan (<code>if-elif-else</code>)</span>
@@ -531,7 +593,12 @@
             <!-- Modul 8 -->
             <div class="module-card" data-module-id="8">
                 <div class="module-header">
-                    <div class="module-number">08</div><div class="module-icon"><i class="fa-solid fa-lightbulb"></i></div><div class="module-title">Kontrol Output GPIO (Lampu LED)</div><div class="tag tag-menengah">Menengah</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    <div class="module-info">
+                        <div class="module-number">08</div><div class="module-icon"><i class="fa-solid fa-lightbulb"></i></div><div class="module-title">Kontrol Output GPIO (Lampu LED)</div>
+                    </div>
+                    <div class="module-meta">
+                        <div class="tag tag-menengah">Menengah</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    </div>
                 </div>
                 <div class="module-body">
                     <div class="module-body-content">
@@ -574,42 +641,52 @@
             <!-- Modul 9 -->
             <div class="module-card" data-module-id="9">
                 <div class="module-header">
-                    <div class="module-number">09</div><div class="module-icon"><i class="fa-solid fa-ruler-combined"></i></div><div class="module-title">Membaca Data dari Sensor</div><div class="tag tag-menengah">Menengah</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    <div class="module-info">
+                        <div class="module-number">09</div><div class="module-icon"><i class="fa-solid fa-ruler-combined"></i></div><div class="module-title">Membaca Data Sensor Analog (ADS1115)</div>
+                    </div>
+                    <div class="module-meta">
+                        <div class="tag tag-menengah">Menengah</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    </div>
                 </div>
                 <div class="module-body">
                     <div class="module-body-content">
                         <h5><i class="fa-solid fa-bullseye"></i>TUJUAN MODUL</h5>
-                        <p>Membaca data dari dunia nyata menggunakan sensor, baik yang memberikan sinyal digital (on/off) maupun analog (nilai yang bisa berubah-ubah seperti suhu).</p>
+                        <p>Membaca data dari sensor yang menghasilkan sinyal analog (nilai yang bisa berubah-ubah, bukan sekadar on/off) menggunakan komponen tambahan ADC ADS1115.</p>
                         <h5><i class="fa-solid fa-lightbulb"></i>ANALOGI SISTEM</h5>
-                        <p>Sensor adalah 'indra' bagi Raspberry Pi. Sensor digital seperti sakelar (tertekan/tidak). Sensor analog seperti dimmer lampu (bisa redup, terang, atau di antaranya). Karena Pi hanya mengerti digital, diperlukan 'penerjemah' (ADC) untuk sinyal analog.</p>
+                        <p>Sensor analog berbicara dalam 'bahasa' yang berbeda dari Raspberry Pi. Pi hanya mengerti sinyal digital (on/off). Komponen ADC (Analog-to-Digital Converter) seperti ADS1115 berfungsi sebagai 'penerjemah' yang mengubah sinyal analog dari sensor menjadi sinyal digital yang dimengerti oleh Pi.</p>
                         <h5><i class="fa-solid fa-list-check"></i>LANGKAH-LANGKAH UNTUK DIIKUTI</h5>
                         <ol>
                             <li>
-                                <span class="step-title">Hubungkan Sensor Digital (misal, HC-SR04)</span>
-                                <span class="step-description">Fungsi: Hubungkan pin-pin sensor ke GPIO. Gunakan kelas <code>DistanceSensor</code> dari <code>gpiozero</code>. Kumpulan kode ini menangani logika pengiriman pulsa suara dan pengukuran waktu kembalinya untuk menghitung jarak.</span>
+                                <span class="step-title">Hubungkan Komponen ADS1115</span>
+                                <span class="step-description">Fungsi: Matikan Pi. Hubungkan pin VCC dan GND pada ADS1115 ke pin 3.3V dan GND pada Pi. Hubungkan pin SCL dan SDA pada ADS1115 ke pin SCL dan SDA yang sesuai pada Pi. Terakhir, hubungkan output dari sensor analog ke salah satu input ADC (misal, A0).</span>
                             </li>
                             <li>
-                                <span class="step-title">Hubungkan Sensor Analog (misal, LM35)</span>
-                                <span class="step-description">Fungsi: Karena Raspberry Pi tidak memiliki input analog, perlukan ADC (Analog-to-Digital Converter) seperti MCP3008. ADC ini bertindak sebagai jembatan, mengubah tegangan analog dari sensor menjadi nilai digital yang dapat dibaca Pi.</span>
+                                <span class="step-title">Aktifkan Jalur Komunikasi I2C</span>
+                                <span class="step-description">Fungsi: Jalankan <code>sudo raspi-config</code> dan aktifkan 'I2C Interface'. ADS1115 berkomunikasi menggunakan metode I2C, jadi jalur ini harus dibuka terlebih dahulu.</span>
                             </li>
                              <li>
-                                <span class="step-title">Aktifkan Jalur Komunikasi SPI</span>
-                                <span class="step-description">Fungsi: Aktifkan SPI (Serial Peripheral Interface) melalui <code>raspi-config</code>. SPI adalah jalur komunikasi data berkecepatan tinggi yang digunakan untuk berbicara dengan ADC.</span>
+                                <span class="step-title">Pasang Kumpulan Kode Bantu untuk ADS1115</span>
+                                <span class="step-description">Fungsi: Jalankan perintah <code>pip install adafruit-circuitpython-ads1x15</code> di Terminal. Ini akan memasang kode yang sangat memudahkan pembacaan data dari ADS1115 tanpa perlu mengetahui detail teknis yang rumit.</span>
                             </li>
                             <li>
-                                <span class="step-title">Baca Nilai dan Lakukan Konversi</span>
-                                <span class="step-description">Fungsi: Gunakan kelas <code>MCP3008</code> dari <code>gpiozero</code> untuk membaca nilai digital mentah dari ADC. Kemudian, ubah nilai tersebut menjadi tegangan dan suhu menggunakan rumus dari manual sensor.</span>
+                                <span class="step-title">Tulis Kode untuk Membaca Nilai</span>
+                                <span class="step-description">Fungsi: Di dalam kode Python, impor kode bantu yang baru dipasang. Buat koneksi ke ADC melalui jalur I2C, lalu baca nilai voltase dari input yang terhubung dengan sensor. Nilai voltase ini kemudian dapat diubah menjadi data yang lebih bermakna (seperti suhu atau kelembaban) sesuai manual sensor.</span>
                             </li>
                         </ol>
                         <h5><i class="fa-solid fa-flag-checkered"></i>VERIFIKASI KRITERIA SUKSES</h5>
-                        <p>Kode berhasil menampilkan nilai jarak dalam sentimeter dan suhu dalam derajat Celsius. Nilai-nilai ini berubah secara logis ketika kondisi fisik di sekitar sensor diubah.</p>
+                        <p>Kode berhasil menampilkan nilai voltase dari sensor. Nilai ini berubah secara logis ketika kondisi fisik di sekitar sensor diubah (misalnya, sensor cahaya ditutup dengan tangan).</p>
                     </div>
                 </div>
             </div>
             <!-- Modul 10 -->
             <div class="module-card" data-module-id="10">
-                <div class="module-header">
-                    <div class="module-number">10</div><div class="module-icon"><i class="fa-solid fa-align-left"></i></div><div class="module-title">Menampilkan Data di Terminal</div><div class="tag tag-dasar">Dasar</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                 <div class="module-header">
+                    <div class="module-info">
+                        <div class="module-number">10</div><div class="module-icon"><i class="fa-solid fa-align-left"></i></div><div class="module-title">Menampilkan Data di Terminal</div>
+                    </div>
+                    <div class="module-meta">
+                        <div class="tag tag-dasar">Dasar</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    </div>
                 </div>
                 <div class="module-body">
                     <div class="module-body-content">
@@ -644,7 +721,12 @@
             <!-- Modul 11 -->
             <div class="module-card" data-module-id="11">
                 <div class="module-header">
-                    <div class="module-number">11</div><div class="module-icon"><i class="fa-solid fa-diagram-project"></i></div><div class="module-title">Komunikasi Perangkat Keras</div><div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    <div class="module-info">
+                        <div class="module-number">11</div><div class="module-icon"><i class="fa-solid fa-diagram-project"></i></div><div class="module-title">Komunikasi Perangkat Keras</div>
+                    </div>
+                    <div class="module-meta">
+                        <div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    </div>
                 </div>
                 <div class="module-body">
                     <div class="module-body-content">
@@ -678,8 +760,13 @@
             </div>
             <!-- Modul 12 -->
             <div class="module-card" data-module-id="12">
-                <div class="module-header">
-                    <div class="module-number">12</div><div class="module-icon"><i class="fa-solid fa-sun"></i></div><div class="module-title">Menerapkan Sensor I2C</div><div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                 <div class="module-header">
+                    <div class="module-info">
+                        <div class="module-number">12</div><div class="module-icon"><i class="fa-solid fa-sun"></i></div><div class="module-title">Menerapkan Sensor I2C</div>
+                    </div>
+                    <div class="module-meta">
+                        <div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    </div>
                 </div>
                 <div class="module-body">
                      <div class="module-body-content">
@@ -715,13 +802,18 @@
             </div>
             <!-- Modul 13 -->
             <div class="module-card" data-module-id="13">
-                <div class="module-header">
-                    <div class="module-number">13</div><div class="module-icon"><i class="fa-solid fa-mobile-screen-button"></i></div><div class="module-title">Menghubungkan ke Platform IoT (Blynk)</div><div class="tag tag-menengah">Menengah</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                 <div class="module-header">
+                    <div class="module-info">
+                        <div class="module-number">13</div><div class="module-icon"><i class="fa-solid fa-mobile-screen-button"></i></div><div class="module-title">Menghubungkan ke Layanan IoT (Blynk)</div>
+                    </div>
+                    <div class="module-meta">
+                        <div class="tag tag-menengah">Menengah</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    </div>
                 </div>
                 <div class="module-body">
                     <div class="module-body-content">
                         <h5><i class="fa-solid fa-bullseye"></i>TUJUAN MODUL</h5>
-                        <p>Mengirim data dari sensor yang terhubung ke Raspberry Pi ke sebuah tampilan visual di ponsel menggunakan platform Blynk, sehingga data dapat dipantau secara langsung dari mana saja.</p>
+                        <p>Mengirim data dari sensor yang terhubung ke Raspberry Pi ke sebuah tampilan visual di ponsel menggunakan **layanan online** bernama Blynk, sehingga data dapat dipantau secara langsung dari mana saja.</p>
                         <h5><i class="fa-solid fa-lightbulb"></i>ANALOGI SISTEM</h5>
                         <p>Bayangkan Raspberry Pi adalah reporter di lapangan yang mengumpulkan data (suhu). Blynk adalah studio berita di ponsel. Auth Token adalah 'kartu pers' reporter agar ia bisa mengirim laporannya ke studio, dan Widget adalah 'layar TV' di studio untuk menampilkan laporan tersebut.</p>
                         <h5><i class="fa-solid fa-list-check"></i>LANGKAH-LANGKAH UNTUK DIIKUTI</h5>
@@ -740,7 +832,7 @@
                             </li>
                             <li>
                                 <span class="step-title">Pasang Kumpulan Kode Bantu Blynk di Pi</span>
-                                <span class="step-description">Fungsi: Gunakan <code>pip</code> untuk memasang kumpulan kode bantu Python untuk Blynk. Kode ini menangani semua logika koneksi ke layanan Blynk.</span>
+                                <span class="step-description">Fungsi: Jalankan perintah <code>pip install blynklib</code>. Perintah ini akan memasang kumpulan kode Python untuk Blynk, yang menangani semua logika koneksi ke layanan Blynk.</span>
                             </li>
                              <li>
                                 <span class="step-title">Tulis Kode Pengiriman Data</span>
@@ -761,8 +853,13 @@
             </div>
             <!-- Modul 14 -->
             <div class="module-card" data-module-id="14">
-                <div class="module-header">
-                    <div class="module-number">14</div><div class="module-icon"><i class="fa-solid fa-share-nodes"></i></div><div class="module-title">Cara Kerja Komunikasi MQTT</div><div class="tag tag-menengah">Menengah</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                 <div class="module-header">
+                    <div class="module-info">
+                        <div class="module-number">14</div><div class="module-icon"><i class="fa-solid fa-share-nodes"></i></div><div class="module-title">Cara Kerja Komunikasi MQTT</div>
+                    </div>
+                    <div class="module-meta">
+                        <div class="tag tag-menengah">Menengah</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    </div>
                 </div>
                 <div class="module-body">
                     <div class="module-body-content">
@@ -774,7 +871,7 @@
                         <ol>
                             <li>
                                 <span class="step-title">Identifikasi Tiga Komponen Utama</span>
-                                <span class="step-description">Fungsi: <strong>Pengirim Pesan</strong> (mengirim data), <strong>Penerima Pesan</strong> (menerima data), dan <strong>Pusat Pesan</strong> (sistem perantara yang mengelola pesan).</span>
+                                <span class="step-description">Fungsi: **Pengirim Pesan** (mengirim data), **Penerima Pesan** (menerima data), dan **Pusat Pesan** (sistem perantara yang mengelola pesan).</span>
                             </li>
                             <li>
                                 <span class="step-title">Pahami Konsep "Topic"</span>
@@ -793,7 +890,12 @@
             <!-- Modul 15 -->
             <div class="module-card" data-module-id="15">
                 <div class="module-header">
-                    <div class="module-number">15</div><div class="module-icon"><i class="fa-solid fa-server"></i></div><div class="module-title">Memasang Pusat Pesan (Broker) MQTT Lokal</div><div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    <div class="module-info">
+                        <div class="module-number">15</div><div class="module-icon"><i class="fa-solid fa-server"></i></div><div class="module-title">Memasang Pusat Pesan MQTT Lokal</div>
+                    </div>
+                    <div class="module-meta">
+                        <div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    </div>
                 </div>
                 <div class="module-body">
                     <div class="module-body-content">
@@ -833,8 +935,13 @@
             </div>
             <!-- Modul 16 -->
             <div class="module-card" data-module-id="16">
-                <div class="module-header">
-                    <div class="module-number">16</div><div class="module-icon"><i class="fa-solid fa-arrow-right-arrow-left"></i></div><div class="module-title">Kode MQTT dengan Python</div><div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                 <div class="module-header">
+                    <div class="module-info">
+                        <div class="module-number">16</div><div class="module-icon"><i class="fa-solid fa-arrow-right-arrow-left"></i></div><div class="module-title">Kode MQTT dengan Python</div>
+                    </div>
+                    <div class="module-meta">
+                        <div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    </div>
                 </div>
                 <div class="module-body">
                     <div class="module-body-content">
@@ -875,7 +982,12 @@
             <!-- Modul 17 -->
             <div class="module-card" data-module-id="17">
                 <div class="module-header">
-                    <div class="module-number">17</div><div class="module-icon"><i class="fa-solid fa-database"></i></div><div class="module-title">Pemasangan Sistem Penyimpanan Data</div><div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    <div class="module-info">
+                        <div class="module-number">17</div><div class="module-icon"><i class="fa-solid fa-database"></i></div><div class="module-title">Pemasangan Sistem Penyimpanan Data</div>
+                    </div>
+                    <div class="module-meta">
+                        <div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    </div>
                 </div>
                 <div class="module-body">
                     <div class="module-body-content">
@@ -912,7 +1024,12 @@
             <!-- Modul 18 -->
             <div class="module-card" data-module-id="18">
                 <div class="module-header">
-                    <div class="module-number">18</div><div class="module-icon"><i class="fa-solid fa-plug-circle-check"></i></div><div class="module-title">Menghubungkan Kode & Penyimpanan Data</div><div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    <div class="module-info">
+                        <div class="module-number">18</div><div class="module-icon"><i class="fa-solid fa-plug-circle-check"></i></div><div class="module-title">Menghubungkan Kode & Penyimpanan Data</div>
+                    </div>
+                    <div class="module-meta">
+                        <div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    </div>
                 </div>
                 <div class="module-body">
                     <div class="module-body-content">
@@ -949,7 +1066,12 @@
             <!-- Modul 19 -->
             <div class="module-card" data-module-id="19">
                 <div class="module-header">
-                    <div class="module-number">19</div><div class="module-icon"><i class="fa-solid fa-network-wired"></i></div><div class="module-title">Menghubungkan Banyak Perangkat IoT</div><div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    <div class="module-info">
+                        <div class="module-number">19</div><div class="module-icon"><i class="fa-solid fa-network-wired"></i></div><div class="module-title">Menghubungkan Banyak Perangkat IoT</div>
+                    </div>
+                    <div class="module-meta">
+                        <div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    </div>
                 </div>
                 <div class="module-body">
                     <div class="module-body-content">
@@ -980,14 +1102,19 @@
             <!-- Modul 20 -->
             <div class="module-card" data-module-id="20">
                 <div class="module-header">
-                    <div class="module-number">20</div><div class="module-icon"><i class="fa-solid fa-lock"></i></div><div class="module-title">Dasar Keamanan IoT</div><div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    <div class="module-info">
+                        <div class="module-number">20</div><div class="module-icon"><i class="fa-solid fa-lock"></i></div><div class="module-title">Dasar Keamanan IoT</div>
+                    </div>
+                    <div class="module-meta">
+                        <div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    </div>
                 </div>
                 <div class="module-body">
                     <div class="module-body-content">
                         <h5><i class="fa-solid fa-bullseye"></i>TUJUAN MODUL</h5>
                         <p>Menerapkan praktik keamanan dasar untuk melindungi perangkat IoT dari akses tidak sah dan ancaman umum, memperkuat pertahanan sistem.</p>
                         <h5><i class="fa-solid fa-lightbulb"></i>ANALOGI SISTEM</h5>
-                        <p>Ini seperti mengamankan sebuah rumah. Mengubah kata sandi adalah mengganti kunci pintu. Mengaktifkan **dinding api digital (Firewall)** adalah menutup semua jendela kecuali beberapa yang penting. Mengamankan SSH dan MQTT adalah memasang kunci tambahan pada pintu-pintu tersebut.</p>
+                        <p>Ini seperti mengamankan sebuah rumah. Mengubah kata sandi adalah mengganti kunci pintu. Mengaktifkan **dinding api digital** adalah menutup semua jendela kecuali beberapa yang penting. Mengamankan SSH dan MQTT adalah memasang kunci tambahan pada pintu-pintu tersebut.</p>
                         <h5><i class="fa-solid fa-list-check"></i>LANGKAH-LANGKAH UNTUK DIIKUTI</h5>
                         <ol>
                             <li>
@@ -996,7 +1123,7 @@
                             </li>
                             <li>
                                 <span class="step-title">Aktifkan Dinding Api Digital (<code>ufw</code>)</span>
-                                <span class="step-description">Fungsi: Pasang <code>ufw</code>. Gunakan <code>sudo ufw allow</code> hanya untuk **pintu data bernomor (port)** yang benar-benar dibutuhkan (misal, 22 untuk SSH, 1883 untuk MQTT). Kemudian aktifkan dengan <code>sudo ufw enable</code>.</span>
+                                <span class="step-description">Fungsi: Pasang <code>ufw</code>. Gunakan <code>sudo ufw allow</code> hanya untuk **pintu data bernomor** yang benar-benar dibutuhkan (misal, 22 untuk SSH, 1883 untuk MQTT). Kemudian aktifkan dengan <code>sudo ufw enable</code>.</span>
                             </li>
                             <li>
                                 <span class="step-title">Amankan Akses SSH</span>
@@ -1004,7 +1131,7 @@
                             </li>
                              <li>
                                 <span class="step-title">Amankan Akses MQTT</span>
-                                <span class="step-description">Fungsi: Atur pusat pesan Mosquitto untuk memerlukan nama pengguna dan kata sandi. Ini mencegah koneksi tidak dikenal, pengiriman data palsu, atau pengintipan data.</span>
+                                <span class="step-description">Fungsi: Atur pusat pesan Mosquitto untuk memerlukan nama pengguna dan kata sandi. Ini mencegah koneksi tak dikenal, pengiriman data palsu, atau pengintipan data.</span>
                             </li>
                         </ol>
                         <h5><i class="fa-solid fa-flag-checkered"></i>VERIFIKASI KRITERIA SUKSES</h5>
@@ -1014,8 +1141,13 @@
             </div>
             <!-- Modul 21 -->
             <div class="module-card" data-module-id="21">
-                <div class="module-header">
-                    <div class="module-number">21</div><div class="module-icon"><i class="fa-solid fa-window-maximize"></i></div><div class="module-title">Menghubungkan dengan Web Lokal</div><div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                 <div class="module-header">
+                    <div class="module-info">
+                        <div class="module-number">21</div><div class="module-icon"><i class="fa-solid fa-window-maximize"></i></div><div class="module-title">Menghubungkan dengan Web Lokal</div>
+                    </div>
+                    <div class="module-meta">
+                        <div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    </div>
                 </div>
                 <div class="module-body">
                     <div class="module-body-content">
@@ -1057,22 +1189,27 @@
             </div>
              <!-- Modul 22 -->
             <div class="module-card" data-module-id="22">
-                <div class="module-header">
-                    <div class="module-number">22</div><div class="module-icon"><i class="fa-solid fa-globe"></i></div><div class="module-title">Menyajikan Tampilan Visual Web Lokal</div><div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                 <div class="module-header">
+                    <div class="module-info">
+                        <div class="module-number">22</div><div class="module-icon"><i class="fa-solid fa-globe"></i></div><div class="module-title">Menyajikan Tampilan Visual Web Lokal</div>
+                    </div>
+                    <div class="module-meta">
+                        <div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                    </div>
                 </div>
                 <div class="module-body">
                     <div class="module-body-content">
                         <h5><i class="fa-solid fa-satellite-dish"></i>PRASYARAT SISTEM</h5>
                         <p>Modul 21 (Menghubungkan dengan Web) harus diselesaikan. Raspberry Pi harus memiliki alamat IP tetap (Modul 04).</p>
                         <h5><i class="fa-solid fa-bullseye"></i>TUJUAN MODUL</h5>
-                        <p>Menyajikan sebuah tampilan visual web dinamis di Raspberry Pi, membuatnya dapat diakses dari perangkat apa pun di jaringan lokal yang sama.</p>
+                        <p>Menyajikan sebuah tampilan visual web yang datanya bisa berubah-ubah di Raspberry Pi, membuatnya dapat diakses dari perangkat apa pun di jaringan lokal yang sama.</p>
                         <h5><i class="fa-solid fa-lightbulb"></i>ANALOGI SISTEM</h5>
                         <p>Ini seperti mengubah restoran dari 'hanya melayani diri sendiri' (localhost) menjadi 'terbuka untuk umum' di lingkungan sekitar (jaringan lokal). Pengaturan <code>host='0.0.0.0'</code> adalah seperti memasang tanda "Buka" di pintu depan.</p>
                         <h5><i class="fa-solid fa-list-check"></i>LANGKAH-LANGKAH UNTUK DIIKUTI</h5>
                         <ol>
                             <li>
                                 <span class="step-title">Gunakan <code>render_template</code></span>
-                                <span class="step-description">Fungsi: Ubah perintah di alamat web Flask untuk menggunakan <code>render_template('index.html', ...)</code>. Ini memberitahu Flask untuk mengambil file HTML, menyisipkan data dinamis ke dalamnya, dan mengirimkan hasilnya ke browser.</span>
+                                <span class="step-description">Fungsi: Ubah perintah di alamat web Flask untuk menggunakan <code>render_template('index.html', ...)</code>. Ini memberitahu Flask untuk mengambil file HTML, menyisipkan data ke dalamnya, dan mengirimkan hasilnya ke browser.</span>
                             </li>
                             <li>
                                 <span class="step-title">Atur Akses Jaringan</span>
@@ -1106,12 +1243,20 @@
             let completedModules = new Set(JSON.parse(localStorage.getItem('completedModules')) || []);
 
             const backToTopBtn = document.getElementById('backToTopBtn');
+            const closingStatement = document.querySelector('.closing-statement');
 
             // --- Progress Bar Logic ---
             function updateProgress() {
                 const progressPercentage = (completedModules.size / totalModules) * 100;
                 progressBar.style.width = progressPercentage + '%';
                 progressBar.textContent = `${Math.round(progressPercentage)}% Selesai`;
+
+                // --- Conditional Visibility for Closing Statement ---
+                if (completedModules.size === totalModules) {
+                    closingStatement.classList.add('visible');
+                } else {
+                    closingStatement.classList.remove('visible');
+                }
             }
 
             function saveProgress() {
@@ -1132,14 +1277,15 @@
                     if (e.target.closest('.complete-btn')) {
                         return;
                     }
+                    
+                    e.preventDefault();
+
                     const isActive = card.classList.contains('active');
                     
-                    // Close all other cards
                     moduleCards.forEach(otherCard => {
                         otherCard.classList.remove('active');
                     });
 
-                    // Toggle the clicked card
                     if (!isActive) {
                         card.classList.add('active');
                     }
