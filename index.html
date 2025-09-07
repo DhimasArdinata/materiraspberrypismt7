@@ -1257,8 +1257,8 @@
                 <i class="fa-solid fa-satellite-dish"></i>PRASYARAT SISTEM
               </h5>
               <p>
-                Modul 11 (Komunikasi Perangkat Keras) harus diselesaikan dan I2C
-                sudah aktif.
+                Modul 11 (Komunikasi Perangkat Keras) harus diselesaikan dan
+                jalur komunikasi I2C sudah diaktifkan.
               </p>
               <h5><i class="fa-solid fa-bullseye"></i>TUJUAN MODUL</h5>
               <p>
@@ -1282,8 +1282,9 @@
                 <li>
                   <span class="step-title">Rangkaian Fisik BH1750</span>
                   <span class="step-description"
-                    >Matikan Pi. Hubungkan pin sensor sebagai berikut: Pin
-                    <strong>VCC</strong> ke <strong>3.3V</strong>, Pin
+                    ><strong>PROSEDUR KESELAMATAN:</strong> Matikan Pi sebelum
+                    menghubungkan kabel. Hubungkan pin sensor sebagai berikut:
+                    Pin <strong>VCC</strong> ke <strong>3.3V</strong>, Pin
                     <strong>GND</strong> ke <strong>GND</strong>, Pin
                     <strong>SCL</strong> ke <strong>SCL (GPIO 3)</strong>, dan
                     Pin <strong>SDA</strong> ke
@@ -1293,28 +1294,34 @@
                 <li>
                   <span class="step-title">Periksa Koneksi</span>
                   <span class="step-description"
-                    >Nyalakan Pi dan jalankan <code>i2cdetect -y 1</code>.
-                    Kehadiran alamat sensor (biasanya <code>0x23</code>) di
-                    hasil perintah memastikan koneksi fisik yang benar.</span
+                    >Nyalakan Pi dan jalankan <code>i2cdetect -y 1</code> di
+                    Terminal. Kehadiran alamat sensor (biasanya
+                    <code>0x23</code>) di hasil perintah memastikan koneksi
+                    fisik yang benar.</span
                   >
                 </li>
                 <li>
                   <span class="step-title"
-                    >Pasang Kumpulan Kode Bantu BH1750</span
+                    >Pasang Kumpulan Kode Bantu Adafruit</span
                   >
                   <span class="step-description"
-                    >Jalankan perintah <code>pip install bh1750</code>. Ini
-                    memasang kode bantu yang menyederhanakan proses pembacaan
-                    data dari sensor.</span
+                    >Jalankan perintah ini di Terminal untuk memasang kode bantu
+                    yang akan sangat memudahkan interaksi dengan sensor:
+                    <code>pip install adafruit-circuitpython-bh1750</code
+                    >.</span
                   >
                 </li>
                 <li>
-                  <span class="step-title">Baca Data dalam Kode</span>
+                  <span class="step-title"
+                    >Tulis Kode untuk Membaca Cahaya</span
+                  >
                   <span class="step-description"
-                    >Impor kode bantu dan buat koneksi ke sensor melalui jalur
-                    I2C. Di dalam perulangan, gunakan perintah seperti
-                    <code>sensor.read_light()</code> untuk mendapatkan nilai
-                    intensitas cahaya dalam satuan Lux.</span
+                    >Dalam kode Python, impor kode bantu yang baru dipasang
+                    (<code>adafruit_bh1750</code> dan <code>board</code>). Buat
+                    koneksi ke jalur I2C, lalu buat penampung data untuk sensor.
+                    Di dalam perulangan, gunakan perintah seperti
+                    <code>sensor.lux</code> untuk mendapatkan nilai intensitas
+                    cahaya.</span
                   >
                 </li>
               </ol>
@@ -1325,18 +1332,19 @@
               <p>
                 Kode berhasil menampilkan nilai intensitas cahaya dalam Lux dan
                 nilai tersebut berubah secara responsif terhadap perubahan
-                kondisi lingkungan (misal, saat senter diarahkan ke sensor).
+                kondisi lingkungan (misal, saat senter diarahkan ke sensor atau
+                saat sensor ditutup dengan tangan).
               </p>
               <h5><i class="fa-solid fa-book"></i>SUMBER ACUAN</h5>
               <div class="ref-links">
                 <ul>
                   <li>
                     <a
-                      href="https://pypi.org/project/bh1750/"
+                      href="https://learn.adafruit.com/adafruit-bh1750-ambient-light-sensor/python-circuitpython"
                       target="_blank"
                       rel="noopener noreferrer"
-                      ><i class="fa-solid fa-book-open"></i> Acuan Kode untuk
-                      Sensor BH1750</a
+                      ><i class="fa-solid fa-book-open"></i> Panduan Penggunaan
+                      BH1750 dari Adafruit</a
                     >
                   </li>
                 </ul>
