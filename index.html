@@ -1159,6 +1159,7 @@
               </p>
               <h5>
                 <i class="fa-solid fa-list-check"></i>LANGKAH-LANGKAH PENGATURAN
+                (Dilakukan di KEDUA Pi)
               </h5>
               <ol>
                 <li>
@@ -1183,41 +1184,66 @@
                     >Aktifkan Jalur Komunikasi Serial (UART)</span
                   >
                   <span class="step-description"
-                    >Aktifkan "Serial Port" dan nonaktifkan "login shell" di
-                    atasnya. UART adalah metode komunikasi titik-ke-titik, ideal
-                    untuk koneksi dengan perangkat seperti modul GPS atau untuk
-                    komunikasi langsung antar dua Raspberry Pi.</span
+                    >Aktifkan "Serial Port" dan pastikan untuk menjawab
+                    <strong>TIDAK</strong> pada pertanyaan "login shell" dan
+                    <strong>YA</strong> pada "serial port hardware". Ini
+                    memberikan akses penuh ke jalur UART untuk kode.</span
                   >
                 </li>
               </ol>
 
               <h5>
-                <i class="fa-solid fa-plug"></i>PRAKTIK: KONEKSI DASAR UNTUK
-                VERIFIKASI
+                <i class="fa-solid fa-plug"></i>PRAKTIK: KOMUNIKASI UART ANTAR
+                DUA RASPBERRY PI
               </h5>
               <ol>
                 <li>
-                  <span class="step-title">Verifikasi I2C</span>
+                  <span class="step-title">Koneksi Fisik Antar Pi</span>
                   <span class="step-description"
-                    >Pasang <code>i2c-tools</code> (<code
-                      >sudo apt install i2c-tools</code
-                    >). Hubungkan sebuah perangkat I2C (misal: ADS1115 dari
-                    modul 9) dan jalankan <code>i2cdetect -y 1</code>. Kehadiran
-                    alamat perangkat di tabel output memastikan I2C aktif.</span
+                    ><strong>PROSEDUR KESELAMATAN:</strong> Matikan KEDUA Pi
+                    sebelum menghubungkan. Hubungkan pin sebagai berikut:<br />
+                    - Pin <strong>TXD (GPIO 14)</strong> di Pi 1
+                    <strong>ke</strong> Pin <strong>RXD (GPIO 15)</strong> di Pi
+                    2.<br />
+                    - Pin <strong>RXD (GPIO 15)</strong> di Pi 1
+                    <strong>ke</strong> Pin <strong>TXD (GPIO 14)</strong> di Pi
+                    2.<br />
+                    - <strong>Sangat Penting:</strong> Sambungkan pin
+                    <strong>GND</strong> di Pi 1 ke pin <strong>GND</strong> di
+                    Pi 2 untuk menyamakan level tegangan.</span
                   >
                 </li>
                 <li>
                   <span class="step-title"
-                    >Koneksi Fisik UART (Antar 2 Raspberry Pi)</span
+                    >Pasang Kode Bantu <code>pyserial</code> di KEDUA Pi</span
                   >
                   <span class="step-description"
-                    >Matikan kedua Pi. Hubungkan pin sebagai berikut:
-                    <strong>Pin TXD (GPIO 14)</strong> di Pi 1 ke
-                    <strong>Pin RXD (GPIO 15)</strong> di Pi 2. Hubungkan
-                    <strong>Pin RXD (GPIO 15)</strong> di Pi 1 ke
-                    <strong>Pin TXD (GPIO 14)</strong> di Pi 2. Terakhir,
-                    hubungkan <strong>Pin GND</strong> di Pi 1 ke
-                    <strong>Pin GND</strong> di Pi 2 (ini sangat penting).</span
+                    >Jalankan perintah <code>pip install pyserial</code> di
+                    Terminal pada kedua Raspberry Pi. Kode bantu ini diperlukan
+                    agar Python bisa menggunakan jalur komunikasi serial.</span
+                  >
+                </li>
+                <li>
+                  <span class="step-title">Kode untuk Pi Pengirim (Pi 1)</span>
+                  <span class="step-description"
+                    >Tulis sebuah kode Python yang membuka koneksi serial ke
+                    <code>/dev/serial0</code>. Di dalam perulangan tak terbatas,
+                    gunakan perintah <code>serial.write()</code> untuk mengirim
+                    pesan teks. Pesan harus diubah menjadi format bytes terlebih
+                    dahulu (misal:
+                    <code>'Halo dari Pi 1\n'.encode('utf-8')</code>). Beri jeda
+                    singkat di setiap akhir perulangan.</span
+                  >
+                </li>
+                <li>
+                  <span class="step-title">Kode untuk Pi Penerima (Pi 2)</span>
+                  <span class="step-description"
+                    >Tulis kode Python yang juga membuka koneksi serial ke
+                    <code>/dev/serial0</code>. Di dalam perulangan, periksa jika
+                    ada data yang masuk. Jika ada, baca data tersebut dengan
+                    <code>serial.readline()</code>, ubah kembali ke format teks
+                    yang bisa dibaca (dengan <code>.decode('utf-8')</code>),
+                    lalu cetak ke layar.</span
                   >
                 </li>
               </ol>
@@ -1226,11 +1252,24 @@
                 SUKSES
               </h5>
               <p>
-                Perintah <code>i2cdetect</code> berhasil menampilkan alamat
-                perangkat I2C. Data yang dikirim dari satu Pi melalui UART dapat
-                diterima oleh Pi kedua (memerlukan kode Python terpisah untuk
-                mengirim dan menerima).
+                Setelah kedua kode dijalankan, teks 'Halo dari Pi 1' yang
+                dikirim dari Pi Pengirim akan muncul berulang kali di layar
+                Terminal Pi Penerima.
               </p>
+              <h5><i class="fa-solid fa-book"></i>SUMBER ACUAN</h5>
+              <div class="ref-links">
+                <ul>
+                  <li>
+                    <a
+                      href="https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#uart"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      ><i class="fa-solid fa-book-open"></i> Panduan Resmi
+                      Komunikasi UART di Raspberry Pi</a
+                    >
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -1473,6 +1512,15 @@
                       rel="noopener noreferrer"
                       ><i class="fa-solid fa-book-open"></i> Panduan & Acuan
                       Blynk</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="https://pypi.org/project/blynklib/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      ><i class="fa-solid fa-book-open"></i> Halaman Kode Bantu
+                      <code>blynklib</code> di PyPI</a
                     >
                   </li>
                 </ul>
