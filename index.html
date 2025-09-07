@@ -967,6 +967,20 @@
                 berubah secara logis ketika kondisi fisik di sekitar sensor
                 diubah (misalnya, sensor cahaya ditutup dengan tangan).
               </p>
+              <h5><i class="fa-solid fa-book"></i>SUMBER ACUAN</h5>
+              <div class="ref-links">
+                <ul>
+                  <li>
+                    <a
+                      href="https://learn.adafruit.com/adafruit-4-channel-adc-breakouts/python-circuitpython"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      ><i class="fa-solid fa-book-open"></i> Panduan Penggunaan
+                      ADS1115 dengan Python</a
+                    >
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -1827,6 +1841,20 @@
                 penyimpanan data akan menampilkan baris-baris data sensor yang
                 dikirim oleh kode Python.
               </p>
+              <h5><i class="fa-solid fa-book"></i>SUMBER ACUAN</h5>
+              <div class="ref-links">
+                <ul>
+                  <li>
+                    <a
+                      href="https://pypi.org/project/mysql-connector-python/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      ><i class="fa-solid fa-book-open"></i> Halaman Acuan
+                      Konektor MySQL-Python</a
+                    >
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -1838,7 +1866,9 @@
               <div class="module-icon">
                 <i class="fa-solid fa-network-wired"></i>
               </div>
-              <div class="module-title">Menghubungkan Banyak Perangkat IoT</div>
+              <div class="module-title">
+                Membangun Jaringan Perangkat Raspberry Pi
+              </div>
             </div>
             <div class="module-meta">
               <div class="tag tag-lanjutan">Lanjutan</div>
@@ -1851,16 +1881,16 @@
             <div class="module-body-content">
               <h5><i class="fa-solid fa-bullseye"></i>TUJUAN MODUL</h5>
               <p>
-                Merancang dan menerapkan jaringan multi-perangkat yang lebih
-                kompleks, di mana beberapa perangkat sensor (node) melaporkan
-                data ke satu perangkat pusat.
+                Merancang dan menerapkan sebuah susunan jaringan di mana
+                beberapa Raspberry Pi sensor melaporkan data ke satu Raspberry
+                Pi pusat.
               </p>
               <h5><i class="fa-solid fa-lightbulb"></i>ANALOGI SISTEM</h5>
               <p>
                 Ini seperti membangun sebuah jaringan reporter. Setiap reporter
-                (Node Sensor) mengirimkan laporannya ke satu kantor berita pusat
-                (Perangkat Pusat), yang kemudian mengumpulkan dan memproses
-                semua informasi.
+                (Raspberry Pi Sensor) mengirimkan laporannya ke satu kantor
+                berita pusat (Raspberry Pi Pusat), yang kemudian mengumpulkan
+                dan memproses semua informasi.
               </p>
               <h5>
                 <i class="fa-solid fa-list-check"></i>LANGKAH-LANGKAH UNTUK
@@ -1872,22 +1902,23 @@
                   <span class="step-description"
                     >Fungsi: Pilih satu Raspberry Pi sebagai "Perangkat Pusat".
                     Perangkat ini akan menjalankan pusat pesan MQTT dan harus
-                    memiliki alamat IP tetap agar mudah ditemukan oleh node
+                    memiliki alamat IP tetap agar mudah ditemukan oleh perangkat
                     lain.</span
                   >
                 </li>
                 <li>
-                  <span class="step-title">Siapkan Perangkat Node</span>
+                  <span class="step-title">Siapkan Perangkat Node Sensor</span>
                   <span class="step-description"
-                    >Fungsi: Siapkan satu atau lebih perangkat lain (bisa Pi,
-                    ESP32, dll.) sebagai "Node Sensor".</span
+                    >Fungsi: Siapkan satu atau lebih Raspberry Pi lain untuk
+                    berfungsi sebagai "Node Sensor". Masing-masing akan membaca
+                    data dari sensornya sendiri.</span
                   >
                 </li>
                 <li>
                   <span class="step-title">Atur Kode Pengirim pada Node</span>
                   <span class="step-description"
-                    >Fungsi: Pada setiap Node, jalankan kode pengirim MQTT.
-                    Alamat pusat pesan yang dituju bukan lagi
+                    >Fungsi: Pada setiap Raspberry Pi Node, jalankan kode
+                    pengirim MQTT. Alamat pusat pesan yang dituju bukan lagi
                     <code>localhost</code>, melainkan alamat IP tetap dari
                     Perangkat Pusat.</span
                   >
@@ -1899,8 +1930,9 @@
               </h5>
               <p>
                 Catatan di pusat pesan atau kode penerima pada Perangkat Pusat
-                menunjukkan pesan masuk dari beberapa alamat IP Node yang
-                berbeda, membuktikan komunikasi multi-perangkat berhasil.
+                menunjukkan pesan masuk dari beberapa alamat IP Raspberry Pi
+                Node yang berbeda, membuktikan komunikasi antar perangkat
+                berhasil.
               </p>
             </div>
           </div>
@@ -1988,6 +2020,20 @@
                 pengirim MQTT tidak dapat terhubung ke pusat pesan tanpa
                 memberikan nama pengguna dan kata sandi yang valid.
               </p>
+              <h5><i class="fa-solid fa-book"></i>SUMBER ACUAN</h5>
+              <div class="ref-links">
+                <ul>
+                  <li>
+                    <a
+                      href="https://help.ubuntu.com/community/UFW"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      ><i class="fa-solid fa-book-open"></i> Panduan Penggunaan
+                      UFW (Dinding Api)</a
+                    >
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
