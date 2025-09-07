@@ -263,6 +263,23 @@
             transform: scale(1.1);
             background-color: var(--accent-color-2);
         }
+
+        /* FIX: Mobile layout for module header */
+        @media (max-width: 600px) {
+            .module-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+            .module-meta {
+                width: 100%;
+                justify-content: space-between;
+                margin-top: 0.5rem;
+            }
+            .module-title {
+                font-size: 1.1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -568,7 +585,7 @@
                             </li>
                              <li>
                                 <span class="step-title">Buat Wadah Data dan Cetak Isinya</span>
-                                <span class="step-description">Fungsi: Buat sebuah <strong>wadah data</strong> (dalam penulisan kode disebut <strong>variabel</strong>) untuk menyimpan informasi seperti angka atau <strong>rangkaian teks</strong> (dalam penulisan kode disebut <strong>string</strong>). Gunakan <code>print()</code> untuk menampilkan isi wadah tersebut.</span>
+                                <span class="step-description">Fungsi: Buat sebuah <strong>wadah data</strong> (variabel) untuk menyimpan informasi seperti angka atau <strong>rangkaian teks</strong>. Gunakan <code>print()</code> untuk menampilkan isi wadah tersebut.</span>
                             </li>
                              <li>
                                 <span class="step-title">Tulis Struktur Pengambilan Keputusan (<code>if-elif-else</code>)</span>
@@ -815,20 +832,20 @@
                         <h5><i class="fa-solid fa-bullseye"></i>TUJUAN MODUL</h5>
                         <p>Mengirim data dari sensor yang terhubung ke Raspberry Pi ke sebuah tampilan visual di ponsel menggunakan **layanan online** bernama Blynk, sehingga data dapat dipantau secara langsung dari mana saja.</p>
                         <h5><i class="fa-solid fa-lightbulb"></i>ANALOGI SISTEM</h5>
-                        <p>Bayangkan Raspberry Pi adalah reporter di lapangan yang mengumpulkan data (suhu). Blynk adalah studio berita di ponsel. Auth Token adalah 'kartu pers' reporter agar ia bisa mengirim laporannya ke studio, dan Widget adalah 'layar TV' di studio untuk menampilkan laporan tersebut.</p>
+                        <p>Bayangkan Raspberry Pi adalah reporter di lapangan yang mengumpulkan data. Blynk adalah studio berita di ponsel. Sebuah Kunci Akses Rahasia adalah 'kartu pers' reporter agar ia bisa mengirim laporannya ke studio, dan Komponen Tampilan adalah 'layar TV' di studio untuk menampilkan laporan tersebut.</p>
                         <h5><i class="fa-solid fa-list-check"></i>LANGKAH-LANGKAH UNTUK DIIKUTI</h5>
                         <ol>
                             <li>
                                 <span class="step-title">Atur Proyek di Aplikasi Blynk</span>
-                                <span class="step-description">Fungsi: Buat akun dan proyek baru di aplikasi seluler Blynk. Proses ini akan menghasilkan sebuah <strong>Auth Token</strong> unik, yang berfungsi sebagai kunci otentikasi rahasia untuk perangkat keras.</span>
+                                <span class="step-description">Fungsi: Buat akun dan proyek baru di aplikasi seluler Blynk. Proses ini akan menghasilkan sebuah <strong>Kunci Akses Rahasia (Authentication Token)</strong>, yang berfungsi sebagai kata sandi unik dan rahasia untuk perangkat keras.</span>
                             </li>
                             <li>
                                 <span class="step-title">Tentukan Jalur Data (Virtual Pins)</span>
-                                <span class="step-description">Fungsi: Di dalam proyek, buat "Virtual Pin" (misal, V1). Ini adalah jalur data virtual yang menghubungkan perangkat keras dengan widget di aplikasi.</span>
+                                <span class="step-description">Fungsi: Di dalam proyek, buat "Virtual Pin" (misal, V1). Ini adalah jalur data virtual yang menghubungkan perangkat keras dengan komponen tampilan di aplikasi.</span>
                             </li>
                              <li>
                                 <span class="step-title">Desain Tampilan di Aplikasi</span>
-                                <span class="step-description">Fungsi: Tambahkan widget (seperti Gauge atau Labeled Value) ke panel kontrol aplikasi dan hubungkan widget tersebut ke Virtual Pin yang telah dibuat. Ini adalah tampilan visual untuk data.</span>
+                                <span class="step-description">Fungsi: Tambahkan <strong>Komponen Tampilan</strong> (seperti Gauge atau Labeled Value) ke panel kontrol aplikasi dan hubungkan komponen tersebut ke Virtual Pin yang telah dibuat. Ini adalah tampilan visual untuk data.</span>
                             </li>
                             <li>
                                 <span class="step-title">Pasang Kumpulan Kode Bantu Blynk di Pi</span>
@@ -836,11 +853,11 @@
                             </li>
                              <li>
                                 <span class="step-title">Tulis Kode Pengiriman Data</span>
-                                <span class="step-description">Fungsi: Dalam kode Python, gunakan Auth Token untuk memulai koneksi. Buat perulangan yang membaca data sensor dan gunakan perintah <code>blynk.virtual_write()</code> untuk mengirim data ke Virtual Pin yang sesuai.</span>
+                                <span class="step-description">Fungsi: Dalam kode Python, gunakan Kunci Akses Rahasia untuk memulai koneksi. Buat perulangan yang membaca data sensor dan gunakan perintah <code>blynk.virtual_write()</code> untuk mengirim data ke Virtual Pin yang sesuai.</span>
                             </li>
                         </ol>
                         <h5><i class="fa-solid fa-flag-checkered"></i>VERIFIKASI KRITERIA SUKSES</h5>
-                        <p>Widget di panel kontrol aplikasi Blynk pada ponsel menampilkan dan memperbarui nilai data sensor secara langsung sesuai dengan data yang dikirim oleh Raspberry Pi.</p>
+                        <p>Komponen Tampilan di panel kontrol aplikasi Blynk pada ponsel menampilkan dan memperbarui nilai data sensor secara langsung sesuai dengan data yang dikirim oleh Raspberry Pi.</p>
                         <h5><i class="fa-solid fa-book"></i>SUMBER ACUAN</h5>
                         <div class="ref-links">
                             <ul>
@@ -871,7 +888,7 @@
                         <ol>
                             <li>
                                 <span class="step-title">Identifikasi Tiga Komponen Utama</span>
-                                <span class="step-description">Fungsi: **Pengirim Pesan** (mengirim data), **Penerima Pesan** (menerima data), dan **Pusat Pesan** (sistem perantara yang mengelola pesan).</span>
+                                <span class="step-description">Fungsi: <strong>Pengirim Pesan</strong> (mengirim data), <strong>Penerima Pesan</strong> (menerima data), dan <strong>Pusat Pesan</strong> (sistem perantara yang mengelola pesan).</span>
                             </li>
                             <li>
                                 <span class="step-title">Pahami Konsep "Topic"</span>
@@ -1051,7 +1068,7 @@
                             </li>
                             <li>
                                 <span class="step-title">Jalankan Perintah SQL <code>INSERT</code></span>
-                                <span class="step-description">Fungsi: Setiap kali data baru diterima, buat perintah SQL <code>INSERT</code> dalam bentuk teks. Gunakan <code>cursor.execute()</code> untuk mengirim perintah ini ke sistem penyimpanan.</span>
+                                <span class="step-description">Fungsi: Setiap kali data baru diterima, buat perintah SQL <code>INSERT</code> dalam bentuk <strong>rangkaian teks</strong>. Gunakan <code>cursor.execute()</code> untuk mengirim perintah ini ke sistem penyimpanan.</span>
                             </li>
                             <li>
                                 <span class="step-title">Lakukan <code>commit()</code></span>
@@ -1114,7 +1131,7 @@
                         <h5><i class="fa-solid fa-bullseye"></i>TUJUAN MODUL</h5>
                         <p>Menerapkan praktik keamanan dasar untuk melindungi perangkat IoT dari akses tidak sah dan ancaman umum, memperkuat pertahanan sistem.</p>
                         <h5><i class="fa-solid fa-lightbulb"></i>ANALOGI SISTEM</h5>
-                        <p>Ini seperti mengamankan sebuah rumah. Mengubah kata sandi adalah mengganti kunci pintu. Mengaktifkan **dinding api digital** adalah menutup semua jendela kecuali beberapa yang penting. Mengamankan SSH dan MQTT adalah memasang kunci tambahan pada pintu-pintu tersebut.</p>
+                        <p>Ini seperti mengamankan sebuah rumah. Mengubah kata sandi adalah mengganti kunci pintu. Mengaktifkan <strong>dinding api digital</strong> adalah menutup semua jendela kecuali beberapa yang penting. Mengamankan SSH dan MQTT adalah memasang kunci tambahan pada pintu-pintu tersebut.</p>
                         <h5><i class="fa-solid fa-list-check"></i>LANGKAH-LANGKAH UNTUK DIIKUTI</h5>
                         <ol>
                             <li>
@@ -1123,7 +1140,7 @@
                             </li>
                             <li>
                                 <span class="step-title">Aktifkan Dinding Api Digital (<code>ufw</code>)</span>
-                                <span class="step-description">Fungsi: Pasang <code>ufw</code>. Gunakan <code>sudo ufw allow</code> hanya untuk **pintu data bernomor** yang benar-benar dibutuhkan (misal, 22 untuk SSH, 1883 untuk MQTT). Kemudian aktifkan dengan <code>sudo ufw enable</code>.</span>
+                                <span class="step-description">Fungsi: Pasang <code>ufw</code>. Gunakan <code>sudo ufw allow</code> hanya untuk <strong>pintu data bernomor</strong> yang benar-benar dibutuhkan (misal, 22 untuk SSH, 1883 untuk MQTT). Kemudian aktifkan dengan <code>sudo ufw enable</code>.</span>
                             </li>
                             <li>
                                 <span class="step-title">Amankan Akses SSH</span>
@@ -1245,13 +1262,11 @@
             const backToTopBtn = document.getElementById('backToTopBtn');
             const closingStatement = document.querySelector('.closing-statement');
 
-            // --- Progress Bar Logic ---
             function updateProgress() {
                 const progressPercentage = (completedModules.size / totalModules) * 100;
                 progressBar.style.width = progressPercentage + '%';
                 progressBar.textContent = `${Math.round(progressPercentage)}% Selesai`;
 
-                // --- Conditional Visibility for Closing Statement ---
                 if (completedModules.size === totalModules) {
                     closingStatement.classList.add('visible');
                 } else {
@@ -1263,7 +1278,6 @@
                 localStorage.setItem('completedModules', JSON.stringify(Array.from(completedModules)));
             }
 
-            // --- Accordion and Completion Logic ---
             moduleCards.forEach(card => {
                 const moduleId = card.dataset.moduleId;
                 const header = card.querySelector('.module-header');
@@ -1279,7 +1293,8 @@
                     }
                     
                     e.preventDefault();
-
+                    
+                    const scrollY = window.scrollY;
                     const isActive = card.classList.contains('active');
                     
                     moduleCards.forEach(otherCard => {
@@ -1289,6 +1304,8 @@
                     if (!isActive) {
                         card.classList.add('active');
                     }
+                    
+                    window.scrollTo(0, scrollY);
                 });
 
                 completeBtn.addEventListener('click', (e) => {
@@ -1304,7 +1321,6 @@
                 });
             });
 
-            // --- Back to Top Button Logic ---
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 300) {
                     backToTopBtn.classList.add('visible');
@@ -1320,7 +1336,6 @@
                 });
             });
 
-            // --- Initial Load ---
             updateProgress();
         });
     </script>
