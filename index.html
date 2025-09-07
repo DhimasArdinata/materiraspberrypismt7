@@ -22,11 +22,7 @@
             --border-color: #414868;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-color: var(--bg-color);
@@ -36,28 +32,17 @@
             padding: 2rem 1rem;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
+        .container { max-width: 900px; margin: 0 auto; }
 
-        header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
+        header { text-align: center; margin-bottom: 2rem; }
         header h1 {
             font-family: 'Roboto Mono', monospace;
             color: var(--header-color);
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
             margin-bottom: 0.5rem;
             text-shadow: 0 0 5px var(--accent-color-2);
         }
-
-        header p {
-            color: var(--accent-color-1);
-            font-size: 1.1rem;
-        }
+        header p { color: var(--accent-color-1); font-size: 1.1rem; }
         
         .progress-container {
             width: 100%;
@@ -67,7 +52,6 @@
             border: 1px solid var(--border-color);
             overflow: hidden;
         }
-
         .progress-bar {
             width: 0%;
             height: 25px;
@@ -89,6 +73,7 @@
             overflow: hidden;
             transition: all 0.3s ease;
         }
+        .module-card.completed { border-left: 5px solid var(--accent-color-green); }
 
         .module-header {
             padding: 1rem 1.5rem;
@@ -98,10 +83,7 @@
             gap: 1rem;
             background-color: rgba(0,0,0,0.1);
         }
-        
-        .module-header:hover {
-            background-color: rgba(187, 154, 247, 0.1);
-        }
+        .module-header:hover { background-color: rgba(187, 154, 247, 0.1); }
 
         .module-number {
             font-family: 'Roboto Mono', monospace;
@@ -111,7 +93,6 @@
             min-width: 30px;
             text-align: right;
         }
-        
         .module-icon {
             font-size: 1.5rem;
             color: var(--accent-color-2);
@@ -119,14 +100,7 @@
             text-align: center;
             transition: transform 0.3s ease;
         }
-
-        .module-title {
-            flex-grow: 1;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--header-color);
-        }
-        
+        .module-title { flex-grow: 1; font-size: 1.1rem; font-weight: 600; color: var(--header-color); }
         .tag {
             padding: 0.2rem 0.6rem;
             border-radius: 15px;
@@ -135,10 +109,24 @@
             color: #1a1b26;
             flex-shrink: 0;
         }
-
         .tag-dasar { background-color: var(--accent-color-green); }
         .tag-menengah { background-color: var(--accent-color-yellow); }
         .tag-lanjutan { background-color: var(--accent-color-red); }
+
+        .complete-btn {
+            background: none;
+            border: 2px solid var(--border-color);
+            color: var(--border-color);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+        .complete-btn:hover { border-color: var(--accent-color-green); color: var(--accent-color-green); }
+        .completed .complete-btn { background-color: var(--accent-color-green); border-color: var(--accent-color-green); color: var(--card-color); }
 
         .module-body {
             max-height: 0;
@@ -146,19 +134,9 @@
             transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
             padding: 0 1.5rem;
         }
-        
-        .module-card.active .module-body {
-            max-height: 1500px;
-            padding: 1.5rem 1.5rem;
-        }
-        
-        .module-card.active .module-header {
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .module-card.active .module-icon {
-            transform: rotate(90deg);
-        }
+        .module-card.active .module-body { max-height: 1500px; padding: 1.5rem 1.5rem; }
+        .module-card.active .module-header { border-bottom: 1px solid var(--border-color); }
+        .module-card.active .module-icon { transform: rotate(90deg); }
 
         .module-body h5 {
             color: var(--accent-color-1);
@@ -168,24 +146,14 @@
             border-left: 3px solid var(--accent-color-1);
             padding-left: 10px;
         }
-
-        .module-body p, .module-body ol {
-            margin-bottom: 1.5rem;
-        }
-        
-        .module-body ol {
-            list-style: none;
-            counter-reset: step-counter;
-            padding-left: 1rem;
-        }
-        
+        .module-body p, .module-body ol { margin-bottom: 1.5rem; }
+        .module-body ol { list-style: none; counter-reset: step-counter; padding-left: 1rem; }
         .module-body ol li {
             counter-increment: step-counter;
             position: relative;
             padding-left: 2.5rem;
             margin-bottom: 1rem;
         }
-        
         .module-body ol li::before {
             content: counter(step-counter);
             font-family: 'Roboto Mono', monospace;
@@ -210,12 +178,7 @@
             border: 1px solid var(--border-color);
             border-radius: 10px;
         }
-        
-        .closing-statement h3 {
-            color: var(--accent-color-1);
-            margin-bottom: 1rem;
-        }
-
+        .closing-statement h3 { color: var(--accent-color-1); margin-bottom: 1rem; }
     </style>
 </head>
 <body>
@@ -229,10 +192,10 @@
         </header>
 
         <div class="accordion-container">
-            <!-- Materi 1 -->
-            <div class="module-card">
+            <!-- Modul 1-5 -->
+            <div class="module-card" data-module-id="1">
                 <div class="module-header">
-                    <div class="module-number">01</div><div class="module-icon"><i class="fa-solid fa-power-off"></i></div><div class="module-title">Inisialisasi Sistem Primer</div><div class="tag tag-dasar">Dasar</div>
+                    <div class="module-number">01</div><div class="module-icon"><i class="fa-solid fa-power-off"></i></div><div class="module-title">Inisialisasi Sistem Primer</div><div class="tag tag-dasar">Dasar</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
                 </div>
                 <div class="module-body">
                     <h5>OBJEKTIF SISTEM</h5><p>Mengaktifkan unit Raspberry Pi dari kondisi non-operasional menjadi sistem dengan OS yang berfungsi penuh dan siap digunakan.</p>
@@ -247,10 +210,9 @@
                     <h5>VERIFIKASI KRITERIA SUKSES</h5><p>Sistem berhasil boot hingga menampilkan desktop grafis tanpa memerlukan konfigurasi tambahan, dan secara otomatis terhubung ke WiFi.</p>
                 </div>
             </div>
-            <!-- Materi 2 -->
-            <div class="module-card">
+            <div class="module-card" data-module-id="2">
                 <div class="module-header">
-                    <div class="module-number">02</div><div class="module-icon"><i class="fa-solid fa-terminal"></i></div><div class="module-title">Dasar Antarmuka Baris Perintah (CLI)</div><div class="tag tag-dasar">Dasar</div>
+                    <div class="module-number">02</div><div class="module-icon"><i class="fa-solid fa-terminal"></i></div><div class="module-title">Dasar Antarmuka Baris Perintah (CLI)</div><div class="tag tag-dasar">Dasar</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
                 </div>
                 <div class="module-body">
                     <h5>OBJEKTIF SISTEM</h5><p>Mengeksekusi perintah dasar di terminal untuk interaksi non-grafis yang efisien dengan sistem operasi.</p>
@@ -266,10 +228,9 @@
                     <h5>VERIFIKASI KRITERIA SUKSES</h5><p>Berhasil membuat struktur direktori dan file teks melalui terminal, yang perubahannya dapat diverifikasi baik melalui perintah `ls` maupun file manager grafis.</p>
                 </div>
             </div>
-             <!-- Materi 3 -->
-            <div class="module-card">
+            <div class="module-card" data-module-id="3">
                 <div class="module-header">
-                    <div class="module-number">03</div><div class="module-icon"><i class="fa-solid fa-user-shield"></i></div><div class="module-title">Manajemen File & Hak Akses</div><div class="tag tag-dasar">Dasar</div>
+                    <div class="module-number">03</div><div class="module-icon"><i class="fa-solid fa-user-shield"></i></div><div class="module-title">Manajemen File & Hak Akses</div><div class="tag tag-dasar">Dasar</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
                 </div>
                 <div class="module-body">
                     <h5>OBJEKTIF SISTEM</h5><p>Memahami perbedaan kritis antara pengguna biasa dan superuser (root), serta mengelola hak akses file untuk menjaga keamanan.</p>
@@ -283,10 +244,9 @@
                     <h5>VERIFIKASI KRITERIA SUKSES</h5><p>Mendapatkan galat "Permission Denied" saat melakukan operasi terlarang. Berhasil mengubah hak akses sebuah file dan memverifikasi perubahannya melalui `ls -l`.</p>
                 </div>
             </div>
-            <!-- Materi 4 -->
-            <div class="module-card">
+            <div class="module-card" data-module-id="4">
                 <div class="module-header">
-                    <div class="module-number">04</div><div class="module-icon"><i class="fa-solid fa-wifi"></i></div><div class="module-title">Konfigurasi Jaringan Statis</div><div class="tag tag-dasar">Dasar</div>
+                    <div class="module-number">04</div><div class="module-icon"><i class="fa-solid fa-wifi"></i></div><div class="module-title">Konfigurasi Jaringan Statis</div><div class="tag tag-dasar">Dasar</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
                 </div>
                 <div class="module-body">
                     <h5>OBJEKTIF SISTEM</h5><p>Mengonfigurasi parameter jaringan (Hostname & IP Statis) untuk memastikan konektivitas yang stabil dan dapat diandalkan.</p>
@@ -301,10 +261,9 @@
                     <h5>VERIFIKASI KRITERIA SUKSES</h5><p>Setelah reboot, gunakan perintah `hostname -I` untuk memastikan IP baru telah diterapkan. Perangkat dapat di-ping dari komputer lain menggunakan IP statis tersebut.</p>
                 </div>
             </div>
-            <!-- Materi 5 -->
-            <div class="module-card">
+            <div class="module-card" data-module-id="5">
                 <div class="module-header">
-                    <div class="module-number">05</div><div class="module-icon"><i class="fa-solid fa-display"></i></div><div class="module-title">Akses Jarak Jauh (SSH & VNC)</div><div class="tag tag-menengah">Menengah</div>
+                    <div class="module-number">05</div><div class="module-icon"><i class="fa-solid fa-display"></i></div><div class="module-title">Akses Jarak Jauh (SSH & VNC)</div><div class="tag tag-menengah">Menengah</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
                 </div>
                 <div class="module-body">
                     <h5>OBJEKTIF SISTEM</h5><p>Membangun koneksi jarak jauh ke Raspberry Pi untuk operasi tanpa monitor (headless), baik melalui terminal (SSH) maupun desktop (VNC).</p>
@@ -320,28 +279,33 @@
                     <h5>VERIFIKASI KRITERIA SUKSES</h5><p>Berhasil masuk dan menjalankan perintah di terminal Raspberry Pi melalui SSH. Berhasil menampilkan dan mengontrol seluruh desktop Raspberry Pi melalui VNC.</p>
                 </div>
             </div>
-            <!-- Lanjutan untuk 22 materi -->
-            <div class="module-card">
+            
+            <!-- Modul 6 (Revisi) -->
+            <div class="module-card" data-module-id="6">
                 <div class="module-header">
-                    <div class="module-number">06</div><div class="module-icon"><i class="fa-solid fa-file-export"></i></div><div class="module-title">Transfer File Aman (SCP)</div><div class="tag tag-menengah">Menengah</div>
+                    <div class="module-number">06</div><div class="module-icon"><i class="fa-solid fa-file-export"></i></div><div class="module-title">Transfer File via WinSCP (Windows)</div><div class="tag tag-menengah">Menengah</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
                 </div>
                 <div class="module-body">
-                    <h5>OBJEKTIF SISTEM</h5><p>Mentransfer file antara Raspberry Pi dan komputer lain secara aman dan efisien melalui jaringan, tanpa memerlukan media fisik.</p>
+                    <h5>OBJEKTIF SISTEM</h5><p>Mentransfer file antara komputer Windows dan Raspberry Pi secara aman dan efisien menggunakan antarmuka grafis WinSCP.</p>
                     <h5>PROTOKOL EKSEKUSI</h5>
                     <ol>
                         <li>Pastikan SSH sudah aktif di Raspberry Pi (dari Modul 05).</li>
-                        <li>Buka Terminal (di Linux/macOS) atau Command Prompt/PowerShell (di Windows) pada komputer Anda.</li>
-                        <li>Untuk mengunggah file ke Raspberry Pi, gunakan perintah `scp` dengan format: `scp [nama_file_lokal] [user]@[ip_raspi]:[path_tujuan]`.</li>
-                        <li>Untuk mengunduh file dari Raspberry Pi, balik formatnya: `scp [user]@[ip_raspi]:[path_file_remote] [tujuan_lokal]`.</li>
-                        <li>Sistem akan meminta password user Raspberry Pi untuk mengautentikasi transfer.</li>
+                        <li>Di komputer Windows Anda, unduh dan instal aplikasi `WinSCP`.</li>
+                        <li>Jalankan WinSCP. Akan muncul jendela "Login".</li>
+                        <li>Pada jendela Login, pilih "File protocol" menjadi **SCP**.</li>
+                        <li>Masukkan alamat IP Raspberry Pi Anda di kolom "Host name", nama pengguna di "User name", dan kata sandi di "Password".</li>
+                        <li>Klik "Login". Anda mungkin akan melihat peringatan keamanan saat pertama kali terhubung, klik "Yes" untuk mempercayai host.</li>
+                        <li>Setelah terhubung, Anda akan melihat tampilan dua panel: panel kiri adalah file di komputer Anda, dan panel kanan adalah file di Raspberry Pi.</li>
+                        <li>Untuk mentransfer file, cukup seret (drag and drop) file dari satu panel ke panel lainnya.</li>
                     </ol>
-                    <h5>VERIFIKASI KRITERIA SUKSES</h5><p>File berhasil disalin dari satu mesin ke mesin lainnya tanpa korupsi. Keberadaan file dapat diverifikasi menggunakan perintah `ls` di direktori tujuan.</p>
+                    <h5>VERIFIKASI KRITERIA SUKSES</h5><p>File yang diseret dari panel kiri (komputer) muncul di panel kanan (Raspberry Pi), dan sebaliknya. File dapat dibuka di perangkat tujuan untuk memastikan transfer berhasil tanpa korupsi.</p>
                 </div>
             </div>
-
-            <div class="module-card">
+            
+            <!-- Modul 7-22 -->
+            <div class="module-card" data-module-id="7">
                 <div class="module-header">
-                    <div class="module-number">07</div><div class="module-icon"><i class="fa-brands fa-python"></i></div><div class="module-title">Fundamental Pemrograman Python</div><div class="tag tag-dasar">Dasar</div>
+                    <div class="module-number">07</div><div class="module-icon"><i class="fa-brands fa-python"></i></div><div class="module-title">Fundamental Pemrograman Python</div><div class="tag tag-dasar">Dasar</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
                 </div>
                 <div class="module-body">
                     <h5>OBJEKTIF SISTEM</h5><p>Menguasai konstruksi pemrograman dasar menggunakan bahasa Python, yang merupakan fondasi untuk mengontrol GPIO dan logika IoT.</p>
@@ -357,30 +321,27 @@
                     <h5>VERIFIKASI KRITERIA SUKSES</h5><p>Skrip berjalan tanpa galat sintaks. Output yang dihasilkan di panel "Shell" Thonny sesuai dengan logika program yang diharapkan.</p>
                 </div>
             </div>
-
-            <div class="module-card">
+            <div class="module-card" data-module-id="8">
                 <div class="module-header">
-                    <div class="module-number">08</div><div class="module-icon"><i class="fa-solid fa-microchip"></i></div><div class="module-title">Interaksi Fisik: GPIO Digital I/O</div><div class="tag tag-menengah">Menengah</div>
+                    <div class="module-number">08</div><div class="module-icon"><i class="fa-solid fa-lightbulb"></i></div><div class="module-title">Kontrol Output GPIO (LED Blink)</div><div class="tag tag-menengah">Menengah</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
                 </div>
                 <div class="module-body">
-                    <h5>OBJEKTIF SISTEM</h5><p>Mengontrol komponen elektronik eksternal (output) dan membaca status dari komponen input (input) melalui pin General Purpose Input/Output.</p>
+                    <h5>OBJEKTIF SISTEM</h5><p>Mengontrol komponen elektronik eksternal (output) melalui pin General Purpose Input/Output untuk menghasilkan efek visual sederhana seperti LED berkedip.</p>
                     <h5>PROTOKOL EKSEKUSI</h5>
                     <ol>
                         <li><b>PENTING:</b> Matikan dan cabut daya Raspberry Pi sebelum menyambungkan kabel apapun ke pin GPIO.</li>
-                        <li>Pada breadboard, rangkai sirkuit LED: Hubungkan pin GPIO (misal, GPIO17) ke resistor, lalu ke kaki panjang (anoda) LED. Hubungkan kaki pendek (katoda) LED ke pin Ground (GND).</li>
-                        <li>Rangkai sirkuit tombol: Hubungkan satu kaki tombol ke pin GPIO (misal, GPIO2) dan kaki diagonal seberangnya ke pin 3.3V.</li>
+                        <li>Pada breadboard, rangkai sirkuit LED: Hubungkan pin GPIO (misal, GPIO17) ke resistor (misal, 330 Ohm), lalu ke kaki panjang (anoda) LED. Hubungkan kaki pendek (katoda) LED ke pin Ground (GND).</li>
                         <li>Nyalakan kembali Raspberry Pi dan buka Thonny IDE.</li>
-                        <li>Dalam skrip Python, impor kelas `LED` dan `Button` dari pustaka `gpiozero`.</li>
-                        <li>Buat objek untuk merepresentasikan LED dan Tombol, dengan menyebutkan nomor pin GPIO yang digunakan.</li>
-                        <li>Buat perulangan tak terbatas yang di dalamnya memeriksa kondisi tombol (misal, `tombol.is_pressed`) untuk menyalakan (`led.on()`) atau mematikan (`led.off()`) LED.</li>
+                        <li>Dalam skrip Python, impor kelas `LED` dari pustaka `gpiozero` dan fungsi `sleep` dari pustaka `time`.</li>
+                        <li>Buat objek untuk merepresentasikan LED, dengan menyebutkan nomor pin GPIO yang digunakan.</li>
+                        <li>Buat perulangan tak terbatas (`while True`) yang di dalamnya secara berurutan: menyalakan LED (`led.on()`), memberi jeda (`sleep(1)`), mematikan LED (`led.off()`), dan memberi jeda lagi (`sleep(1)`).</li>
                     </ol>
-                    <h5>VERIFIKASI KRITERIA SUKSES</h5><p>LED menyala/mati secara instan sesuai dengan interaksi pada tombol, menunjukkan kontrol output digital berdasarkan input digital yang berhasil.</p>
+                    <h5>VERIFIKASI KRITERIA SUKSES</h5><p>LED berkedip secara teratur dengan interval satu detik menyala dan satu detik mati, menunjukkan kontrol output digital berbasis waktu yang berhasil.</p>
                 </div>
             </div>
-
-            <div class="module-card">
+            <div class="module-card" data-module-id="9">
                 <div class="module-header">
-                    <div class="module-number">09</div><div class="module-icon"><i class="fa-solid fa-ruler-combined"></i></div><div class="module-title">Interfacing Sensor (Digital & Analog)</div><div class="tag tag-menengah">Menengah</div>
+                    <div class="module-number">09</div><div class="module-icon"><i class="fa-solid fa-ruler-combined"></i></div><div class="module-title">Interfacing Sensor (Digital & Analog)</div><div class="tag tag-menengah">Menengah</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
                 </div>
                 <div class="module-body">
                     <h5>OBJEKTIF SISTEM</h5><p>Membaca data dari dunia nyata menggunakan sensor, baik yang mengeluarkan sinyal digital maupun analog, dan mengubahnya menjadi informasi yang dapat diproses.</p>
@@ -395,10 +356,9 @@
                     <h5>VERIFIKASI KRITERIA SUKSES</h5><p>Program berhasil mencetak nilai jarak dalam sentimeter dan suhu dalam derajat Celsius yang berubah secara logis ketika kondisi fisik di sekitar sensor diubah.</p>
                 </div>
             </div>
-            
-            <div class="module-card">
+            <div class="module-card" data-module-id="10">
                 <div class="module-header">
-                    <div class="module-number">10</div><div class="module-icon"><i class="fa-solid fa-align-left"></i></div><div class="module-title">Visualisasi Data Terminal</div><div class="tag tag-dasar">Dasar</div>
+                    <div class="module-number">10</div><div class="module-icon"><i class="fa-solid fa-align-left"></i></div><div class="module-title">Visualisasi Data Terminal</div><div class="tag tag-dasar">Dasar</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
                 </div>
                 <div class="module-body">
                     <h5>OBJEKTIF SISTEM</h5><p>Menampilkan data sensor yang dibaca secara terus-menerus di terminal dengan format yang jelas dan mudah dibaca untuk keperluan pemantauan dan debugging.</p>
@@ -412,24 +372,209 @@
                     <h5>VERIFIKASI KRITERIA SUKSES</h5><p>Terminal menampilkan baris data baru secara teratur (sesuai jeda `sleep`), dan data tersebut merespons perubahan pada sensor secara real-time.</p>
                 </div>
             </div>
-
-            <!-- Dan seterusnya hingga 22 modul -->
-            <div class="module-card">
+            <div class="module-card" data-module-id="11">
                 <div class="module-header">
-                    <div class="module-number">22</div><div class="module-icon"><i class="fa-solid fa-globe"></i></div><div class="module-title">Deployment Dasbor Web Lokal</div><div class="tag tag-lanjutan">Lanjutan</div>
+                    <div class="module-number">11</div><div class="module-icon"><i class="fa-solid fa-diagram-project"></i></div><div class="module-title">Protokol Komunikasi Serial</div><div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                </div>
+                <div class="module-body">
+                    <h5>OBJEKTIF SISTEM</h5><p>Memahami dan mengaktifkan protokol komunikasi serial UART dan I2C, yang memungkinkan Raspberry Pi berkomunikasi dengan berbagai macam modul dan mikrokontroler lain.</p>
+                    <h5>PROTOKOL EKSEKUSI</h5>
+                    <ol>
+                        <li>Jalankan `sudo raspi-config` dan navigasi ke "Interface Options".</li>
+                        <li>Pilih "I2C" dan aktifkan (Enable).</li>
+                        <li>Pilih "Serial Port". Jawab "No" untuk login shell, dan "Yes" untuk mengaktifkan hardware serial port (UART).</li>
+                        <li>Keluar dari `raspi-config` dan reboot jika diminta.</li>
+                        <li>Instal perkakas bantu dengan `sudo apt install i2c-tools`.</li>
+                        <li>Untuk verifikasi I2C, hubungkan perangkat I2C dan jalankan perintah `i2cdetect -y 1`.</li>
+                    </ol>
+                    <h5>VERIFIKASI KRITERIA SUKSES</h5><p>Perintah `i2cdetect` berhasil menampilkan sebuah tabel dan menunjukkan alamat heksadesimal dari perangkat I2C yang terhubung (misal, `40` atau `77`).</p>
+                </div>
+            </div>
+            <div class="module-card" data-module-id="12">
+                <div class="module-header">
+                    <div class="module-number">12</div><div class="module-icon"><i class="fa-solid fa-sun"></i></div><div class="module-title">Implementasi Sensor I2C</div><div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                </div>
+                <div class="module-body">
+                    <h5>OBJEKTIF SISTEM</h5><p>Membaca data secara spesifik dari sensor yang menggunakan protokol komunikasi I2C, sebuah metode yang efisien dalam penggunaan pin GPIO.</p>
+                    <h5>PROTOKOL EKSEKUSI</h5>
+                    <ol>
+                        <li>Matikan Raspberry Pi. Hubungkan pin SDA sensor ke GPIO2, SCL ke GPIO3, VCC ke 3.3V, dan GND ke Ground.</li>
+                        <li>Nyalakan Raspberry Pi dan verifikasi koneksi dengan `i2cdetect -y 1` untuk melihat alamat sensor.</li>
+                        <li>Instal pustaka Python yang diperlukan untuk berinteraksi dengan bus I2C (misal, `pip install smbus2`) atau pustaka spesifik sensor (misal, dari Adafruit).</li>
+                        <li>Dalam skrip Python, impor pustaka tersebut. Inisialisasi bus I2C.</li>
+                        <li>Kirim perintah ke alamat sensor untuk memulai pengukuran dan kemudian baca data yang dikembalikan oleh sensor, sesuai dengan datasheet perangkat.</li>
+                    </ol>
+                    <h5>VERIFIKASI KRITERIA SUKSES</h5><p>Skrip berhasil mencetak nilai sensor (misalnya, intensitas cahaya dalam Lux) yang akurat dan berubah secara responsif terhadap perubahan kondisi lingkungan.</p>
+                </div>
+            </div>
+            <div class="module-card" data-module-id="13">
+                <div class="module-header">
+                    <div class="module-number">13</div><div class="module-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div><div class="module-title">Integrasi Platform IoT</div><div class="tag tag-menengah">Menengah</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                </div>
+                <div class="module-body">
+                    <h5>OBJEKTIF SISTEM</h5><p>Mengirim data dari sensor yang terhubung ke Raspberry Pi ke dasbor online agar dapat dipantau dari mana saja melalui internet.</p>
+                    <h5>PROTOKOL EKSEKUSI</h5>
+                    <ol>
+                        <li>Buat akun gratis di platform IoT seperti Thingspeak.</li>
+                        <li>Buat "Channel" baru dan konfigurasikan "Field" untuk setiap jenis data yang ingin Anda kirim (misal, Field 1 untuk Suhu).</li>
+                        <li>Buka tab "API Keys" dan salin "Write API Key" Anda. Kunci ini bersifat rahasia.</li>
+                        <li>Instal pustaka `requests` di Raspberry Pi menggunakan `pip`.</li>
+                        <li>Dalam skrip Python, gabungkan kode pembacaan sensor dengan fungsi untuk membuat permintaan HTTP GET ke API Thingspeak.</li>
+                        <li>Sertakan API Key dan data sensor Anda sebagai parameter dalam URL permintaan tersebut. Beri jeda minimal 15-20 detik antar pengiriman untuk mematuhi batas paket gratis.</li>
+                    </ol>
+                    <h5>VERIFIKASI KRITERIA SUKSES</h5><p>Data sensor muncul di dasbor online Thingspeak Anda sebagai grafik atau gauge yang diperbarui secara berkala sesuai dengan data yang dikirim.</p>
+                </div>
+            </div>
+            <div class="module-card" data-module-id="14">
+                <div class="module-header">
+                    <div class="module-number">14</div><div class="module-icon"><i class="fa-solid fa-share-nodes"></i></div><div class="module-title">Arsitektur MQTT</div><div class="tag tag-menengah">Menengah</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                </div>
+                <div class="module-body">
+                    <h5>OBJEKTIF SISTEM</h5><p>Memahami arsitektur publish-subscribe dari protokol MQTT, protokol standar industri untuk komunikasi IoT yang ringan dan efisien.</p>
+                    <h5>PROTOKOL EKSEKUSI</h5>
+                    <ol>
+                        <li>Identifikasi tiga komponen utama: Publisher (pengirim data, misal: sensor), Subscriber (penerima data, misal: aplikasi dasbor), dan Broker (server perantara).</li>
+                        <li>Pahami konsep "Topic", yaitu sebuah string teks yang berfungsi sebagai alamat atau kanal data (misal, `rumah/kamar_tidur/suhu`).</li>
+                        <li>Lacak alur pesan: Publisher tidak mengirim data langsung ke Subscriber. Publisher mengirim pesan ke sebuah Topic di Broker.</li>
+                        <li>Broker kemudian bertanggung jawab untuk meneruskan pesan tersebut ke semua Subscriber yang sedang "berlangganan" ke Topic yang sama.</li>
+                    </ol>
+                    <h5>VERIFIKASI KRITERIA SUKSES</h5><p>Mampu menjelaskan peran setiap komponen dan alur data dalam skenario komunikasi MQTT yang diberikan, serta keuntungan dari arsitektur ini (kopling longgar).</p>
+                </div>
+            </div>
+            <div class="module-card" data-module-id="15">
+                <div class="module-header">
+                    <div class="module-number">15</div><div class="module-icon"><i class="fa-solid fa-server"></i></div><div class="module-title">Instalasi Broker MQTT Lokal</div><div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                </div>
+                <div class="module-body">
+                    <h5>OBJEKTIF SISTEM</h5><p>Menginstal dan menjalankan server perantara (broker) MQTT di Raspberry Pi itu sendiri, menciptakan jaringan IoT lokal yang independen dari internet.</p>
+                    <h5>PROTOKOL EKSEKUSI</h5>
+                    <ol>
+                        <li>Buka terminal dan instal broker Mosquitto beserta kliennya menggunakan `sudo apt install mosquitto mosquitto-clients`.</li>
+                        <li>Periksa status layanan untuk memastikan broker berjalan secara otomatis dengan `sudo systemctl status mosquitto`.</li>
+                        <li>Buka dua jendela terminal secara bersamaan.</li>
+                        <li>Di terminal pertama, jalankan perintah `mosquitto_sub` untuk berlangganan (subscribe) ke sebuah topik, misalnya: `mosquitto_sub -t "test/topic"`.</li>
+                        <li>Di terminal kedua, jalankan perintah `mosquitto_pub` untuk menerbitkan (publish) pesan ke topik yang sama, misalnya: `mosquitto_pub -t "test/topic" -m "Halo Dunia"`.</li>
+                    </ol>
+                    <h5>VERIFIKASI KRITERIA SUKSES</h5><p>Teks "Halo Dunia" yang dikirim dari terminal kedua langsung muncul di terminal pertama, menandakan broker berhasil meneruskan pesan.</p>
+                </div>
+            </div>
+            <div class="module-card" data-module-id="16">
+                <div class="module-header">
+                    <div class="module-number">16</div><div class="module-icon"><i class="fa-solid fa-arrow-right-arrow-left"></i></div><div class="module-title">Klien MQTT dengan Python</div><div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                </div>
+                <div class="module-body">
+                    <h5>OBJEKTIF SISTEM</h5><p>Mengintegrasikan fungsionalitas MQTT ke dalam skrip Python, memungkinkan program untuk mengirim (publish) dan menerima (subscribe) data secara terprogram.</p>
+                    <h5>PROTOKOL EKSEKUSI</h5>
+                    <ol>
+                        <li>Instal pustaka Paho-MQTT untuk Python menggunakan `pip install paho-mqtt`.</li>
+                        <li>Buat skrip *publisher*: impor pustaka, buat objek klien, hubungkan ke alamat broker (`localhost`), lalu gunakan metode `client.publish()` di dalam sebuah perulangan untuk mengirim data.</li>
+                        <li>Buat skrip *subscriber* yang terpisah: impor pustaka, buat objek klien, dan definisikan fungsi callback (misal, `on_message`) yang akan dieksekusi setiap kali pesan diterima.</li>
+                        <li>Di skrip subscriber, hubungkan ke broker, berlangganan ke topik yang relevan dengan `client.subscribe()`, dan jalankan `client.loop_forever()` untuk mulai mendengarkan pesan.</li>
+                    </ol>
+                    <h5>VERIFIKASI KRITERIA SUKSES</h5><p>Data yang dikirim oleh skrip publisher (misal, nilai sensor acak) muncul di konsol dari skrip subscriber yang sedang berjalan secara real-time.</p>
+                </div>
+            </div>
+            <div class="module-card" data-module-id="17">
+                <div class="module-header">
+                    <div class="module-number">17</div><div class="module-icon"><i class="fa-solid fa-database"></i></div><div class="module-title">Instalasi Database Server</div><div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                </div>
+                <div class="module-body">
+                    <h5>OBJEKTIF SISTEM</h5><p>Menginstal dan mengamankan server database relasional lokal (seperti MariaDB) untuk penyimpanan data historis yang terstruktur dari sensor.</p>
+                    <h5>PROTOKOL EKSEKUSI</h5>
+                    <ol>
+                        <li>Instal paket server MariaDB menggunakan `sudo apt install mariadb-server`.</li>
+                        <li>Jalankan skrip keamanan pasca-instalasi dengan `sudo mysql_secure_installation`. Ikuti petunjuk di layar untuk mengatur kata sandi root, menghapus pengguna anonim, dan menonaktifkan login root jarak jauh.</li>
+                        <li>Masuk ke antarmuka baris perintah database dengan `sudo mysql -u root -p`.</li>
+                        <li>Gunakan perintah SQL `CREATE DATABASE` untuk membuat database baru untuk proyek Anda.</li>
+                        <li>Gunakan `USE` untuk memilih database tersebut, lalu `CREATE TABLE` untuk mendefinisikan struktur tabel yang akan menyimpan data sensor (misal, kolom untuk id, timestamp, dan nilai suhu).</li>
+                    </ol>
+                    <h5>VERIFIKASI KRITERIA SUKSES</h5><p>Berhasil login ke server database, dan perintah `SHOW TABLES;` menampilkan tabel yang baru saja Anda buat dengan struktur kolom yang benar.</p>
+                </div>
+            </div>
+            <div class="module-card" data-module-id="18">
+                <div class="module-header">
+                    <div class="module-number">18</div><div class="module-icon"><i class="fa-solid fa-plug-circle-check"></i></div><div class="module-title">Integrasi Python & Database</div><div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                </div>
+                <div class="module-body">
+                    <h5>OBJEKTIF SISTEM</h5><p>Menyimpan data sensor yang diterima oleh skrip Python secara persisten ke dalam tabel di database MariaDB.</p>
+                    <h5>PROTOKOL EKSEKUSI</h5>
+                    <ol>
+                        <li>Instal konektor Python untuk MySQL/MariaDB menggunakan `pip install mysql-connector-python`.</li>
+                        <li>Dalam skrip Python (misalnya, skrip subscriber MQTT), impor pustaka konektor.</li>
+                        <li>Tulis kode untuk membuat objek koneksi ke database, dengan menyediakan host (`localhost`), user, password, dan nama database.</li>
+                        <li>Buat objek "kursor" dari koneksi tersebut. Kursor adalah objek yang digunakan untuk mengeksekusi perintah SQL.</li>
+                        <li>Setiap kali data sensor diterima, buat string perintah SQL `INSERT` yang menyertakan data tersebut.</li>
+                        <li>Gunakan `cursor.execute()` untuk menjalankan perintah SQL, lalu panggil `connection.commit()` untuk menyimpan perubahan secara permanen ke database.</li>
+                    </ol>
+                    <h5>VERIFIKASI KRITERIA SUKSES</h5><p>Setelah skrip berjalan untuk beberapa saat, jalankan kueri `SELECT * FROM nama_tabel;` di klien `mysql`. Tabel akan berisi baris-baris data sensor yang dikirim oleh skrip Python.</p>
+                </div>
+            </div>
+            <div class="module-card" data-module-id="19">
+                <div class="module-header">
+                    <div class="module-number">19</div><div class="module-icon"><i class="fa-solid fa-network-wired"></i></div><div class="module-title">Topologi Jaringan IoT</div><div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                </div>
+                <div class="module-body">
+                    <h5>OBJEKTIF SISTEM</h5><p>Merancang dan mengimplementasikan jaringan multi-perangkat yang lebih kompleks, seperti topologi bintang, di mana beberapa node sensor melaporkan data ke gateway pusat.</p>
+                    <h5>PROTOKOL EKSEKUSI</h5>
+                    <ol>
+                        <li>Tentukan satu Raspberry Pi sebagai "Gateway". Perangkat ini akan menjalankan broker MQTT (Mosquitto). Pastikan Gateway memiliki alamat IP statis.</li>
+                        <li>Siapkan satu atau lebih perangkat lain (bisa Raspberry Pi, ESP32, dll.) sebagai "Node".</li>
+                        <li>Pastikan semua perangkat (Gateway dan Node) terhubung ke jaringan WiFi yang sama.</li>
+                        <li>Pada setiap Node, jalankan skrip publisher MQTT. Namun, kali ini, alamat broker yang dituju bukan lagi `localhost`, melainkan alamat IP statis dari Gateway.</li>
+                        <li>Di Gateway, Anda dapat menjalankan skrip subscriber yang berlangganan ke topik dari semua node untuk memantau lalu lintas data.</li>
+                    </ol>
+                    <h5>VERIFIKASI KRITERIA SUKSES</h5><p>Log di broker Gateway atau skrip subscriber di Gateway menunjukkan pesan masuk dari beberapa alamat IP Node yang berbeda, membuktikan komunikasi multi-perangkat berhasil.</p>
+                </div>
+            </div>
+            <div class="module-card" data-module-id="20">
+                <div class="module-header">
+                    <div class="module-number">20</div><div class="module-icon"><i class="fa-solid fa-lock"></i></div><div class="module-title">Dasar Keamanan IoT</div><div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                </div>
+                <div class="module-body">
+                    <h5>OBJEKTIF SISTEM</h5><p>Menerapkan praktik keamanan dasar untuk melindungi perangkat IoT dari akses tidak sah dan ancaman umum.</p>
+                    <h5>PROTOKOL EKSEKUSI</h5>
+                    <ol>
+                        <li><b>Ubah Kata Sandi Default:</b> Segera gunakan perintah `passwd` di terminal untuk mengubah kata sandi default pengguna `pi`.</li>
+                        <li><b>Aktifkan Firewall:</b> Instal `ufw` (`sudo apt install ufw`). Gunakan `sudo ufw allow` hanya untuk port yang benar-benar Anda butuhkan (misal, 22 untuk SSH, 1883 untuk MQTT). Kemudian aktifkan dengan `sudo ufw enable`.</li>
+                        <li><b>Amankan SSH:</b> Edit file `/etc/ssh/sshd_config` dengan `sudo nano`. Ubah baris `PermitRootLogin` menjadi `no`. Simpan dan restart layanan SSH.</li>
+                        <li><b>Amankan MQTT:</b> Konfigurasikan broker Mosquitto untuk memerlukan username dan password. Ini melibatkan pembuatan file password dan mengedit file konfigurasi Mosquitto untuk menunjuk ke file tersebut.</li>
+                    </ol>
+                    <h5>VERIFIKASI KRITERIA SUKSES</h5><p>Upaya login sebagai `root` melalui SSH ditolak. Upaya koneksi ke port yang tidak diizinkan oleh firewall gagal. Klien MQTT tidak dapat terhubung ke broker tanpa memberikan username dan password yang valid.</p>
+                </div>
+            </div>
+            <div class="module-card" data-module-id="21">
+                <div class="module-header">
+                    <div class="module-number">21</div><div class="module-icon"><i class="fa-solid fa-window-maximize"></i></div><div class="module-title">Integrasi Web Framework Flask</div><div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
+                </div>
+                <div class="module-body">
+                    <h5>OBJEKTIF SISTEM</h5><p>Mengintegrasikan data IoT real-time dari MQTT ke dalam backend aplikasi web menggunakan web framework Python yang ringan, Flask.</p>
+                    <h5>PROTOKOL EKSEKUSI</h5>
+                    <ol>
+                        <li>Instal Flask menggunakan `pip install Flask`.</li>
+                        <li>Buat skrip Python utama untuk aplikasi web Anda. Impor Flask dan juga `paho-mqtt` serta pustaka `threading`.</li>
+                        <li>Buat sebuah variabel global untuk menyimpan data sensor terakhir yang diterima.</li>
+                        <li>Buat sebuah fungsi yang akan menjalankan klien MQTT dalam loop tak terbatas. Fungsi ini, ketika menerima pesan MQTT, akan memperbarui variabel global tadi.</li>
+                        <li>Jalankan fungsi MQTT tersebut dalam sebuah "background thread" agar tidak memblokir server web.</li>
+                        <li>Buat sebuah route Flask (`@app.route('/')`) yang, ketika diakses, akan membaca nilai dari variabel global dan menampilkannya ke pengguna (misal, sebagai teks sederhana atau JSON).</li>
+                    </ol>
+                    <h5>VERIFIKASI KRITERIA SUKSES</h5><p>Setelah menjalankan skrip Flask dan mengirim data ke topik MQTT yang relevan, mengakses alamat `http://localhost:5000` di browser Raspberry Pi akan menampilkan data sensor terbaru.</p>
+                </div>
+            </div>
+            <div class="module-card" data-module-id="22">
+                <div class="module-header">
+                    <div class="module-number">22</div><div class="module-icon"><i class="fa-solid fa-globe"></i></div><div class="module-title">Deployment Dasbor Web Lokal</div><div class="tag tag-lanjutan">Lanjutan</div><button class="complete-btn"><i class="fa-solid fa-check"></i></button>
                 </div>
                 <div class="module-body">
                     <h5>OBJEKTIF SISTEM</h5><p>Membuat dan men-deploy dasbor web fungsional di Raspberry Pi yang dapat diakses oleh perangkat apa pun di jaringan lokal yang sama.</p>
                     <h5>PROTOKOL EKSEKUSI</h5>
                     <ol>
                         <li>Buat struktur direktori proyek: sebuah folder utama, dan di dalamnya sebuah subfolder bernama `templates`.</li>
-                        <li>Di dalam folder `templates`, buat file HTML (`index.html`) yang akan menjadi tampilan dasbor. Gunakan placeholder (misal, `{{ data_sensor }}`) di mana Anda ingin data ditampilkan.</li>
-                        <li>Dalam skrip Python Flask utama, pastikan data IoT (dari MQTT atau sumber lain) disimpan dalam variabel yang dapat diakses oleh fungsi route.</li>
-                        <li>Pada fungsi route untuk halaman utama (`@app.route('/')`), panggil fungsi `render_template` dari Flask, dengan menyebutkan nama file HTML dan meneruskan data sensor sebagai argumen.</li>
-                        <li>Pada baris terakhir skrip, saat menjalankan aplikasi Flask, tambahkan argumen `host='0.0.0.0'` agar server dapat diakses dari alamat IP, bukan hanya `localhost`.</li>
+                        <li>Di dalam folder `templates`, buat file HTML (`index.html`) yang akan menjadi tampilan dasbor. Gunakan placeholder (misal, `<h1>Suhu: {{ data_sensor }} &deg;C</h1>`) di mana Anda ingin data ditampilkan.</li>
+                        <li>Dalam skrip Python Flask, pada fungsi route utama, ubah `return` menjadi `return render_template('index.html', data_sensor=variabel_global_suhu)`. Pastikan `render_template` diimpor dari Flask.</li>
+                        <li>Pada baris terakhir skrip, saat menjalankan aplikasi Flask (`app.run()`), tambahkan argumen `host='0.0.0.0'` agar server dapat diakses dari alamat IP, bukan hanya `localhost`.</li>
                         <li>Jalankan skrip, lalu buka browser di ponsel atau laptop yang terhubung ke WiFi yang sama dan kunjungi alamat `http://<IP_RASPBERRY_PI>:5000`.</li>
                     </ol>
-                    <h5>VERIFIKASI KRITERIA SUKSES</h5><p>Dasbor web berhasil diakses dari perangkat lain di jaringan. Halaman web menampilkan data sensor yang paling mutakhir.</p>
+                    <h5>VERIFIKASI KRITERIA SUKSES</h5><p>Dasbor web berhasil diakses dari perangkat lain di jaringan. Halaman web menampilkan data sensor yang paling mutakhir dengan format yang sesuai dengan file HTML.</p>
                 </div>
             </div>
         </div>
@@ -442,35 +587,53 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const moduleHeaders = document.querySelectorAll('.module-header');
+            const moduleCards = document.querySelectorAll('.module-card');
             const progressBar = document.getElementById('progressBar');
-            const totalModules = moduleHeaders.length;
+            const totalModules = moduleCards.length;
+            let completedModules = new Set(JSON.parse(localStorage.getItem('completedModules')) || []);
 
             function updateProgress() {
-                const activeModules = document.querySelectorAll('.module-card.active').length;
-                const progressPercentage = (activeModules / totalModules) * 100;
-                
+                const progressPercentage = (completedModules.size / totalModules) * 100;
                 progressBar.style.width = progressPercentage + '%';
                 progressBar.textContent = `${Math.round(progressPercentage)}% Selesai`;
             }
 
-            moduleHeaders.forEach(header => {
-                header.addEventListener('click', function () {
-                    const moduleCard = this.parentElement;
-                    const wasActive = moduleCard.classList.contains('active');
-                    
-                    // Close all modules first for classic accordion behavior
-                    moduleHeaders.forEach(h => h.parentElement.classList.remove('active'));
+            function saveProgress() {
+                localStorage.setItem('completedModules', JSON.stringify(Array.from(completedModules)));
+            }
 
-                    // If it wasn't active, open it now
-                    if (!wasActive) {
-                        moduleCard.classList.add('active');
+            moduleCards.forEach(card => {
+                const moduleId = card.dataset.moduleId;
+                const header = card.querySelector('.module-header');
+                const completeBtn = card.querySelector('.complete-btn');
+
+                // Load initial state from localStorage
+                if (completedModules.has(moduleId)) {
+                    card.classList.add('completed');
+                }
+
+                header.addEventListener('click', (e) => {
+                    // Prevent toggling if the click is on the button itself or its icon
+                    if (e.target.closest('.complete-btn')) {
+                        return;
                     }
+                    card.classList.toggle('active');
+                });
 
+                completeBtn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent header click event from firing
+                    card.classList.toggle('completed');
+                    if (card.classList.contains('completed')) {
+                        completedModules.add(moduleId);
+                    } else {
+                        completedModules.delete(moduleId);
+                    }
+                    saveProgress();
                     updateProgress();
                 });
             });
 
+            // Initial progress calculation
             updateProgress();
         });
     </script>
