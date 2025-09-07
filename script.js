@@ -5,13 +5,12 @@
  * Deskripsi:
  * Script ini mengelola semua fungsionalitas untuk halaman panduan modul.
  *
- * Patch v5.1 (Solusi Final & User-Friendly dengan Perbaikan Bug):
- * - Memperbaiki bug 'ReferenceError' yang menghentikan script.
- * - Saat sebuah modul BARU dibuka, halaman akan secara otomatis dan mulus
- *   menggulir (scroll) ke bagian atas modul tersebut.
- * - Ini secara langsung mengatasi masalah "user harus scroll ke atas" dan
- *   menciptakan pengalaman pengguna yang intuitif dan standar.
- * - Logika animasi tetap menggunakan `scrollHeight` untuk transisi yang akurat.
+ * Patch v6.0 (Solusi Sinkronisasi Transisi):
+ * - Logika scroll sekarang disinkronkan dengan event 'transitionend'.
+ * - Script akan MENUNGGU animasi penutupan modul lain SELESAI, baru kemudian
+ *   menjalankan scroll ke modul yang baru dibuka.
+ * - Ini memastikan posisi scroll 100% akurat dan secara definitif
+ *   menyelesaikan masalah "user masih harus scroll ke atas".
  * =============================================================================
  */
 
@@ -57,11 +56,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const progressPercentage =
         (this.completedModules.size / this.totalModules) * 100;
       this.progressBar.style.width = `${progressPercentage}%`;
-      // --- PERBAIKAN DI SINI ---
       this.progressBar.textContent = `${Math.round(
-        progressPercentage // Variabel yang benar adalah 'progressPercentage'
+        progressPercentage
       )}% Selesai`;
-      // -------------------------
       this.closingStatement.classList.toggle(
         "visible",
         this.completedModules.size === this.totalModules
@@ -69,40 +66,60 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /**
-     * Mengelola logika buka/tutup accordion dan secara otomatis scroll
-     * ke modul yang baru dibuka.
+     * Mengelola logika buka/tutup accordion dengan scroll yang akurat
+     * dan tersinkronisasi dengan animasi CSS.
      * @param {HTMLElement} card - Elemen kartu modul yang diklik.
      */
     toggleAccordion(card) {
       const moduleBody = card.querySelector(".module-body");
       const isActive = card.classList.contains("active");
 
-      // Tutup semua kartu lain terlebih dahulu
+      // Kasus 1: Mengklik kartu yang sudah aktif untuk menutupnya.
+      // Cukup tutup saja, tidak perlu scroll.
+      if (isActive) {
+        moduleBody.style.maxHeight = null;
+        card.classList.remove("active");
+        return;
+      }
+
+      // Kasus 2: Mengklik kartu baru untuk membukanya.
+
+      let anotherCardWasOpen = false;
+
+      // Langkah A: Cari dan tutup kartu lain yang sedang terbuka.
       this.moduleCards.forEach((otherCard) => {
-        if (otherCard !== card && otherCard.classList.contains("active")) {
+        if (otherCard.classList.contains("active")) {
+          anotherCardWasOpen = true;
+          const otherBody = otherCard.querySelector(".module-body");
+
+          // INI KUNCINYA: Tambahkan event listener yang hanya berjalan sekali.
+          // Event ini akan aktif KETIKA animasi transisi penutupan SELESAI.
+          otherBody.addEventListener(
+            "transitionend",
+            () => {
+              card.scrollIntoView({ behavior: "smooth", block: "start" });
+            },
+            { once: true }
+          ); // Opsi 'once: true' akan otomatis menghapus listener ini.
+
+          // Mulai proses penutupan kartu lain.
           otherCard.classList.remove("active");
-          otherCard.querySelector(".module-body").style.maxHeight = null;
+          otherBody.style.maxHeight = null;
         }
       });
 
-      // Buka atau tutup kartu yang diklik
-      if (isActive) {
-        // Jika kartu sudah aktif, kita hanya menutupnya. Tidak perlu scroll.
-        moduleBody.style.maxHeight = null;
-        card.classList.remove("active");
-      } else {
-        // Jika kartu belum aktif, kita membukanya DAN melakukan scroll.
-        card.classList.add("active");
-        moduleBody.style.maxHeight = moduleBody.scrollHeight + "px";
+      // Langkah B: Buka kartu yang baru diklik.
+      card.classList.add("active");
+      moduleBody.style.maxHeight = moduleBody.scrollHeight + "px";
 
-        // Jeda singkat diperlukan agar browser sempat memulai animasi buka
-        // sebelum kita memerintahkan scroll. Ini membuat pengalaman lebih mulus.
+      // Langkah C: Jika tidak ada kartu lain yang terbuka sebelumnya,
+      // kita tidak perlu menunggu transisi. Lakukan scroll langsung.
+      if (!anotherCardWasOpen) {
+        // Jeda singkat tetap diperlukan agar animasi BUKA sempat dimulai,
+        // sehingga efek scroll terasa lebih alami.
         setTimeout(() => {
-          card.scrollIntoView({
-            behavior: "smooth",
-            block: "start", // Opsi ini memastikan bagian atas card sejajar dengan atas layar
-          });
-        }, 200); // Jeda 200 milidetik sudah cukup.
+          card.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 200);
       }
     }
 
