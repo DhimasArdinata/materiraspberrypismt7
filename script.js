@@ -7,12 +7,12 @@
  * Ditulis menggunakan pendekatan Object-Oriented Programming (OOP) dengan sebuah
  * class bernama `ModuleGuide` untuk menjaga kode tetap terorganisir dan modular.
  *
- * Patch Terintegrasi v2.0:
+ * Patch Terintegrasi v3.0 (Definitif):
  * - Mencegah "lompatan" atau auto-scroll saat membuka/menutup accordion.
- * - Logika baru ini bekerja dengan mengukur posisi elemen yang diklik
- *   sebelum dan sesudah layout berubah, lalu mengkompensasi pergeseran
- *   visual tersebut dengan scroll. Ini jauh lebih akurat daripada menyimpan
- *   posisi scroll absolut, terutama saat elemen di atas viewport berubah ukuran.
+ * - Logika ini secara cerdas menonaktifkan transisi CSS sementara,
+ *   memaksa layout berubah secara instan untuk perhitungan yang akurat,
+ *   melakukan kompensasi scroll, lalu mengaktifkan kembali transisi.
+ *   Ini adalah solusi paling robust untuk masalah sinkronisasi JS/CSS.
  * =============================================================================
  */
 
@@ -72,46 +72,51 @@ document.addEventListener("DOMContentLoaded", () => {
      * @param {HTMLElement} card - Elemen kartu modul yang diklik.
      */
     toggleAccordion(card) {
-      // Langkah 1: Ukur posisi card relatif terhadap viewport SEBELUM layout berubah.
+      const isActive = card.classList.contains("active");
+
+      // Langkah 1: Ukur posisi elemen yang diklik SEBELUM ada perubahan apapun.
       const topBefore = card.getBoundingClientRect().top;
 
-      // Nonaktifkan sementara 'scroll-behavior: smooth' agar kompensasi scroll
-      // terjadi instan, bukan animasi.
+      // Langkah 2: Nonaktifkan 'scroll-behavior: smooth' untuk penyesuaian instan.
       const prevBehavior = document.documentElement.style.scrollBehavior;
       document.documentElement.style.scrollBehavior = "auto";
 
-      const isActive = card.classList.contains("active");
+      // Langkah 3: Nonaktifkan sementara transisi CSS pada SEMUA kartu.
+      // Ini adalah langkah kunci agar perubahan layout terjadi seketika.
+      this.moduleCards.forEach((c) => {
+        c.querySelector(".module-body").style.transition = "none";
+      });
 
-      // Tutup semua modul lain jika modul yang diklik akan dibuka.
+      // Langkah 4: Terapkan perubahan layout (tutup yang lain, buka/tutup yang ini).
       if (!isActive) {
         this.moduleCards.forEach((otherCard) => {
-          if (otherCard !== card) { // Hanya tutup kartu lain
+          if (otherCard !== card) {
             otherCard.classList.remove("active");
           }
         });
       }
-
-      // Langkah 2: Lakukan perubahan layout (buka/tutup modul).
       card.classList.toggle("active");
 
-      // Langkah 3: Ukur posisi BARU card relatif terhadap viewport.
-      // Browser akan secara otomatis melakukan reflow/re-layout di sini.
+      // Langkah 5: Ukur posisi elemen SETELAH layout berubah secara instan.
       const topAfter = card.getBoundingClientRect().top;
 
-      // Langkah 4: Hitung pergeseran visual card di layar.
-      // Jika card bergeser ke atas (karena modul di atasnya terlipat),
-      // nilainya akan negatif. Jika bergeser ke bawah, positif.
+      // Langkah 6: Hitung pergeseran visual dan kompensasi dengan scroll.
       const visualShift = topAfter - topBefore;
-
-      // Langkah 5: Kompensasi pergeseran tersebut dengan melakukan scroll.
-      // window.scrollBy() akan scroll relatif dari posisi saat ini.
-      // Ini secara efektif "menetralkan" pergeseran visual tadi.
       window.scrollBy(0, visualShift);
 
-      // Langkah 6: Kembalikan pengaturan scroll-behavior seperti semula.
+      // Langkah 7: Kembalikan transisi CSS.
+      // Menggunakan requestAnimationFrame memastikan ini terjadi setelah
+      // browser selesai dengan penyesuaian scroll.
+      requestAnimationFrame(() => {
+        this.moduleCards.forEach((c) => {
+          // Menghapus style inline akan mengembalikan properti ke nilai di stylesheet.
+          c.querySelector(".module-body").style.transition = "";
+        });
+      });
+
+      // Langkah 8: Kembalikan 'scroll-behavior'.
       document.documentElement.style.scrollBehavior = prevBehavior;
     }
-
 
     toggleCompletion(e, card) {
       e.stopPropagation();
