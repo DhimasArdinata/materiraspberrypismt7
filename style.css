@@ -1,3 +1,7 @@
+/* ============================================================================= */
+/*                      VARIABLE & GLOBAL STYLES                                 */
+/* ============================================================================= */
+
 :root {
   --bg-color: #1a1b26;
   --card-color: #24283b;
@@ -42,9 +46,377 @@ body {
   margin: 2rem auto;
 }
 
-/* ... Salin semua sisa CSS dari file asli ke sini ... */
+/* ============================================================================= */
+/*                      HEADER & PROGRESS BAR                                    */
+/* ============================================================================= */
 
-/* FIX: Mobile layout for module header */
+header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+header h1 {
+  font-family: "Roboto Mono", monospace;
+  color: var(--header-color);
+  font-size: clamp(2.2rem, 5vw, 3rem);
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 10px rgba(122, 162, 247, 0.6);
+  letter-spacing: -1.5px;
+}
+
+header p {
+  color: var(--accent-color-1);
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.progress-container {
+  width: 100%;
+  background-color: var(--card-color);
+  border-radius: 25px;
+  margin-top: 2rem;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+.progress-bar {
+  width: 0%;
+  height: 28px;
+  background: linear-gradient(
+    90deg,
+    var(--accent-color-1),
+    var(--accent-color-2)
+  );
+  border-radius: 25px;
+  text-align: center;
+  line-height: 28px;
+  color: var(--bg-color);
+  font-weight: 700;
+  transition: width 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  font-family: "Roboto Mono", monospace;
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+.intro-text {
+  text-align: center;
+  margin: 3rem 0;
+  padding: 1rem;
+  background-color: rgba(36, 40, 59, 0.5);
+  border-left: 4px solid var(--accent-color-1);
+  border-radius: 4px;
+  color: var(--text-color);
+  font-style: italic;
+}
+
+/* ============================================================================= */
+/*                      MODULE ACCORDION STYLES                                  */
+/* ============================================================================= */
+
+/* --- Module Card Container --- */
+.module-card {
+  background-color: var(--card-color);
+  border-radius: 12px;
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px var(--shadow-color);
+}
+.module-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px var(--shadow-color);
+}
+.module-card.completed {
+  border-left: 5px solid var(--accent-color-green);
+}
+
+/* --- Module Header (Clickable Area) --- */
+.module-header {
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  justify-content: space-between;
+}
+.module-header:hover {
+  background-color: rgba(187, 154, 247, 0.1);
+}
+
+.module-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+}
+.module-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.module-number {
+  font-family: "Roboto Mono", monospace;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--accent-color-1);
+  min-width: 30px;
+  text-align: right;
+}
+.module-icon {
+  font-size: 1.6rem;
+  color: var(--accent-color-2);
+  width: 30px;
+  text-align: center;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.module-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--header-color);
+}
+.tag {
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: var(--bg-color);
+  flex-shrink: 0;
+}
+.tag-dasar {
+  background-color: var(--accent-color-green);
+}
+.tag-menengah {
+  background-color: var(--accent-color-yellow);
+}
+.tag-lanjutan {
+  background-color: var(--accent-color-red);
+}
+
+.complete-btn {
+  background: none;
+  border: 2px solid var(--border-color);
+  color: var(--border-color);
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+}
+.complete-btn:hover {
+  border-color: var(--accent-color-green);
+  color: var(--accent-color-green);
+  transform: scale(1.1) rotate(10deg);
+}
+.completed .complete-btn {
+  background-color: var(--accent-color-green);
+  border-color: var(--accent-color-green);
+  color: var(--card-color);
+  font-weight: bold;
+  transform: scale(1.05);
+}
+.completed .complete-btn .fa-check {
+  font-weight: 900;
+}
+
+/* --- Module Body (Collapsible Content) --- */
+.module-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+    padding 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0 1.5rem;
+}
+.module-body-content {
+  padding: 2rem 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+.module-card.active .module-body {
+  max-height: 5000px; /* Nilai besar untuk memastikan konten muat */
+}
+.module-card.active .module-icon {
+  transform: rotate(90deg);
+}
+
+/* --- Content Inside Module Body --- */
+.module-body h5 {
+  color: var(--accent-color-1);
+  font-size: 1.1rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  font-family: "Roboto Mono", monospace;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.module-body h5:first-child {
+  margin-top: 0;
+}
+.module-body h5 i {
+  color: var(--accent-color-2);
+  font-size: 1rem;
+}
+
+.module-body p {
+  margin-bottom: 1.5rem;
+  padding-left: 1rem;
+  border-left: 3px solid var(--accent-color-2);
+}
+
+.module-body ol {
+  list-style: none;
+  counter-reset: step-counter;
+  padding-left: 0;
+}
+.module-body ol li {
+  counter-increment: step-counter;
+  position: relative;
+  margin-bottom: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 1.5rem 1.5rem 1.5rem 5rem;
+  border-radius: 8px;
+  border-left: 3px solid transparent;
+  transition: border-left-color 0.3s ease;
+}
+.module-body ol li:hover {
+  border-left-color: var(--accent-color-1);
+}
+.module-body ol li::before {
+  content: counter(step-counter);
+  font-family: "Roboto Mono", monospace;
+  font-weight: 700;
+  position: absolute;
+  left: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: var(--accent-color-2);
+  color: var(--card-color);
+  border-radius: 50%;
+  text-align: center;
+  line-height: 2.5rem;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 8px var(--shadow-color);
+}
+.step-title {
+  font-weight: 700;
+  color: var(--header-color);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.step-description {
+  font-style: italic;
+  color: var(--text-color);
+  font-size: 0.95em;
+}
+
+code {
+  background-color: var(--code-bg-color);
+  color: var(--accent-color-yellow);
+  padding: 0.2em 0.5em;
+  margin: 0 0.2em;
+  border-radius: 5px;
+  font-family: "Roboto Mono", monospace;
+  font-size: 0.9em;
+  border: 1px solid var(--border-color);
+}
+
+.ref-links ul {
+  list-style: none;
+  padding-left: 0;
+}
+.ref-links li {
+  margin-bottom: 0.5rem;
+}
+.ref-links a {
+  color: var(--accent-color-2);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+.ref-links a:hover {
+  color: var(--accent-color-1);
+  text-decoration: underline;
+  padding-left: 5px;
+}
+
+/* ============================================================================= */
+/*                      UTILITIES & RESPONSIVE                                   */
+/* ============================================================================= */
+
+.closing-statement {
+  text-align: center;
+  background-color: var(--card-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  border-top: 5px solid var(--accent-color-green);
+  padding: 2.5rem;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  margin-top: 0;
+  transition: opacity 0.5s ease, max-height 0.5s ease, margin-top 0.5s ease,
+    padding 0.5s ease;
+}
+.closing-statement.visible {
+  opacity: 1;
+  max-height: 500px;
+  margin-top: 4rem;
+  padding: 2.5rem;
+}
+.closing-statement h3 {
+  color: var(--accent-color-green);
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+.closing-statement p {
+  border-left: none;
+  padding-left: 0;
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  background-color: var(--accent-color-1);
+  color: var(--bg-color);
+  border: none;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: none; /* Hidden by default */
+  place-items: center;
+  box-shadow: 0 5px 15px var(--shadow-color);
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.back-to-top.visible {
+  display: grid;
+  opacity: 1;
+}
+.back-to-top:hover {
+  transform: scale(1.1);
+  background-color: var(--accent-color-2);
+}
+
+/* --- Mobile Layout Fix --- */
 @media (max-width: 600px) {
   .module-header {
     flex-direction: column;

@@ -5,32 +5,19 @@
  * Deskripsi:
  * Script ini mengelola semua fungsionalitas untuk halaman panduan modul.
  * Ditulis menggunakan pendekatan Object-Oriented Programming (OOP) dengan sebuah
- * class bernama `ModuleGuide` untuk menjaga kode tetap terorganisir, modular,
- * dan mudah dikelola.
+ * class bernama `ModuleGuide` untuk menjaga kode tetap terorganisir dan modular.
  *
- * Fitur:
- * - Sistem Accordion: Membuka dan menutup modul, memastikan hanya satu yang
- *   terbuka pada satu waktu.
- * - Pelacakan Progres: Menghitung modul yang selesai dan memperbarui progress bar.
- * - Penyimpanan Lokal: Mengingat modul mana yang sudah selesai bahkan setelah
- *   halaman ditutup dan dibuka kembali, menggunakan localStorage.
- * - Kontrol UI: Mengelola tombol "Kembali ke Atas" dan pesan penutup.
- * - Perbaikan Scroll: Secara otomatis menggulir modul yang dibuka ke tampilan
- *   untuk pengalaman pengguna yang lebih baik.
+ * Patch Terintegrasi:
+ * - Mencegah "lompatan" atau auto-scroll saat membuka/menutup accordion.
+ * - Logika ini bekerja dengan menyimpan posisi scroll pengguna, memodifikasi
+ *   layout, lalu secara instan mengembalikan pengguna ke posisi semula.
  * =============================================================================
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-  /**
-   * Class ModuleGuide mengelola semua interaktivitas untuk panduan modul.
-   */
   class ModuleGuide {
-    /**
-     * @param {string} containerSelector - Selector CSS untuk elemen yang berisi semua kartu modul.
-     */
     constructor(containerSelector) {
       this.container = document.querySelector(containerSelector);
-      // Hentikan eksekusi jika elemen utama tidak ditemukan
       if (!this.container) {
         console.error(
           `Error: Container utama dengan selector "${containerSelector}" tidak ditemukan.`
@@ -38,36 +25,26 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Pemilihan elemen-elemen DOM yang akan dimanipulasi
       this.moduleCards = this.container.querySelectorAll(".module-card");
       this.progressBar = document.getElementById("progressBar");
       this.closingStatement = document.querySelector(".closing-statement");
       this.backToTopBtn = document.getElementById("backToTopBtn");
 
-      // Inisialisasi properti state (data)
       this.totalModules = this.moduleCards.length;
       this.completedModules = new Set();
     }
 
-    /**
-     * Memuat status modul yang telah selesai dari localStorage.
-     */
     loadState() {
       const savedState =
         JSON.parse(localStorage.getItem("completedModules")) || [];
       this.completedModules = new Set(savedState);
-
       this.moduleCards.forEach((card) => {
-        const moduleId = card.dataset.moduleId;
-        if (this.completedModules.has(moduleId)) {
+        if (this.completedModules.has(card.dataset.moduleId)) {
           card.classList.add("completed");
         }
       });
     }
 
-    /**
-     * Menyimpan status modul yang selesai saat ini ke localStorage.
-     */
     saveState() {
       localStorage.setItem(
         "completedModules",
@@ -75,9 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     }
 
-    /**
-     * Memperbarui UI progress bar dan menampilkan/menyembunyikan pesan penutup.
-     */
     updateProgress() {
       const progressPercentage =
         (this.completedModules.size / this.totalModules) * 100;
@@ -85,8 +59,6 @@ document.addEventListener("DOMContentLoaded", () => {
       this.progressBar.textContent = `${Math.round(
         progressPercentage
       )}% Selesai`;
-
-      // Tampilkan pesan penutup jika semua modul selesai
       this.closingStatement.classList.toggle(
         "visible",
         this.completedModules.size === this.totalModules
@@ -94,84 +66,68 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /**
-     * Menangani logika buka/tutup accordion.
-     * Hanya satu modul yang bisa terbuka pada satu waktu.
+     * Mengelola logika buka/tutup accordion TANPA menyebabkan lompatan scroll.
      * @param {HTMLElement} card - Elemen kartu modul yang diklik.
      */
     toggleAccordion(card) {
-      const wasActive = card.classList.contains("active");
+      // Langkah 1: Simpan posisi scroll saat ini.
+      const prevScroll = window.scrollY || window.pageYOffset;
 
-      // Selalu tutup semua modul terlebih dahulu
-      this.moduleCards.forEach((otherCard) => {
-        otherCard.classList.remove("active");
-      });
+      // Langkah 2: Nonaktifkan sementara 'scroll-behavior: smooth' agar
+      // pengembalian posisi scroll terjadi instan, bukan animasi.
+      const prevBehavior = document.documentElement.style.scrollBehavior;
+      document.documentElement.style.scrollBehavior = "auto";
 
-      // Jika modul yang diklik sebelumnya tertutup, buka modul tersebut.
-      if (!wasActive) {
-        card.classList.add("active");
+      const isActive = card.classList.contains("active");
 
-        // === PERBAIKAN SCROLL ===
-        // Beri jeda sejenak agar transisi CSS untuk membuka modul dimulai.
-        // Ini membuat animasi scroll terasa lebih mulus dan terkoordinasi.
-        setTimeout(() => {
-          card.scrollIntoView({
-            behavior: "smooth", // Animasi scroll halus
-            block: "start", // Posisikan bagian atas kartu di atas viewport
-          });
-        }, 250); // Jeda 250 milidetik
+      // Tutup semua modul lain jika modul yang diklik akan dibuka.
+      if (!isActive) {
+        this.moduleCards.forEach((otherCard) =>
+          otherCard.classList.remove("active")
+        );
       }
+
+      // Langkah 3: Lakukan perubahan layout (buka/tutup modul).
+      card.classList.toggle("active");
+
+      // Langkah 4: Kembalikan posisi scroll.
+      // Gunakan setTimeout(..., 0) untuk memastikan browser sudah selesai
+      // menghitung ulang layout sebelum kita mengembalikan posisi scroll.
+      setTimeout(() => {
+        window.scrollTo(0, prevScroll);
+        // Langkah 5: Kembalikan pengaturan scroll-behavior seperti semula.
+        document.documentElement.style.scrollBehavior = prevBehavior;
+      }, 0);
     }
 
-    /**
-     * Menandai atau menghapus tanda selesai pada sebuah modul.
-     * @param {Event} e - Objek event dari klik.
-     * @param {HTMLElement} card - Elemen kartu modul terkait.
-     */
     toggleCompletion(e, card) {
-      e.stopPropagation(); // Mencegah event klik menyebar ke header dan memicu accordion
-
+      e.stopPropagation();
       const moduleId = card.dataset.moduleId;
       card.classList.toggle("completed");
-
-      if (card.classList.contains("completed")) {
+      if (card.classList.contains("completed"))
         this.completedModules.add(moduleId);
-      } else {
-        this.completedModules.delete(moduleId);
-      }
-
+      else this.completedModules.delete(moduleId);
       this.saveState();
       this.updateProgress();
     }
 
-    /**
-     * Mengatur visibilitas tombol "kembali ke atas" berdasarkan posisi scroll.
-     */
     handleScroll() {
       if (this.backToTopBtn) {
         this.backToTopBtn.classList.toggle("visible", window.scrollY > 300);
       }
     }
 
-    /**
-     * Menggulir halaman kembali ke atas dengan animasi halus.
-     */
     scrollToTop() {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    /**
-     * Mengikat semua event listener yang diperlukan ke elemen DOM.
-     */
     initEventListeners() {
       this.moduleCards.forEach((card) => {
         const header = card.querySelector(".module-header");
         const completeBtn = card.querySelector(".complete-btn");
 
         header.addEventListener("click", (e) => {
-          // Abaikan klik jika berasal dari tombol complete agar accordion tidak terpicu
-          if (e.target.closest(".complete-btn")) {
-            return;
-          }
+          if (e.target.closest(".complete-btn")) return;
           this.toggleAccordion(card);
         });
 
@@ -187,18 +143,14 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    /**
-     * Metode utama untuk memulai dan menjalankan semua fungsionalitas.
-     */
     init() {
-      if (!this.container) return; // Pemeriksaan keamanan
+      if (!this.container) return;
       this.loadState();
       this.updateProgress();
       this.initEventListeners();
     }
   }
 
-  // Buat instance dari class ModuleGuide dan jalankan.
   const guide = new ModuleGuide(".accordion-container");
   guide.init();
 });
