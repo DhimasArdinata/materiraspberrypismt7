@@ -830,9 +830,9 @@
                 <div class="module-body">
                     <div class="module-body-content">
                         <h5><i class="fa-solid fa-bullseye"></i>TUJUAN MODUL</h5>
-                        <p>Mengirim data dari sensor yang terhubung ke Raspberry Pi ke sebuah tampilan visual di ponsel menggunakan **layanan online** bernama Blynk, sehingga data dapat dipantau secara langsung dari mana saja.</p>
+                        <p>Mengirim data dari sensor yang terhubung ke Raspberry Pi ke sebuah tampilan visual di ponsel menggunakan <strong>layanan online</strong> bernama Blynk, sehingga data dapat dipantau secara langsung dari mana saja.</p>
                         <h5><i class="fa-solid fa-lightbulb"></i>ANALOGI SISTEM</h5>
-                        <p>Bayangkan Raspberry Pi adalah reporter di lapangan yang mengumpulkan data. Blynk adalah studio berita di ponsel. Sebuah Kunci Akses Rahasia adalah 'kartu pers' reporter agar ia bisa mengirim laporannya ke studio, dan Komponen Tampilan adalah 'layar TV' di studio untuk menampilkan laporan tersebut.</p>
+                        <p>Bayangkan Raspberry Pi adalah reporter di lapangan yang mengumpulkan data. Blynk adalah studio berita di ponsel. Sebuah <strong>Kunci Akses Rahasia (Authentication Token)</strong> adalah 'kartu pers' reporter agar ia bisa mengirim laporannya ke studio, dan <strong>Komponen Tampilan</strong> adalah 'layar TV' di studio untuk menampilkan laporan tersebut.</p>
                         <h5><i class="fa-solid fa-list-check"></i>LANGKAH-LANGKAH UNTUK DIIKUTI</h5>
                         <ol>
                             <li>
@@ -883,7 +883,7 @@
                         <h5><i class="fa-solid fa-bullseye"></i>TUJUAN MODUL</h5>
                         <p>Memahami cara kerja metode komunikasi MQTT, sebuah standar industri untuk Internet of Things (IoT) yang sangat ringan dan hemat sumber daya.</p>
                         <h5><i class="fa-solid fa-lightbulb"></i>ANALOGI SISTEM</h5>
-                        <p>MQTT bekerja seperti sistem papan pengumuman. **Pengirim Pesan** menempelkan pesan di papan dengan kategori tertentu (Topic). **Penerima Pesan** hanya melihat pesan dari kategori yang mereka minati. Sebuah **Pusat Pesan** adalah pengelola papan pengumuman tersebut.</p>
+                        <p>MQTT bekerja seperti sistem papan pengumuman. <strong>Pengirim Pesan</strong> menempelkan pesan di papan dengan kategori tertentu (Topic). <strong>Penerima Pesan</strong> hanya melihat pesan dari kategori yang mereka minati. Sebuah <strong>Pusat Pesan</strong> adalah pengelola papan pengumuman tersebut.</p>
                         <h5><i class="fa-solid fa-list-check"></i>PROTOKOL PEMAHAMAN</h5>
                         <ol>
                             <li>
@@ -1287,25 +1287,28 @@
                     card.classList.add('completed');
                 }
 
+                // PERBAIKAN LOGIKA SCROLL DI SINI
                 header.addEventListener('click', (e) => {
+                    // Abaikan klik jika berasal dari tombol complete
                     if (e.target.closest('.complete-btn')) {
                         return;
                     }
                     
                     e.preventDefault();
                     
-                    const scrollY = window.scrollY;
                     const isActive = card.classList.contains('active');
-                    
-                    moduleCards.forEach(otherCard => {
-                        otherCard.classList.remove('active');
-                    });
 
+                    // Tutup semua card lain jika card yang diklik akan dibuka
                     if (!isActive) {
-                        card.classList.add('active');
+                        moduleCards.forEach(otherCard => {
+                            if (otherCard !== card) {
+                                otherCard.classList.remove('active');
+                            }
+                        });
                     }
                     
-                    window.scrollTo(0, scrollY);
+                    // Toggle (buka/tutup) card yang diklik
+                    card.classList.toggle('active');
                 });
 
                 completeBtn.addEventListener('click', (e) => {
